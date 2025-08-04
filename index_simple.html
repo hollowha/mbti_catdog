@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>MBTI動物性格測驗 - 免費心理測試 | MBTI Animal Personality Test</title>
+    <meta name="description" content="🐾 免費MBTI動物性格測驗！透過16種動物發現你的真實性格。完整心理分析、相容性配對、生涯建議。支援繁體中文/English | Free MBTI Animal Personality Test - Discover your true personality through 16 animals">
+    <meta name="keywords" content="MBTI測驗,動物性格測試,心理測驗,性格分析,免費測試,十六型人格,personality test,MBTI test,animal personality,psychology test,무료 성격테스트,性格診断テスト,prueba de personalidad,test de personnalité">
+    
+    <!-- Multilingual SEO -->
+    <link rel="alternate" hreflang="zh-TW" href="https://yoursite.com/zh-tw/" />
+    <link rel="alternate" hreflang="en-US" href="https://yoursite.com/en/" />
+    <link rel="alternate" hreflang="ja" href="https://yoursite.com/ja/" />
+    <link rel="alternate" hreflang="ko" href="https://yoursite.com/ko/" />
+    <link rel="alternate" hreflang="es" href="https://yoursite.com/es/" />
+    <link rel="alternate" hreflang="x-default" href="https://yoursite.com/" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="MBTI動物性格測驗 - 發現你的動物靈魂" />
+    <meta property="og:description" content="🦄 透過科學的MBTI理論，找出最代表你性格的動物！16種動物性格完整分析，還能找到最配的夥伴" />
+    <meta property="og:image" content="https://yoursite.com/android-chrome-512x512.png" />
+    <meta property="og:url" content="https://yoursite.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MBTI動物性格測驗" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MBTI動物性格測驗 - 免費心理測試">
+    <meta name="twitter:description" content="🐾 透過16種動物發現你的真實MBTI性格！完整心理分析+相容性配對">
+    <meta name="twitter:image" content="https://yoursite.com/android-chrome-512x512.png">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#f4a7b9">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MBTI動物測驗">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MBTI動物性格測驗",
+        "alternateName": "MBTI Animal Personality Test",
+        "url": "https://yoursite.com",
+        "description": "免費的MBTI動物性格測驗，透過16種動物發現你的真實性格",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "MBTI動物測驗"
+        },
+        "inLanguage": ["zh-TW", "en-US"]
+    }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .lang-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Multilingual Content */
+        [data-lang="zh-TW"] .lang-en { display: none; }
+        [data-lang="en-US"] .lang-zh { display: none; }
+
+        .question {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e6ff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e6ff;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .generate-btn.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .generate-btn:hover.active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        #result-container {
+            display: none;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f4a7b9 0%, #f093fb 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 35px rgba(244, 167, 185, 0.3);
+        }
+
+        .result-animal {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .result-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .result-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+
+        .result-mbti {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .share-section {
+            margin-top: 25px;
+        }
+
+        .share-btn {
+            margin: 5px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .share-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .restart-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+            .header h1 { font-size: 2rem; }
+            .language-switcher { 
+                position: static; 
+                justify-content: center; 
+                margin-bottom: 20px; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="zh-TW">繁體中文</button>
+        <button class="lang-btn" data-lang="en-US">English</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="lang-zh">🐾 MBTI動物性格測驗</span>
+                <span class="lang-en">🐾 MBTI Animal Personality Test</span>
+            </h1>
+            <p>
+                <span class="lang-zh">透過16種可愛動物，發現你的真實性格！</span>
+                <span class="lang-en">Discover your true personality through 16 adorable animals!</span>
+            </p>
+        </div>
+
+        <div id="test-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            
+            <div id="questions-container">
+                <!-- Questions will be loaded here -->
+            </div>
+
+            <button class="generate-btn" id="generate-result" onclick="generateResult()">
+                <span class="lang-zh">🎯 生成我的動物性格</span>
+                <span class="lang-en">🎯 Generate My Animal Personality</span>
+            </button>
+        </div>
+
+        <div id="result-container">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentQuestionIndex = 0;
+        let answers = [];
+        let questions = [];
+        let currentUserResult = null;
+        let animals = [];
+
+        // Language system
+        function switchLanguage(lang) {
+            document.documentElement.setAttribute('data-lang', lang);
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Reload questions if test is active
+            if (document.getElementById('test-container').style.display !== 'none') {
+                loadQuestions();
+            }
+        }
+
+        // Initialize language on page load
+        function initializeLanguage() {
+            const saved = localStorage.getItem('preferredLanguage');
+            const browser = navigator.language || navigator.languages[0];
+            const defaultLang = saved || (browser.startsWith('zh') ? 'zh-TW' : 'en-US');
+            switchLanguage(defaultLang);
+        }
+
+        // Language switcher event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    switchLanguage(this.getAttribute('data-lang'));
+                });
+            });
+            
+            initializeLanguage();
+            loadData();
+        });
+
+        // Load data from JSON files
+        async function loadData() {
+            try {
+                const [animalsResponse, questionsResponse] = await Promise.all([
+                    fetch('animals.json'),
+                    fetch('details.json')
+                ]);
+                
+                animals = await animalsResponse.json();
+                const data = await questionsResponse.json();
+                questions = data.questions;
+                
+                loadQuestions();
+            } catch (error) {
+                console.error('載入資料時發生錯誤:', error);
+            }
+        }
+
+        // Load questions
+        function loadQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.style.display = index === 0 ? 'block' : 'none';
+                
+                const lang = document.documentElement.getAttribute('data-lang');
+                const questionText = lang === 'zh-TW' ? q.question : q.question_en;
+                
+                questionDiv.innerHTML = `
+                    <h3>${questionText}</h3>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => {
+                            const optionText = lang === 'zh-TW' ? option.text : option.text_en;
+                            return `<div class="option" onclick="selectOption(${index}, ${optIndex}, '${option.type}')">${optionText}</div>`;
+                        }).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Select option
+        function selectOption(questionIndex, optionIndex, type) {
+            // Remove previous selection
+            const currentQuestion = document.querySelectorAll('.question')[questionIndex];
+            currentQuestion.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            const selectedOption = currentQuestion.querySelectorAll('.option')[optionIndex];
+            selectedOption.classList.add('selected');
+            
+            // Store answer
+            answers[questionIndex] = type;
+            
+            // Update progress
+            updateProgress();
+            
+            // Show next question or enable result button
+            setTimeout(() => {
+                if (questionIndex < questions.length - 1) {
+                    showNextQuestion(questionIndex + 1);
+                } else {
+                    enableResultButton();
+                }
+            }, 500);
+        }
+
+        // Show next question
+        function showNextQuestion(index) {
+            const questions = document.querySelectorAll('.question');
+            questions[currentQuestionIndex].style.display = 'none';
+            questions[index].style.display = 'block';
+            currentQuestionIndex = index;
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (answers.filter(a => a).length / questions.length) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        // Enable result button
+        function enableResultButton() {
+            const btn = document.getElementById('generate-result');
+            btn.classList.add('active');
+        }
+
+        // Generate result
+        function generateResult() {
+            if (answers.filter(a => a).length !== questions.length) return;
+            
+            // Count personality types
+            const typeCounts = {};
+            answers.forEach(answer => {
+                typeCounts[answer] = (typeCounts[answer] || 0) + 1;
+            });
+            
+            // Determine dominant types
+            const sortedTypes = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+            const dominantTypes = sortedTypes.slice(0, 2).map(([type]) => type);
+            
+            // Find matching animal
+            const matchingAnimal = animals.find(animal => {
+                return dominantTypes.every(type => animal.traits.includes(type));
+            }) || animals[Math.floor(Math.random() * animals.length)];
+            
+            currentUserResult = matchingAnimal;
+            showResult(matchingAnimal);
+        }
+
+        // Show result
+        function showResult(animal) {
+            const lang = document.documentElement.getAttribute('data-lang');
+            const name = lang === 'zh-TW' ? animal.name : animal.name_en;
+            const description = lang === 'zh-TW' ? animal.description : animal.description_en;
+            
+            const resultHTML = `
+                <div class="result-card">
+                    <div class="result-animal">${animal.emoji}</div>
+                    <div class="result-title">${name}</div>
+                    <div class="result-subtitle">${animal.mbti}</div>
+                    <div class="result-description">${description}</div>
+                    <div class="result-mbti">✨ ${animal.mbti} ✨</div>
+                    
+                    <div class="share-section">
+                        <div class="share-title">
+                            <span class="lang-zh">📱 分享結果</span>
+                            <span class="lang-en">📱 Share Result</span>
+                        </div>
+                        <div style="margin: 20px 0;">
+                            <button class="share-btn" onclick="shareToInstagram()">📷 Instagram</button>
+                            <button class="share-btn" onclick="shareToFacebook()">👥 Facebook</button>
+                            <button class="share-btn" onclick="copyResult()">📋 
+                                <span class="lang-zh">複製連結</span>
+                                <span class="lang-en">Copy Link</span>
+                            </button>
+                        </div>
+                        <button class="restart-btn" onclick="restartTest()">
+                            <span class="lang-zh">🔄 重新測驗</span>
+                            <span class="lang-en">🔄 Take Test Again</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('test-container').style.display = 'none';
+            document.getElementById('result-container').innerHTML = resultHTML;
+            document.getElementById('result-container').style.display = 'block';
+        }
+
+        // Share functions
+        function shareToInstagram() {
+            const text = getCurrentResultText();
+            const url = `https://www.instagram.com/`;
+            window.open(url, '_blank');
+            copyToClipboard(text);
+        }
+
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(getCurrentResultText());
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+            window.open(fbUrl, '_blank');
+        }
+
+        function copyResult() {
+            const text = getCurrentResultText();
+            copyToClipboard(text);
+            alert(document.documentElement.getAttribute('data-lang') === 'zh-TW' ? 
+                '結果已複製到剪貼簿！' : 'Result copied to clipboard!');
+        }
+
+        function getCurrentResultText() {
+            if (!currentUserResult) return '';
+            
+            const lang = document.documentElement.getAttribute('data-lang');
+            const name = lang === 'zh-TW' ? currentUserResult.name : currentUserResult.name_en;
+            const description = lang === 'zh-TW' ? currentUserResult.description : currentUserResult.description_en;
+            
+            if (lang === 'zh-TW') {
+                return `🐾 我完成了MBTI動物性格測驗！\n\n我最像的是：${currentUserResult.emoji} ${name}\nMBTI: ${currentUserResult.mbti}\n\n${description}\n\n快來測試看看你是什麼動物：${window.location.href}`;
+            } else {
+                return `🐾 I completed the MBTI Animal Personality Test!\n\nI'm most like: ${currentUserResult.emoji} ${name}\nMBTI: ${currentUserResult.mbti}\n\n${description}\n\nTake the test: ${window.location.href}`;
+            }
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function restartTest() {
+            currentQuestionIndex = 0;
+            answers = [];
+            currentUserResult = null;
+            
+            document.getElementById('result-container').style.display = 'none';
+            document.getElementById('test-container').style.display = 'block';
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('generate-result').classList.remove('active');
+            
+            loadQuestions();
+        }
+    </script>
+</body>
+</html>

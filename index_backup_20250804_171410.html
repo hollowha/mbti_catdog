@@ -3298,10 +3298,19 @@
       try {
         // Use the new multilingual content generator
         resultDiv.innerHTML = generateResultContent(matchingAnimal, mbti, zodiacName, emoji);
-        
-        console.log('IG 風格 HTML 內容已設置');
-        
-        // 直接顯示，不使用動畫
+          <div class="ig-result-card">
+            <div class="stories-header">
+              <div class="stories-profile">
+                <div class="stories-avatar">✨</div>
+                <div class="stories-info">
+                  <div class="stories-username">MBTI動物占卜</div>
+                  <div class="stories-time">現時動態</div>
+                </div>
+              </div>
+              <div class="stories-options">⋯</div>
+            </div>
+
+            <!-- 全部內容適配9:16，無滾動 -->
             <div class="stories-content" style="flex: 1; display: flex; flex-direction: column; padding: 8px 16px; overflow: hidden;">
               <div class="decorative-hearts" style="position: absolute; top: 10px; right: 15px; opacity: 0.3;">💖</div>
               <div class="decorative-sparkles" style="position: absolute; top: 30px; left: 15px; opacity: 0.3;">✨</div>
