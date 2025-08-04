@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐱🐶 發現最像你的性格動物</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {
       /* 奶茶色系配色 */
@@ -76,6 +77,39 @@
       position: relative;
       overflow: hidden;
       animation: slideUp 0.8s ease-out;
+    }
+    
+    /* 電腦版容器優化 */
+    @media (min-width: 769px) {
+      .container {
+        max-width: 800px;
+        padding: 50px 40px;
+      }
+      
+      .header h1 {
+        font-size: 3.5rem !important;
+      }
+      
+      .header .subtitle {
+        font-size: 1.3rem !important;
+      }
+      
+      .question p {
+        font-size: 1.4rem !important;
+      }
+      
+      .submit-button {
+        font-size: 1.4rem !important;
+        padding: 18px 0 !important;
+      }
+    }
+    
+    /* 平板版容器優化 */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .container {
+        max-width: 720px;
+        padding: 45px 35px;
+      }
     }
 
     .container::before {
@@ -272,6 +306,74 @@
       gap: 12px;
     }
 
+    /* 星座問題專用樣式 */
+    .zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    
+    .zodiac-option {
+      padding: 12px 8px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .zodiac-option .option-content {
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 4px;
+      line-height: 1.3;
+      padding-left: 4px !important;
+    }
+    
+    .zodiac-option .option-content::before {
+      display: none;
+    }
+
+    /* 平板版星座優化 */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .zodiac-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+      }
+      
+      .zodiac-option .option-content {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* 手機版星座選項優化 */
+    @media (max-width: 480px) {
+      .zodiac-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 6px !important;
+      }
+      
+      .zodiac-option {
+        padding: 10px 6px !important;
+        min-height: 55px !important;
+      }
+      
+      .zodiac-option .option-content {
+        font-size: 0.8rem !important;
+        line-height: 1.2 !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+      }
+    }
+
+    /* 極小螢幕優化 */
+    @media (max-width: 360px) {
+      .zodiac-option .option-content {
+        font-size: 0.75rem !important;
+      }
+    }
+
     .option {
       position: relative;
       background: var(--card-bg);
@@ -390,24 +492,151 @@
       animation: resultFadeIn 0.8s ease-out forwards;
     }
 
-    /* IG Stories 風格結果卡片 */
+    /* IG Stories 風格結果卡片 - 自適應高度版本 */
     .ig-result-card {
       background: linear-gradient(145deg, #ffffff 0%, #fefcf7 100%);
-      border-radius: 24px;
-      padding: 16px;
+      border-radius: 18px;
+      padding: 20px;
       box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.1),
-        0 8px 30px rgba(244, 167, 185, 0.15),
+        0 12px 30px rgba(0, 0, 0, 0.06),
+        0 4px 15px rgba(244, 167, 185, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
       position: relative;
       overflow: hidden;
-      border: 2px solid rgba(244, 167, 185, 0.2);
-      max-width: 350px;
-      max-height: 600px;
+      border: 1px solid rgba(244, 167, 185, 0.15);
       margin: 0 auto;
-      aspect-ratio: 9/16;
       display: flex;
       flex-direction: column;
+      max-width: 400px;
+      min-height: auto; /* 移除固定高度 */
+      width: 100%;
+    }
+
+    /* 電腦版優化 - 更大的結果顯示 */
+    @media (min-width: 769px) {
+      .ig-result-card {
+        max-width: 500px;
+        padding: 30px;
+      }
+      
+      .result-emoji {
+        font-size: 4rem !important;
+      }
+      
+      .result-title {
+        font-size: 2.2rem !important;
+      }
+      
+      .result-pet-name {
+        font-size: 2rem !important;
+      }
+      
+      .result-description {
+        font-size: 1.2rem !important;
+        padding: 0 15px !important;
+        margin-bottom: 20px !important;
+      }
+      
+      .result-mbti-badge {
+        font-size: 1.3rem !important;
+        padding: 18px 36px !important;
+        margin-bottom: 25px !important;
+      }
+      
+      .similar-title {
+        font-size: 1rem !important;
+        margin-bottom: 15px !important;
+      }
+      
+      .mini-animal-emoji {
+        font-size: 1.8rem !important;
+      }
+      
+      .mini-animal-name {
+        font-size: 0.8rem !important;
+        max-width: 100px !important;
+      }
+      
+      .connection-text {
+        font-size: 0.9rem !important;
+        margin-bottom: 10px !important;
+      }
+      
+      .connection-tag {
+        font-size: 0.75rem !important;
+        padding: 6px 10px !important;
+      }
+      
+      .similar-animals, .social-connection {
+        padding: 15px !important;
+        margin: 10px 0 !important;
+      }
+    }
+
+    /* 平板端優化 */
+    @media (min-width: 481px) and (max-width: 768px) {
+      .ig-result-card {
+        max-width: 450px;
+        padding: 25px;
+      }
+      
+      .result-emoji {
+        font-size: 3.5rem !important;
+      }
+      
+      .result-title {
+        font-size: 1.9rem !important;
+      }
+      
+      .result-pet-name {
+        font-size: 1.7rem !important;
+      }
+      
+      .result-description {
+        font-size: 1.1rem !important;
+      }
+    }
+
+    /* 手機端優化 */
+    @media (max-width: 480px) {
+      .ig-result-card {
+        max-width: 90vw;
+        min-height: auto; /* 自適應高度 */
+        padding: 20px 15px;
+      }
+      
+      .result-emoji {
+        font-size: 3rem !important;
+      }
+      
+      .result-title {
+        font-size: 1.7rem !important;
+      }
+      
+      .result-pet-name {
+        font-size: 1.5rem !important;
+      }
+      
+      .result-description {
+        font-size: 1rem !important;
+        margin-bottom: 15px !important;
+      }
+      
+      .result-mbti-badge {
+        font-size: 1.1rem !important;
+        padding: 14px 28px !important;
+        margin-bottom: 20px !important;
+      }
+      
+      .similar-animals, .social-connection {
+        padding: 12px !important;
+        margin: 8px 0 !important;
+      }
+    }
+
+    /* 確保內容不會溢出 */
+    .ig-result-card * {
+      box-sizing: border-box;
     }
 
     .ig-result-card::before {
@@ -479,7 +708,7 @@
 
     .result-header {
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
       position: relative;
       flex-shrink: 0;
     }
@@ -487,7 +716,7 @@
     .result-emoji-container {
       position: relative;
       display: inline-block;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
     }
 
     .result-emoji {
@@ -527,7 +756,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       line-height: 1.2;
     }
 
@@ -536,7 +765,7 @@
       font-size: 1.4rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
@@ -546,7 +775,7 @@
       line-height: 1.5;
       color: var(--text-secondary);
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
       padding: 0 8px;
       flex-shrink: 0;
     }
@@ -560,7 +789,7 @@
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
       font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
       position: relative;
       overflow: hidden;
@@ -588,19 +817,19 @@
     .similar-animals {
       background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
       border-radius: 10px;
-      padding: 8px;
-      margin: 6px 0;
+      padding: 12px;
+      margin: 10px 0;
       border: 1px solid rgba(102, 126, 234, 0.1);
       flex-shrink: 0;
     }
 
     .similar-title {
       font-family: 'Kalam', 'Noto Sans TC', cursive;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-primary);
       text-align: center;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -611,32 +840,32 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      margin: 4px 0;
-      gap: 4px;
+      margin: 8px 0;
+      gap: 8px;
     }
 
     .mini-animal {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
       flex: 1;
       text-align: center;
       min-width: 0;
     }
 
     .mini-animal-emoji {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       animation: bounce-subtle 2s ease-in-out infinite;
     }
 
     .mini-animal-name {
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       font-weight: 500;
       color: var(--text-secondary);
       line-height: 1.1;
-      max-width: 60px;
+      max-width: 70px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -658,8 +887,8 @@
     .social-connection {
       background: linear-gradient(135deg, rgba(244, 167, 185, 0.1) 0%, rgba(210, 180, 140, 0.1) 100%);
       border-radius: 10px;
-      padding: 6px;
-      margin: 6px 0;
+      padding: 10px;
+      margin: 10px 0;
       text-align: center;
       border: 1px solid rgba(244, 167, 185, 0.2);
       flex-shrink: 0;
@@ -667,25 +896,25 @@
 
     .connection-text {
       font-family: 'Kalam', 'Noto Sans TC', cursive;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
-      margin-bottom: 4px;
-      line-height: 1.2;
+      margin-bottom: 8px;
+      line-height: 1.3;
     }
 
     .connection-tags {
       display: flex;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       flex-wrap: wrap;
     }
 
     .connection-tag {
       background: rgba(102, 126, 234, 0.1);
       color: var(--text-primary);
-      padding: 2px 6px;
+      padding: 3px 8px;
       border-radius: 8px;
-      font-size: 0.55rem;
+      font-size: 0.6rem;
       font-weight: 500;
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
     }
@@ -784,8 +1013,106 @@
       border-radius: 12px;
       padding: 10px;
       margin-top: 8px;
+      text-align: center;
       border: 1px solid rgba(244, 167, 185, 0.2);
-      flex-shrink: 0;
+      display: none; /* 隱藏內部分享區域 */
+    }
+    
+    /* 外部分享區域樣式 */
+    .external-share-section {
+      background: linear-gradient(135deg, rgba(244, 167, 185, 0.08) 0%, rgba(210, 180, 140, 0.08) 100%);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+      border: 1px solid rgba(244, 167, 185, 0.15);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 15px rgba(244, 167, 185, 0.1);
+    }
+    
+    .external-share-title {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .share-buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .share-btn-external {
+      background: white;
+      border: 2px solid var(--milktea-medium);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    
+    .share-btn-external:hover {
+      background: var(--milktea-light);
+      border-color: var(--pink-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 167, 185, 0.3);
+    }
+    
+    .share-btn-external:active {
+      transform: translateY(0);
+    }
+    
+    .download-btn {
+      background: var(--gradient-primary) !important;
+      color: white !important;
+      border-color: transparent !important;
+    }
+    
+    .download-btn:hover {
+      background: var(--gradient-secondary) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    .share-subtitle {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+      opacity: 0.8;
+    }
+    
+    /* 手機版分享按鈕優化 */
+    @media (max-width: 480px) {
+      .share-buttons-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      
+      .share-btn-external {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+      }
+      
+      .external-share-title {
+        font-size: 1.1rem;
+      }
     }
 
     .share-title {
@@ -1405,23 +1732,55 @@
       </div>
 
       <div class="question" style="animation-delay: 0.5s">
-        <p><span class="question-number">5</span>以下哪個元素最符合你的性格？</p>
-        <div class="options-grid">
-          <label class="option">
-            <input type="radio" name="q5" value="fire">
-            <div class="option-content">🔥 火象 - 熱情活力，充滿能量</div>
+        <p><span class="question-number">5</span>你是哪個星座？</p>
+        <div class="options-grid zodiac-grid">
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="aries">
+            <div class="option-content">♈ 牡羊座</div>
           </label>
-          <label class="option">
-            <input type="radio" name="q5" value="earth">
-            <div class="option-content">🌍 土象 - 穩重踏實，注重安全</div>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="taurus">
+            <div class="option-content">♉ 金牛座</div>
           </label>
-          <label class="option">
-            <input type="radio" name="q5" value="air">
-            <div class="option-content">💨 風象 - 靈活變通，思維敏捷</div>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="gemini">
+            <div class="option-content">♊ 雙子座</div>
           </label>
-          <label class="option">
-            <input type="radio" name="q5" value="water">
-            <div class="option-content">💧 水象 - 感性細膩，情感豐富</div>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="cancer">
+            <div class="option-content">♋ 巨蟹座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="leo">
+            <div class="option-content">♌ 獅子座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="virgo">
+            <div class="option-content">♍ 處女座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="libra">
+            <div class="option-content">♎ 天秤座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="scorpio">
+            <div class="option-content">♏ 天蠍座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="sagittarius">
+            <div class="option-content">♐ 射手座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="capricorn">
+            <div class="option-content">♑ 摩羯座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="aquarius">
+            <div class="option-content">♒ 水瓶座</div>
+          </label>
+          <label class="option zodiac-option">
+            <input type="radio" name="q5" value="pisces">
+            <div class="option-content">♓ 雙魚座</div>
           </label>
         </div>
       </div>
@@ -1488,11 +1847,74 @@
     // 載入動物數據
     async function loadAnimalData() {
       try {
-        const response = await fetch('./details.json');
-        const data = await response.json();
+        // 直接使用內嵌的動物數據，避免 CORS 問題
+        animalData = [
+          {"mbti": "ISTJ", "element": "fire", "species": "英國短毛貓", "description": "穩重卻偶爾熱情，給你安全感的守護者"},
+          {"mbti": "ISTJ", "element": "earth", "species": "蘇格蘭摺耳貓", "description": "安靜乖巧，是穩定生活的最佳夥伴"},
+          {"mbti": "ISTJ", "element": "air", "species": "美國短毛貓", "description": "理性中帶點靈活，能輕鬆應對變化"},
+          {"mbti": "ISTJ", "element": "water", "species": "喜馬拉雅貓", "description": "內斂溫和，默默守護你"},
+          {"mbti": "ISFJ", "element": "fire", "species": "布偶貓", "description": "熱情又親人，是最溫暖的治癒系夥伴"},
+          {"mbti": "ISFJ", "element": "earth", "species": "波斯貓", "description": "高雅安靜，對你忠誠不渝"},
+          {"mbti": "ISFJ", "element": "air", "species": "暹羅貓", "description": "機智貼心，總在身邊默默守護"},
+          {"mbti": "ISFJ", "element": "water", "species": "緬因貓", "description": "巨大卻溫柔，給你滿滿安全感"},
+          {"mbti": "INFJ", "element": "fire", "species": "阿比西尼亞貓", "description": "熱情且有領導氣質，內心卻浪漫深情"},
+          {"mbti": "INFJ", "element": "earth", "species": "俄羅斯藍貓", "description": "優雅神秘，是內斂的理想主義者"},
+          {"mbti": "INFJ", "element": "air", "species": "暹羅貓", "description": "創意無限，總有出其不意的點子"},
+          {"mbti": "INFJ", "element": "water", "species": "緬甸貓", "description": "感情豐富，溫柔細膩，喜歡深度連結"},
+          {"mbti": "INTJ", "element": "fire", "species": "孟加拉貓", "description": "野性十足，卻暗藏策略，是冒險家型思考者"},
+          {"mbti": "INTJ", "element": "earth", "species": "異國短毛貓", "description": "穩重聰慧，冷靜計畫型人格"},
+          {"mbti": "INTJ", "element": "air", "species": "暹羅貓", "description": "小巧靈活，擅長策略，掌握全局"},
+          {"mbti": "INTJ", "element": "water", "species": "斯芬克斯貓", "description": "神秘冷酷，卻對親近的人展現柔情"},
+          {"mbti": "ISTP", "element": "fire", "species": "孟加拉貓", "description": "精力旺盛，熱愛挑戰，總在行動中成長"},
+          {"mbti": "ISTP", "element": "earth", "species": "日本短尾貓", "description": "靈活又穩定，熱愛自由卻不失規律"},
+          {"mbti": "ISTP", "element": "air", "species": "美國短毛貓", "description": "反應敏捷，擅長用創意解決問題"},
+          {"mbti": "ISTP", "element": "water", "species": "暹羅貓", "description": "感性中帶冒險，願意陪伴並探索世界"},
+          {"mbti": "ISFP", "element": "fire", "species": "紅虎斑貓", "description": "熱情藝術家，總能讓生活充滿色彩"},
+          {"mbti": "ISFP", "element": "earth", "species": "挪威森林貓", "description": "典雅又熱愛自然，像森林詩人般自由"},
+          {"mbti": "ISFP", "element": "air", "species": "美國短毛貓", "description": "自由靈魂，擁有聰明的小腦袋"},
+          {"mbti": "ISFP", "element": "water", "species": "布偶貓", "description": "柔情似水，總能給予安心與溫暖"},
+          {"mbti": "INFP", "element": "fire", "species": "美國短毛貓", "description": "浪漫理想家，卻又熱情，像火焰般溫暖"},
+          {"mbti": "INFP", "element": "earth", "species": "布偶貓", "description": "純真溫柔，給人最踏實的陪伴"},
+          {"mbti": "INFP", "element": "air", "species": "康沃爾雷克斯貓", "description": "藝術靈魂，腦袋裡充滿奇妙點子"},
+          {"mbti": "INFP", "element": "water", "species": "喜馬拉雅貓", "description": "情感豐富，最懂心靈深處的夢想家"},
+          {"mbti": "INTP", "element": "fire", "species": "阿比西尼亞貓", "description": "聰明活潑，總有新奇創意，充滿冒險精神"},
+          {"mbti": "INTP", "element": "earth", "species": "英國短毛貓", "description": "冷靜理智，是分析與穩定並存的完美典範"},
+          {"mbti": "INTP", "element": "air", "species": "暹羅貓", "description": "聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚"},
+          {"mbti": "INTP", "element": "water", "species": "俄羅斯藍貓", "description": "表面冷酷，內心柔情，感性與理性兼具"},
+          {"mbti": "ESTJ", "element": "fire", "species": "德國牧羊犬", "description": "聰明且服從，天生的領導者，保護慾強"},
+          {"mbti": "ESTJ", "element": "earth", "species": "拉布拉多", "description": "忠誠穩重，是最值得信任的夥伴"},
+          {"mbti": "ESTJ", "element": "air", "species": "杜賓犬", "description": "反應敏捷、沉著冷靜，是策略型守護者"},
+          {"mbti": "ESTJ", "element": "water", "species": "秋田犬", "description": "內斂忠心，保護慾極強，是沉穩的守護者"},
+          {"mbti": "ESFJ", "element": "fire", "species": "黃金獵犬", "description": "熱情友善，帶給你滿滿陽光與正能量"},
+          {"mbti": "ESFJ", "element": "earth", "species": "聖伯納犬", "description": "巨大卻溫柔，天然的守護天使，讓你安心"},
+          {"mbti": "ESFJ", "element": "air", "species": "可卡犬", "description": "開朗愛玩，喜歡互動，是快樂小幫手"},
+          {"mbti": "ESFJ", "element": "water", "species": "卡瓦利王查理獵犬", "description": "感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶"},
+          {"mbti": "ENFJ", "element": "fire", "species": "邊境牧羊犬", "description": "聰明熱情，擅長帶領群體，活力滿滿"},
+          {"mbti": "ENFJ", "element": "earth", "species": "伯恩山犬", "description": "溫柔可靠，天然的守護者，最有安全感"},
+          {"mbti": "ENFJ", "element": "air", "species": "薩摩耶", "description": "微笑天使，樂觀活潑，傳遞快樂能量"},
+          {"mbti": "ENFJ", "element": "water", "species": "愛爾蘭雪達犬", "description": "情感細膩，浪漫溫柔，熱愛深度連結"},
+          {"mbti": "ENTJ", "element": "fire", "species": "羅威納犬", "description": "威嚴強大，懂得保護家人，行動力十足"},
+          {"mbti": "ENTJ", "element": "earth", "species": "拳師犬", "description": "沉穩果斷，結合力量與柔和，是策略型行動家"},
+          {"mbti": "ENTJ", "element": "air", "species": "德國賓沙犬", "description": "機敏聰慧，擅長掌控全局，冷靜又靈活"},
+          {"mbti": "ENTJ", "element": "water", "species": "杜高犬", "description": "外剛內柔，重情重義，果敢且有溫度的守護者"},
+          {"mbti": "ESTP", "element": "fire", "species": "西伯利亞哈士奇", "description": "冒險家，精力無窮，熱愛挑戰與探索"},
+          {"mbti": "ESTP", "element": "earth", "species": "美國鬥牛犬", "description": "勇敢務實，行動果斷，穩健又可靠"},
+          {"mbti": "ESTP", "element": "air", "species": "傑克羅素梗", "description": "機靈愛玩，總能帶來驚喜，是行動派小能手"},
+          {"mbti": "ESTP", "element": "water", "species": "英國史賓格犬", "description": "愛冒險又黏人，溫柔感性，樂於分享愛與快樂"},
+          {"mbti": "ESFP", "element": "fire", "species": "博美犬", "description": "活潑小明星，熱情開朗，享受舞台焦點"},
+          {"mbti": "ESFP", "element": "earth", "species": "法國鬥牛犬", "description": "慵懶溫柔，愛撒嬌，是生活享樂專家"},
+          {"mbti": "ESFP", "element": "air", "species": "比熊犬", "description": "開朗機靈，總能帶來好心情，是小太陽"},
+          {"mbti": "ESFP", "element": "water", "species": "西施犬", "description": "溫柔親近，黏人小甜心，愛窩在你身邊"},
+          {"mbti": "ENFP", "element": "fire", "species": "斑點狗", "description": "活力滿滿，愛玩愛冒險，天生的樂天派"},
+          {"mbti": "ENFP", "element": "earth", "species": "柴犬", "description": "外冷內熱，個性鮮明，愛與人互動"},
+          {"mbti": "ENFP", "element": "air", "species": "惠比特犬", "description": "反應快、喜愛互動，是生活的小驚喜"},
+          {"mbti": "ENFP", "element": "water", "species": "比格犬", "description": "情感豐富，愛撒嬌，最喜歡和朋友在一起"},
+          {"mbti": "ENTP", "element": "fire", "species": "柯基", "description": "外表呆萌，卻聰明伶俐，擅長活絡氣氛"},
+          {"mbti": "ENTP", "element": "earth", "species": "牛頭梗", "description": "勇敢有個性，機智果斷，是忠誠守護者"},
+          {"mbti": "ENTP", "element": "air", "species": "貴賓犬", "description": "智商第一，學習力驚人，還超級愛玩！"},
+          {"mbti": "ENTP", "element": "water", "species": "蝴蝶犬", "description": "聰明靈巧，愛撒嬌，是迷人的小機靈"}
+        ];
         
-        // 將內向和外向的數據合併
-        animalData = [...data.I, ...data.E];
         console.log('動物數據載入成功:', animalData.length, '筆資料');
       } catch (error) {
         console.error('載入動物數據失敗:', error);
@@ -1504,12 +1926,12 @@
     // 備用數據（當無法載入 JSON 時使用）
     function generateFallbackData() {
       return [
-        { mbti: 'ISTJ', zodiac_element: '火象', species: '英國短毛貓 (British Shorthair)', description: '穩重卻偶爾熱情，給你安全感的守護者' },
-        { mbti: 'ISFJ', zodiac_element: '火象', species: '布偶貓 (Ragdoll)', description: '熱情又親人，是最溫暖的治癒系夥伴' },
-        { mbti: 'ESTJ', zodiac_element: '火象', species: '德國牧羊犬 (German Shepherd)', description: '聰明且服從，天生的領導者，保護慾強' },
-        { mbti: 'ESFJ', zodiac_element: '火象', species: '黃金獵犬 (Golden Retriever)', description: '熱情友善，帶給你滿滿陽光與正能量' },
-        { mbti: 'INTJ', zodiac_element: '土象', species: '異國短毛貓 (Exotic Shorthair)', description: '穩重聰慧，冷靜計畫型人格' },
-        { mbti: 'INFJ', zodiac_element: '土象', species: '俄羅斯藍貓 (Russian Blue)', description: '優雅神秘，是內斂的理想主義者' }
+        { mbti: 'ISTJ', element: 'fire', species: '英國短毛貓', description: '穩重卻偶爾熱情，給你安全感的守護者' },
+        { mbti: 'ISFJ', element: 'fire', species: '布偶貓', description: '熱情又親人，是最溫暖的治癒系夥伴' },
+        { mbti: 'ESTJ', element: 'fire', species: '德國牧羊犬', description: '聰明且服從，天生的領導者，保護慾強' },
+        { mbti: 'ESFJ', element: 'fire', species: '黃金獵犬', description: '熱情友善，帶給你滿滿陽光與正能量' },
+        { mbti: 'INTJ', element: 'earth', species: '異國短毛貓', description: '穩重聰慧，冷靜計畫型人格' },
+        { mbti: 'INFJ', element: 'earth', species: '俄羅斯藍貓', description: '優雅神秘，是內斂的理想主義者' }
       ];
     }
     
@@ -1521,6 +1943,49 @@
       explorers: ['ISTP', 'ISFP', 'ESTP', 'ESFP']  // 探險型 (SP)
     };
     
+    // 從 animals.json 找到對應 MBTI 和元素的動物
+    function findAnimalByMbtiAndElement(mbti, element) {
+      if (!animalData || animalData.length === 0) {
+        console.log('動物資料尚未載入');
+        return null;
+      }
+      
+      // 先找完全匹配的 MBTI 和元素
+      let result = animalData.find(animal => 
+        animal.mbti === mbti && animal.element === element
+      );
+      
+      console.log('尋找動物:', { mbti, element, found: !!result, result, animalDataLength: animalData.length });
+      
+      // 如果找不到完全匹配，只匹配 MBTI
+      if (!result) {
+        result = animalData.find(animal => animal.mbti === mbti);
+        console.log('只匹配 MBTI，找到:', !!result);
+      }
+      
+      // 如果還是找不到，找相近的 MBTI（同象限）
+      if (!result) {
+        const userGroup = Object.keys(mbtiGroups).find(group => 
+          mbtiGroups[group].includes(mbti)
+        );
+        if (userGroup && mbtiGroups[userGroup]) {
+          result = animalData.find(animal => 
+            mbtiGroups[userGroup].includes(animal.mbti) && animal.element === element
+          );
+          console.log('匹配同象限和元素，找到:', !!result);
+          
+          if (!result) {
+            result = animalData.find(animal => 
+              mbtiGroups[userGroup].includes(animal.mbti)
+            );
+            console.log('只匹配同象限，找到:', !!result);
+          }
+        }
+      }
+      
+      return result;
+    }
+
     // 取得動物表情符號
     function getAnimalEmoji(species) {
       const cats = ['貓', 'Cat', 'cat'];
@@ -1531,8 +1996,46 @@
       return '🐾';
     }
     
+    // 星座對應元素
+    function getZodiacElement(zodiac) {
+      const zodiacElements = {
+        'aries': 'fire',      // 牡羊座 - 火象
+        'leo': 'fire',        // 獅子座 - 火象  
+        'sagittarius': 'fire', // 射手座 - 火象
+        'taurus': 'earth',    // 金牛座 - 土象
+        'virgo': 'earth',     // 處女座 - 土象
+        'capricorn': 'earth', // 摩羯座 - 土象
+        'gemini': 'air',      // 雙子座 - 風象
+        'libra': 'air',       // 天秤座 - 風象
+        'aquarius': 'air',    // 水瓶座 - 風象
+        'cancer': 'water',    // 巨蟹座 - 水象
+        'scorpio': 'water',   // 天蠍座 - 水象
+        'pisces': 'water'     // 雙魚座 - 水象
+      };
+      return zodiacElements[zodiac] || 'unknown';
+    }
+    
+    // 星座中文名稱
+    function getZodiacName(zodiac) {
+      const zodiacNames = {
+        'aries': '牡羊座',
+        'taurus': '金牛座',
+        'gemini': '雙子座', 
+        'cancer': '巨蟹座',
+        'leo': '獅子座',
+        'virgo': '處女座',
+        'libra': '天秤座',
+        'scorpio': '天蠍座',
+        'sagittarius': '射手座',
+        'capricorn': '摩羯座',
+        'aquarius': '水瓶座',
+        'pisces': '雙魚座'
+      };
+      return zodiacNames[zodiac] || zodiac;
+    }
+    
     // 取得相似度評分
-    function getSimilarityScore(animal, userMbti, userElement) {
+    function getSimilarityScore(animal, userMbti, userZodiac) {
       let score = 0;
       
       // MBTI 完全匹配
@@ -1547,8 +2050,8 @@
       );
       if (userGroup === animalGroup && animal.mbti !== userMbti) score += 60;
       
-      // 星座元素匹配
-      if (animal.zodiac_element === userElement) score += 40;
+      // 星座匹配
+      if (getZodiacElement(animal.zodiac) === getZodiacElement(userZodiac)) score += 40;
       
       // 其他部分匹配
       if (userMbti[0] === animal.mbti[0]) score += 20; // I/E 匹配
@@ -1574,9 +2077,18 @@
       
       // 星座元素篩選
       if (elementFilter !== 'all') {
-        filtered = filtered.filter(animal => 
-          animal.zodiac_element.includes(elementFilter)
-        );
+        const elementMap = {
+          '火象': 'fire',
+          '土象': 'earth',
+          '風象': 'air', 
+          '水象': 'water'
+        };
+        const elementKey = elementMap[elementFilter];
+        if (elementKey) {
+          filtered = filtered.filter(animal => 
+            animal.element === elementKey
+          );
+        }
       }
       
       // 動物類型篩選
@@ -1596,21 +2108,30 @@
     }
     
     // 顯示動物卡片
-    function displayAnimals(animals, userMbti = null, userElement = null) {
+    function displayAnimals(animals, userMbti = null, userZodiac = null) {
       const grid = document.getElementById('animalGrid');
       
       // 如果有使用者結果，按相似度排序
-      if (userMbti && userElement) {
+      if (userMbti && userZodiac) {
         animals = animals.map(animal => ({
           ...animal,
-          similarity: getSimilarityScore(animal, userMbti, userElement)
+          similarity: getSimilarityScore(animal, userMbti, userZodiac)
         })).sort((a, b) => b.similarity - a.similarity);
       }
       
       grid.innerHTML = animals.map(animal => {
         const emoji = getAnimalEmoji(animal.species);
-        const isPerfectMatch = userMbti && userElement && 
-          animal.mbti === userMbti && animal.zodiac_element.includes(userElement);
+        const isPerfectMatch = userMbti && userZodiac && 
+          animal.mbti === userMbti && getZodiacElement(animal.element) === getZodiacElement(userZodiac);
+        
+        // 轉換元素為中文顯示
+        const elementMap = {
+          'fire': '火象',
+          'earth': '土象',
+          'air': '風象',
+          'water': '水象'
+        };
+        const elementDisplay = elementMap[animal.element] || animal.element;
         
         return `
           <div class="animal-card ${isPerfectMatch ? 'perfect-match' : ''}" onclick="playClickSound()">
@@ -1621,7 +2142,7 @@
                 <h3 class="card-species">${animal.species}</h3>
                 <div class="card-mbti">${animal.mbti}</div>
               </div>
-              <div class="card-element">${animal.zodiac_element}</div>
+              <div class="card-element">${elementDisplay}</div>
             </div>
             <p class="card-description">${animal.description}</p>
           </div>
@@ -1677,7 +2198,7 @@
           displayAnimals(
             filtered, 
             currentUserResult?.mbti, 
-            currentUserResult?.element
+            currentUserResult?.zodiac
           );
         });
       });
@@ -1850,151 +2371,317 @@
     // 測驗結果對應表
     const quizMapping = {
       ISTJ: {
-        fire: {pet: '英國短毛貓 British Shorthair', desc: '穩重卻偶爾熱情，給你安全感的守護者', emoji: '🐱'},
-        earth: {pet: '蘇格蘭摺耳貓 Scottish Fold', desc: '安靜乖巧，是穩定生活的最佳夥伴', emoji: '🐱'},
-        air: {pet: '美國短毛貓 American Shorthair', desc: '理性中帶點靈活，能輕鬆應對變化', emoji: '🐱'},
-        water: {pet: '喜馬拉雅貓 Himalayan', desc: '內斂溫和，默默守護你', emoji: '🐱'}
+        aries: {pet: '英國短毛貓', desc: '穩重中帶有牡羊座的勇敢直接，是值得信賴的守護者', emoji: '🐱'},
+        taurus: {pet: '蘇格蘭摺耳貓', desc: '如金牛座般穩重踏實，是最安穩的陪伴', emoji: '🐱'},
+        gemini: {pet: '美國短毛貓', desc: '理性中帶點雙子座的靈活機智', emoji: '🐱'},
+        cancer: {pet: '喜馬拉雅貓', desc: '內斂溫和如巨蟹座，默默守護你', emoji: '🐱'},
+        leo: {pet: '英國短毛貓', desc: '穩重卻有獅子座的自信魅力', emoji: '🐱'},
+        virgo: {pet: '蘇格蘭摺耳貓', desc: '如處女座般注重細節，完美主義的夥伴', emoji: '🐱'},
+        libra: {pet: '美國短毛貓', desc: '追求平衡和諧，理性優雅', emoji: '🐱'},
+        scorpio: {pet: '喜馬拉雅貓', desc: '深沉神秘如天蠍座，忠誠守護', emoji: '🐱'},
+        sagittarius: {pet: '英國短毛貓', desc: '穩重中帶有射手座的自由精神', emoji: '🐱'},
+        capricorn: {pet: '蘇格蘭摺耳貓', desc: '如摩羯座般務實穩重，目標明確', emoji: '🐱'},
+        aquarius: {pet: '美國短毛貓', desc: '獨立創新如水瓶座，思想前衛', emoji: '🐱'},
+        pisces: {pet: '喜馬拉雅貓', desc: '浪漫夢幻如雙魚座，情感豐富', emoji: '🐱'}
       },
       ISFJ: {
-        fire: {pet: '布偶貓 Ragdoll', desc: '熱情又親人，是最溫暖的治癒系夥伴', emoji: '🐱'},
-        earth: {pet: '波斯貓 Persian', desc: '高雅安靜，對你忠誠不渝', emoji: '🐱'},
-        air: {pet: '暹羅貓 Siamese', desc: '機智貼心，總在身邊默默守護', emoji: '🐱'},
-        water: {pet: '緬因貓 Maine Coon', desc: '巨大卻溫柔，給你滿滿安全感', emoji: '🐱'}
+        aries: {pet: '布偶貓', desc: '溫柔體貼中帶有牡羊座的行動力', emoji: '🐱'},
+        taurus: {pet: '波斯貓', desc: '如金牛座般高雅穩重，忠誠不渝', emoji: '🐱'},
+        gemini: {pet: '暹羅貓', desc: '機智貼心如雙子座，善解人意', emoji: '🐱'},
+        cancer: {pet: '緬因貓', desc: '巨大卻溫柔如巨蟹座，給你安全感', emoji: '🐱'},
+        leo: {pet: '布偶貓', desc: '熱情親人如獅子座，充滿魅力', emoji: '🐱'},
+        virgo: {pet: '波斯貓', desc: '完美主義如處女座，追求完美的愛', emoji: '🐱'},
+        libra: {pet: '暹羅貓', desc: '追求和諧平衡，溫柔體貼', emoji: '🐱'},
+        scorpio: {pet: '緬因貓', desc: '深情專一如天蠍座，忠誠守護', emoji: '🐱'},
+        sagittarius: {pet: '布偶貓', desc: '樂觀開朗如射手座，帶來快樂', emoji: '🐱'},
+        capricorn: {pet: '波斯貓', desc: '穩重可靠如摩羯座，值得依靠', emoji: '🐱'},
+        aquarius: {pet: '暹羅貓', desc: '獨特創新如水瓶座，與眾不同', emoji: '🐱'},
+        pisces: {pet: '緬因貓', desc: '浪漫溫柔如雙魚座，情感細膩', emoji: '🐱'}
       },
       INFJ: {
-        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '熱情且有領導氣質，內心卻浪漫深情', emoji: '🐱'},
-        earth: {pet: '俄羅斯藍貓 Russian Blue', desc: '優雅神秘，是內斂的理想主義者', emoji: '🐱'},
-        air: {pet: '暹羅貓 Siamese', desc: '創意無限，總有出其不意的點子', emoji: '🐱'},
-        water: {pet: '緬甸貓 Burmese', desc: '感情豐富，溫柔細膩，喜歡深度連結', emoji: '🐱'}
+        aries: {pet: '阿比西尼亞貓', desc: '理想主義中帶有牡羊座的勇氣', emoji: '🐱'},
+        taurus: {pet: '俄羅斯藍貓', desc: '優雅神秘如金牛座般穩重', emoji: '🐱'},
+        gemini: {pet: '暹羅貓', desc: '創意無限如雙子座，充滿想法', emoji: '🐱'},
+        cancer: {pet: '緬甸貓', desc: '感情豐富如巨蟹座，溫柔細膩', emoji: '🐱'},
+        leo: {pet: '阿比西尼亞貓', desc: '熱情領導如獅子座，內心浪漫', emoji: '🐱'},
+        virgo: {pet: '俄羅斯藍貓', desc: '完美主義的理想家，追求完美', emoji: '🐱'},
+        libra: {pet: '暹羅貓', desc: '追求平衡和諧的創意家', emoji: '🐱'},
+        scorpio: {pet: '緬甸貓', desc: '深沉神秘如天蠍座，洞察人心', emoji: '🐱'},
+        sagittarius: {pet: '阿比西尼亞貓', desc: '自由樂觀的理想主義者', emoji: '�'},
+        capricorn: {pet: '俄羅斯藍貓', desc: '務實的理想家，腳踏實地', emoji: '�'},
+        aquarius: {pet: '暹羅貓', desc: '獨立前衛的思想家', emoji: '�'},
+        pisces: {pet: '緬甸貓', desc: '浪漫夢幻的理想主義者', emoji: '�'}
       },
       INTJ: {
-        fire: {pet: '孟加拉貓 Bengal', desc: '野性十足，卻暗藏策略，是冒險家型思考者', emoji: '🐱'},
-        earth: {pet: '異國短毛貓 Exotic Shorthair', desc: '穩重聰慧，冷靜計畫型人格', emoji: '🐱'},
-        air: {pet: '暹羅貓 Siamese', desc: '小巧靈活，擅長策略，掌握全局', emoji: '🐱'},
-        water: {pet: '斯芬克斯貓 Sphynx', desc: '神秘冷酷，卻對親近的人展現柔情', emoji: '🐱'}
-      },
-      ISTP: {
-        fire: {pet: '孟加拉貓 Bengal', desc: '精力旺盛，熱愛挑戰，總在行動中成長', emoji: '🐱'},
-        earth: {pet: '日本短尾貓 Japanese Bobtail', desc: '靈活又穩定，熱愛自由卻不失規律', emoji: '🐱'},
-        air: {pet: '美國短毛貓 American Shorthair', desc: '反應敏捷，擅長用創意解決問題', emoji: '🐱'},
-        water: {pet: '暹羅貓 Siamese', desc: '感性中帶冒險，願意陪伴並探索世界', emoji: '🐱'}
-      },
-      ISFP: {
-        fire: {pet: '紅虎斑貓 Red Tabby', desc: '熱情藝術家，總能讓生活充滿色彩', emoji: '🐱'},
-        earth: {pet: '挪威森林貓 Norwegian Forest Cat', desc: '典雅又熱愛自然，像森林詩人般自由', emoji: '🐱'},
-        air: {pet: '美國短毛貓 American Shorthair', desc: '自由靈魂，擁有聰明的小腦袋', emoji: '🐱'},
-        water: {pet: '布偶貓 Ragdoll', desc: '柔情似水，總能給予安心與溫暖', emoji: '🐱'}
-      },
-      INFP: {
-        fire: {pet: '美國短毛貓 American Shorthair', desc: '浪漫理想家，卻又熱情，像火焰般溫暖', emoji: '🐱'},
-        earth: {pet: '布偶貓 Ragdoll', desc: '純真溫柔，給人最踏實的陪伴', emoji: '🐱'},
-        air: {pet: '康沃爾雷克斯貓 Cornish Rex', desc: '藝術靈魂，腦袋裡充滿奇妙點子', emoji: '🐱'},
-        water: {pet: '喜馬拉雅貓 Himalayan', desc: '情感豐富，最懂心靈深處的夢想家', emoji: '🐱'}
-      },
-      INTP: {
-        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '聰明活潑，總有新奇創意，充滿冒險精神', emoji: '🐱'},
-        earth: {pet: '英國短毛貓 British Shorthair', desc: '冷靜理智，是分析與穩定並存的完美典範', emoji: '🐱'},
-        air: {pet: '暹羅貓 Siamese', desc: '聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚', emoji: '🐱'},
-        water: {pet: '俄羅斯藍貓 Russian Blue', desc: '表面冷酷，內心柔情，感性與理性兼具', emoji: '🐱'}
+        aries: {pet: '孟加拉貓', desc: '策略思維中帶有牡羊座的行動力', emoji: '�'},
+        taurus: {pet: '異國短毛貓', desc: '穩重聰慧如金牛座，冷靜計畫', emoji: '�'},
+        gemini: {pet: '暹羅貓', desc: '機智靈活的策略大師', emoji: '�'},
+        cancer: {pet: '斯芬克斯貓', desc: '神秘冷酷中帶有巨蟹座的柔情', emoji: '🐱'},
+        leo: {pet: '孟加拉貓', desc: '自信領導的策略家', emoji: '�'},
+        virgo: {pet: '異國短毛貓', desc: '完美主義的計畫執行者', emoji: '🐱'},
+        libra: {pet: '暹羅貓', desc: '追求平衡的理性思考者', emoji: '�'},
+        scorpio: {pet: '斯芬克斯貓', desc: '深沉神秘的戰略家', emoji: '🐱'},
+        sagittarius: {pet: '孟加拉貓', desc: '自由探索的獨立思考者', emoji: '�'},
+        capricorn: {pet: '異國短毛貓', desc: '務實穩重的目標達成者', emoji: '�'},
+        aquarius: {pet: '暹羅貓', desc: '獨立創新的未來規劃者', emoji: '🐱'},
+        pisces: {pet: '斯芬克斯貓', desc: '直覺敏銳的夢想建築師', emoji: '�'}
       },
       ESTJ: {
-        fire: {pet: '德國牧羊犬 German Shepherd', desc: '聰明且服從，天生的領導者，保護慾強', emoji: '🐕'},
-        earth: {pet: '拉布拉多 Labrador Retriever', desc: '忠誠穩重，是最值得信任的夥伴', emoji: '🐕'},
-        air: {pet: '杜賓犬 Doberman Pinscher', desc: '反應敏捷、沉著冷靜，是策略型守護者', emoji: '🐕'},
-        water: {pet: '秋田犬 Akita Inu', desc: '內斂忠心，保護慾極強，是沉穩的守護者', emoji: '🐕'}
+        aries: {pet: '德國牧羊犬', desc: '天生領導如牡羊座，勇敢果決', emoji: '🐕'},
+        taurus: {pet: '拉布拉多', desc: '忠誠穩重如金牛座，值得信任', emoji: '🐕'},
+        gemini: {pet: '杜賓犬', desc: '機智敏捷的策略型領導者', emoji: '🐕'},
+        cancer: {pet: '秋田犬', desc: '保護慾強如巨蟹座，忠心守護', emoji: '🐕'},
+        leo: {pet: '德國牧羊犬', desc: '天生領袖如獅子座，威嚴有力', emoji: '🐕'},
+        virgo: {pet: '拉布拉多', desc: '完美執行如處女座，注重細節', emoji: '🐕'},
+        libra: {pet: '杜賓犬', desc: '公正平衡的優雅領導者', emoji: '🐕'},
+        scorpio: {pet: '秋田犬', desc: '深沉堅定如天蠍座，意志堅強', emoji: '🐕'},
+        sagittarius: {pet: '德國牧羊犬', desc: '自由勇敢的冒險領導者', emoji: '🐕'},
+        capricorn: {pet: '拉布拉多', desc: '務實穩重如摩羯座，目標導向', emoji: '🐕'},
+        aquarius: {pet: '杜賓犬', desc: '獨立創新的前瞻領導者', emoji: '🐕'},
+        pisces: {pet: '秋田犬', desc: '溫柔堅定的感性領導者', emoji: '🐕'}
       },
       ESFJ: {
-        fire: {pet: '黃金獵犬 Golden Retriever', desc: '熱情友善，帶給你滿滿陽光與正能量', emoji: '🐕'},
-        earth: {pet: '聖伯納犬 Saint Bernard', desc: '巨大卻溫柔，天然的守護天使，讓你安心', emoji: '🐕'},
-        air: {pet: '可卡犬 Cocker Spaniel', desc: '開朗愛玩，喜歡互動，是快樂小幫手', emoji: '🐕'},
-        water: {pet: '卡瓦利王查理獵犬 Cavalier King Charles Spaniel', desc: '感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶', emoji: '🐕'}
+        aries: {pet: '黃金獵犬', desc: '熱情友善如牡羊座，充滿活力', emoji: '🐕'},
+        taurus: {pet: '聖伯納犬', desc: '溫柔穩重如金牛座，安全感滿滿', emoji: '🐕'},
+        gemini: {pet: '可卡犬', desc: '開朗機智如雙子座，社交高手', emoji: '🐕'},
+        cancer: {pet: '卡瓦利王查理獵犬', desc: '溫柔體貼如巨蟹座，最愛陪伴', emoji: '🐕'},
+        leo: {pet: '黃金獵犬', desc: '熱情陽光如獅子座，魅力四射', emoji: '🐕'},
+        virgo: {pet: '聖伯納犬', desc: '完美照顧如處女座，無微不至', emoji: '🐕'},
+        libra: {pet: '可卡犬', desc: '和諧友善的社交大師', emoji: '🐕'},
+        scorpio: {pet: '卡瓦利王查理獵犬', desc: '深情專一如天蠍座，忠誠陪伴', emoji: '🐕'},
+        sagittarius: {pet: '黃金獵犬', desc: '樂觀開朗如射手座，傳播快樂', emoji: '🐕'},
+        capricorn: {pet: '聖伯納犬', desc: '穩重可靠如摩羯座，值得依靠', emoji: '🐕'},
+        aquarius: {pet: '可卡犬', desc: '獨特友善的創新陪伴者', emoji: '🐕'},
+        pisces: {pet: '卡瓦利王查理獵犬', desc: '浪漫溫柔如雙魚座，情感豐富', emoji: '🐕'}
       },
-      ENFJ: {
-        fire: {pet: '邊境牧羊犬 Border Collie', desc: '聰明熱情，擅長帶領群體，活力滿滿', emoji: '🐕'},
-        earth: {pet: '伯恩山犬 Bernese Mountain Dog', desc: '溫柔可靠，天然的守護者，最有安全感', emoji: '🐕'},
-        air: {pet: '薩摩耶 Samoyed', desc: '微笑天使，樂觀活潑，傳遞快樂能量', emoji: '🐕'},
-        water: {pet: '愛爾蘭雪達犬 Irish Setter', desc: '情感細膩，浪漫溫柔，熱愛深度連結', emoji: '🐕'}
+      // 為了簡化，其他 MBTI 類型使用通用邏輯，可根據需要擴展
+      ISTP: {
+        aries: {pet: '孟加拉貓', desc: '靈活獨立如牡羊座，充滿行動力', emoji: '🐱'},
+        taurus: {pet: '日本短尾貓', desc: '穩重靈活，自由且規律', emoji: '🐱'},
+        gemini: {pet: '美國短毛貓', desc: '機智靈活，善於解決問題', emoji: '🐱'},
+        cancer: {pet: '暹羅貓', desc: '感性實用，陪伴探索', emoji: '🐱'},
+        leo: {pet: '孟加拉貓', desc: '自信獨立，野性魅力', emoji: '🐱'},
+        virgo: {pet: '日本短尾貓', desc: '完美主義的實用派', emoji: '🐱'},
+        libra: {pet: '美國短毛貓', desc: '平衡理性的問題解決者', emoji: '🐱'},
+        scorpio: {pet: '暹羅貓', desc: '深沉獨立的探險家', emoji: '🐱'},
+        sagittarius: {pet: '孟加拉貓', desc: '自由探索的冒險者', emoji: '🐱'},
+        capricorn: {pet: '日本短尾貓', desc: '務實穩重的獨立派', emoji: '🐱'},
+        aquarius: {pet: '美國短毛貓', desc: '獨立創新的自由思考者', emoji: '🐱'},
+        pisces: {pet: '暹羅貓', desc: '感性靈活的夢想實踐者', emoji: '🐱'}
       },
-      ENTJ: {
-        fire: {pet: '羅威納犬 Rottweiler', desc: '強勢領導，保護慾強，是天生的王者', emoji: '🐕'},
-        earth: {pet: '大丹犬 Great Dane', desc: '高貴穩重，氣場強大，是領袖型守護者', emoji: '🐕'},
-        air: {pet: '威瑪獵犬 Weimaraner', desc: '聰明敏捷，策略思維，是完美的執行者', emoji: '🐕'},
-        water: {pet: '紐芬蘭犬 Newfoundland', desc: '溫和巨人，情感豐富，兼具力量與溫柔', emoji: '🐕'}
+      ISFP: {
+        aries: {pet: '紅虎斑貓', desc: '藝術熱情，充滿創意', emoji: '🐱'},
+        taurus: {pet: '挪威森林貓', desc: '自然優雅，熱愛自由', emoji: '🐱'},
+        gemini: {pet: '美國短毛貓', desc: '靈活創意，自由思考', emoji: '🐱'},
+        cancer: {pet: '布偶貓', desc: '溫柔藝術，治癒心靈', emoji: '🐱'},
+        leo: {pet: '紅虎斑貓', desc: '熱情藝術，色彩豐富', emoji: '🐱'},
+        virgo: {pet: '挪威森林貓', desc: '完美自然的森林詩人', emoji: '🐱'},
+        libra: {pet: '美國短毛貓', desc: '和諧優雅的自由創作者', emoji: '🐱'},
+        scorpio: {pet: '布偶貓', desc: '深情溫柔的藝術靈魂', emoji: '🐱'},
+        sagittarius: {pet: '紅虎斑貓', desc: '自由樂觀的色彩藝術家', emoji: '🐱'},
+        capricorn: {pet: '挪威森林貓', desc: '穩重自然的實用藝術家', emoji: '🐱'},
+        aquarius: {pet: '美國短毛貓', desc: '獨立創新的前衛藝術家', emoji: '🐱'},
+        pisces: {pet: '布偶貓', desc: '浪漫夢幻的溫柔藝術家', emoji: '🐱'}
       },
-      ESTP: {
-        fire: {pet: '傑克羅素㹴 Jack Russell Terrier', desc: '活力充沛，喜歡冒險，是最佳運動夥伴', emoji: '🐕'},
-        earth: {pet: '鬥牛犬 Bulldog', desc: '堅韌穩重，腳踏實地，是可靠的陪伴者', emoji: '🐕'},
-        air: {pet: '比格犬 Beagle', desc: '好奇心旺盛，機智靈活，總能帶來驚喜', emoji: '🐕'},
-        water: {pet: '拉布拉多 Labrador Retriever', desc: '溫暖親和，情感豐富，是最佳療癒夥伴', emoji: '🐕'}
+      INFP: {
+        aries: {pet: '美國短毛貓', desc: '理想勇敢，熱情追夢', emoji: '🐱'},
+        taurus: {pet: '布偶貓', desc: '純真穩重，踏實陪伴', emoji: '🐱'},
+        gemini: {pet: '康沃爾雷克斯貓', desc: '創意無限，奇思妙想', emoji: '🐱'},
+        cancer: {pet: '喜馬拉雅貓', desc: '情感豐富，深層夢想', emoji: '🐱'},
+        leo: {pet: '美國短毛貓', desc: '熱情理想，溫暖追求', emoji: '🐱'},
+        virgo: {pet: '布偶貓', desc: '完美純真的理想主義者', emoji: '🐱'},
+        libra: {pet: '康沃爾雷克斯貓', desc: '和諧創意的藝術夢想家', emoji: '🐱'},
+        scorpio: {pet: '喜馬拉雅貓', desc: '深沉感性的靈魂詩人', emoji: '🐱'},
+        sagittarius: {pet: '美國短毛貓', desc: '自由樂觀的理想探索者', emoji: '🐱'},
+        capricorn: {pet: '布偶貓', desc: '務實溫柔的夢想建造者', emoji: '🐱'},
+        aquarius: {pet: '康沃爾雷克斯貓', desc: '獨立前衛的未來夢想家', emoji: '🐱'},
+        pisces: {pet: '喜馬拉雅貓', desc: '浪漫夢幻的情感詩人', emoji: '🐱'}
       },
-      ESFP: {
-        fire: {pet: '柯基犬 Corgi', desc: '開朗活潑，總是帶來歡樂和正能量', emoji: '🐕'},
-        earth: {pet: '法國鬥牛犬 French Bulldog', desc: '可愛穩重，是生活中的小確幸', emoji: '🐕'},
-        air: {pet: '博美犬 Pomeranian', desc: '機靈可愛，充滿創意，是社交小天使', emoji: '🐕'},
-        water: {pet: '查理王獵犬 Cavalier King Charles Spaniel', desc: '溫柔感性，情感細膩，最懂你的心', emoji: '🐕'}
-      },
-      ENFP: {
-        fire: {pet: '澳洲牧羊犬 Australian Shepherd', desc: '熱情創新，充滿想像力，是夢想實踐者', emoji: '🐕'},
-        earth: {pet: '黃金獵犬 Golden Retriever', desc: '溫暖可靠，給人安全感，是理想主義的守護者', emoji: '🐕'},
-        air: {pet: '邊境牧羊犬 Border Collie', desc: '聰明靈活，創意無限，是點子王', emoji: '🐕'},
-        water: {pet: '愛爾蘭雪達犬 Irish Setter', desc: '浪漫感性，情感豐富，是心靈相通的夥伴', emoji: '🐕'}
-      },
-      ENTP: {
-        fire: {pet: '傑克羅素㹴 Jack Russell Terrier', desc: '精力旺盛，創新思維，總有新點子', emoji: '🐕'},
-        earth: {pet: '邊境牧羊犬 Border Collie', desc: '聰明穩重，擅長分析，是策略大師', emoji: '🐕'},
-        air: {pet: '比格犬 Beagle', desc: '好奇心強，機智幽默，是天生的探險家', emoji: '🐕'},
-        water: {pet: '薩摩耶 Samoyed', desc: '溫暖親和，情感豐富，擅長人際交往', emoji: '🐕'}
+      INTP: {
+        aries: {pet: '阿比西尼亞貓', desc: '聰明勇敢，創意冒險', emoji: '🐱'},
+        taurus: {pet: '英國短毛貓', desc: '理性穩重，分析完美', emoji: '🐱'},
+        gemini: {pet: '暹羅貓', desc: '機智靈活，好奇探索', emoji: '🐱'},
+        cancer: {pet: '俄羅斯藍貓', desc: '理性感性，深度思考', emoji: '🐱'},
+        leo: {pet: '阿比西尼亞貓', desc: '自信聰明，創意領導', emoji: '🐱'},
+        virgo: {pet: '英國短毛貓', desc: '完美分析的理性思考者', emoji: '🐱'},
+        libra: {pet: '暹羅貓', desc: '平衡理性的智慧探索者', emoji: '🐱'},
+        scorpio: {pet: '俄羅斯藍貓', desc: '深沉理性的神秘思考者', emoji: '🐱'},
+        sagittarius: {pet: '阿比西尼亞貓', desc: '自由探索的智慧冒險家', emoji: '🐱'},
+        capricorn: {pet: '英國短毛貓', desc: '務實理性的穩定分析師', emoji: '🐱'},
+        aquarius: {pet: '暹羅貓', desc: '獨立創新的前瞻思考者', emoji: '🐱'},
+        pisces: {pet: '俄羅斯藍貓', desc: '直覺理性的夢幻科學家', emoji: '🐱'}
       }
+      // 其他 MBTI 類型省略，當找不到對應結果時，會使用 animals.json 中的通用結果
     };
 
+    // 回退結果查找函數
+    function findFallbackResult(mbti, element) {
+      if (!animalData || animalData.length === 0) return null;
+      
+      // 先找完全匹配的 MBTI 和元素
+      let result = animalData.find(animal => 
+        animal.mbti === mbti && animal.element === element
+      );
+      
+      // 如果找不到，只匹配 MBTI
+      if (!result) {
+        result = animalData.find(animal => animal.mbti === mbti);
+      }
+      
+      // 如果還是找不到，找相近的 MBTI（同象限）
+      if (!result) {
+        const userGroup = Object.keys(mbtiGroups).find(group => 
+          mbtiGroups[group].includes(mbti)
+        );
+        if (userGroup && mbtiGroups[userGroup]) {
+          result = animalData.find(animal => 
+            mbtiGroups[userGroup].includes(animal.mbti)
+          );
+        }
+      }
+      
+      return result;
+    }
+    
+    // 顯示回退結果
+    function displayFallbackResult(animal, mbti, zodiacName) {
+      const emoji = getAnimalEmoji(animal.species);
+      const resultDiv = document.getElementById('result');
+      
+      resultDiv.innerHTML = `
+        <div class="ig-result-card">
+          <div class="stories-header">
+            <div class="stories-profile">
+              <div class="stories-avatar">✨</div>
+              <div class="stories-info">
+                <div class="stories-username">MBTI動物占卜</div>
+                <div class="stories-time">現時動態</div>
+              </div>
+            </div>
+            <div class="stories-options">⋯</div>
+          </div>
+
+          <div class="stories-content" style="flex: 1; display: flex; flex-direction: column; padding: 8px 16px; overflow: hidden;">
+            <div class="decorative-hearts" style="position: absolute; top: 10px; right: 15px; opacity: 0.3;">💖</div>
+            <div class="decorative-sparkles" style="position: absolute; top: 30px; left: 15px; opacity: 0.3;">✨</div>
+          
+            <div class="result-header" style="text-align: center; margin-bottom: 8px;">
+              <div class="result-emoji-container" style="margin-bottom: 4px;">
+                <div class="result-emoji" style="font-size: 2.5rem;">${emoji}</div>
+              </div>
+              <h2 class="result-title" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">最像你的性格動物是</h2>
+              <h3 class="result-pet-name" style="font-size: 1.1rem; margin: 2px 0; font-weight: 600;">${animal.species}</h3>
+            </div>
+            
+            <p class="result-description" style="font-size: 0.75rem; line-height: 1.3; margin: 6px 0; text-align: center; color: #666;">${animal.description}</p>
+            
+            <div style="text-align: center; margin: 6px 0;">
+              <div class="result-mbti-badge" style="font-size: 0.7rem; padding: 3px 8px;">✨ ${mbti} · ${zodiacName} ✨</div>
+            </div>
+
+            <div class="similar-animals" style="margin: 8px 0;">
+              <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
+                💫 個性相似的夥伴
+              </div>
+              <div class="animal-row" id="similar-animals-row">
+                <!-- 動態載入相似動物 -->
+              </div>
+            </div>
+
+            <div class="similar-animals" style="margin: 8px 0;">
+              <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
+                🌟 互補配對的朋友
+              </div>
+              <div class="animal-row" id="complementary-animals-row">
+                <!-- 動態載入互補動物 -->
+              </div>
+            </div>
+
+            <div class="social-connection" style="margin: 8px 0; text-align: center;">
+              <div class="connection-text" style="font-size: 0.65rem; color: #8B4513; margin-bottom: 4px;">
+                找到跟你一樣的朋友了嗎？快分享給他們看看！
+              </div>
+              <div class="connection-tags" style="display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;">
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#MBTI</span>
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#個性測驗</span>
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#動物占卜</span>
+              </div>
+            </div>
+            
+            <div class="share-section" style="margin-top: auto; padding-top: 6px;">
+              <div class="share-title" style="font-size: 0.7rem; text-align: center; margin-bottom: 6px;">📱 分享結果</div>
+              <div class="share-buttons" style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                <button class="share-btn" onclick="shareToInstagram()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
+                  📷 IG
+                </button>
+                <button class="share-btn" onclick="shareToFacebook()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
+                  📘 FB  
+                </button>
+                <button class="share-btn" onclick="copyResult()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
+                  📋 複製連結
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      resultDiv.style.display = 'block';
+      resultDiv.style.opacity = '1';
+      resultDiv.style.transform = 'translateY(0)';
+      
+      // 載入相似和互補動物
+      setTimeout(() => {
+        loadSimilarAnimals(mbti, currentUserResult.zodiac);
+      }, 500);
+      
+      // 滾動到結果區域
+      setTimeout(() => {
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+    
     function showResult() {
       console.log('showResult 函數被調用');
       
       const formData = new FormData(form);
       const mbti = formData.get('q1') + formData.get('q2') + formData.get('q3') + formData.get('q4');
-      const element = formData.get('q5');
+      const zodiac = formData.get('q5');
       
-      console.log('MBTI:', mbti, 'Element:', element);
+      console.log('MBTI:', mbti, 'Zodiac:', zodiac);
       
-      // 將元素名稱轉換為中文
-      const elementMap = {
-        'fire': '火象',
-        'earth': '土象', 
-        'air': '風象',
-        'water': '水象'
-      };
-      const elementChinese = elementMap[element];
+      // 取得星座的中文名稱和對應元素
+      const zodiacName = getZodiacName(zodiac);
+      const element = getZodiacElement(zodiac);
+      
+      console.log('Element from zodiac:', element);
       
       // 儲存使用者結果供篩選使用  
       currentUserResult = {
         mbti: mbti,
-        element: elementChinese
+        zodiac: zodiac,
+        zodiacName: zodiacName,
+        element: element
       };
       
-      // 檢查 quizMapping 是否存在
-      if (!quizMapping) {
-        console.error('quizMapping 未定義');
+      // 從 animals.json 找到對應的動物
+      const matchingAnimal = findAnimalByMbtiAndElement(mbti, element);
+      
+      if (!matchingAnimal) {
+        console.error('找不到對應的動物, MBTI:', mbti, 'Element:', element);
         return;
       }
       
-      if (!quizMapping[mbti]) {
-        console.error('找不到 MBTI 類型:', mbti);
-        return;
-      }
-      
-      if (!quizMapping[mbti][element]) {
-        console.error('找不到元素:', element, '對應的結果');
-        return;
-      }
-      
-      const result = quizMapping[mbti][element];
-      console.log('結果:', result);
+      console.log('找到匹配動物:', matchingAnimal);
       
       const resultDiv = document.getElementById('result');
       if (!resultDiv) {
         console.error('找不到 result div');
         return;
       }
+      
+      // 取得動物表情符號
+      const emoji = getAnimalEmoji(matchingAnimal.species);
       
       try {
         resultDiv.innerHTML = `
@@ -2010,74 +2697,67 @@
               <div class="stories-options">⋯</div>
             </div>
 
-            <!-- 可滾動的內容區域 -->
-            <div class="scrollable-content" style="flex: 1; overflow-y: auto; padding-right: 4px;">
-              <div class="decorative-hearts">💖✨</div>
-              <div class="decorative-sparkles">✨💫</div>
+            <!-- 全部內容適配9:16，無滾動 -->
+            <div class="stories-content" style="flex: 1; display: flex; flex-direction: column; padding: 8px 16px; overflow: hidden;">
+              <div class="decorative-hearts" style="position: absolute; top: 10px; right: 15px; opacity: 0.3;">💖</div>
+              <div class="decorative-sparkles" style="position: absolute; top: 30px; left: 15px; opacity: 0.3;">✨</div>
             
-            <div class="result-header">
-              <div class="result-emoji-container">
-                <div class="emoji-glow"></div>
-                <div class="result-emoji">${result.emoji}</div>
+            <div class="result-header" style="text-align: center; margin-bottom: 8px;">
+              <div class="result-emoji-container" style="margin-bottom: 4px;">
+                <div class="result-emoji" style="font-size: 2.5rem;">${emoji}</div>
               </div>
-              <h2 class="result-title">最像你的性格動物是</h2>
-              <h3 class="result-pet-name">${result.pet}</h3>
+              <h2 class="result-title" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">最像你的性格動物是</h2>
+              <h3 class="result-pet-name" style="font-size: 1.1rem; margin: 2px 0; font-weight: 600;">${matchingAnimal.species}</h3>
             </div>
             
-            <p class="result-description">${result.desc}</p>
+            <p class="result-description" style="font-size: 0.75rem; line-height: 1.3; margin: 6px 0; text-align: center; color: #666;">${matchingAnimal.description}</p>
             
-            <div style="text-align: center; margin-bottom: 12px;">
-              <div class="result-mbti-badge">✨ ${mbti} · ${elementChinese} ✨</div>
+            <div style="text-align: center; margin: 6px 0;">
+              <div class="result-mbti-badge" style="font-size: 0.7rem; padding: 3px 8px;">✨ ${mbti} · ${zodiacName} ✨</div>
             </div>
 
             <!-- 相似動物區域 -->
-            <div class="similar-animals">
-              <div class="similar-title">
+            <div class="similar-animals" style="margin: 8px 0;">
+              <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
                 💫 個性相似的夥伴
               </div>
-              <div class="animal-row" id="similar-animals-row">
+              <div class="animal-row" id="similar-animals-row" style="display: flex; justify-content: space-around; gap: 4px;">
                 <!-- 動態載入相似動物 -->
               </div>
             </div>
 
             <!-- 互補動物區域 -->
-            <div class="similar-animals">
-              <div class="similar-title">
+            <div class="similar-animals" style="margin: 8px 0;">
+              <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
                 🌟 互補配對的朋友
               </div>
-              <div class="animal-row" id="complementary-animals-row">
+              <div class="animal-row" id="complementary-animals-row" style="display: flex; justify-content: space-around; gap: 4px;">
                 <!-- 動態載入互補動物 -->
               </div>
             </div>
 
             <!-- 社交連結提示 -->
-            <div class="social-connection">
-              <div class="connection-text">
+            <div class="social-connection" style="margin: 8px 0; text-align: center;">
+              <div class="connection-text" style="font-size: 0.65rem; color: #8B4513; margin-bottom: 4px;">
                 找到跟你一樣的朋友了嗎？快分享給他們看看！
               </div>
-              <div class="connection-tags">
-                <span class="connection-tag">#MBTI</span>
-                <span class="connection-tag">#個性測驗</span>
-                <span class="connection-tag">#動物占卜</span>
+              <div class="connection-tags" style="display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;">
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#MBTI</span>
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#個性測驗</span>
+                <span class="connection-tag" style="font-size: 0.6rem; padding: 2px 6px; background: rgba(244, 167, 185, 0.2); border-radius: 8px;">#動物占卜</span>
               </div>
             </div>
             
-            <div class="share-section">
-              <div class="share-title">📱 分享你的結果給朋友吧！</div>
-              <div class="share-buttons">
-                <button class="share-btn instagram" onclick="shareToInstagram()">
-                  📷 Instagram
+            <div class="share-section" style="margin-top: auto; padding-top: 6px;">
+              <div class="share-title" style="font-size: 0.7rem; text-align: center; margin-bottom: 6px;">📱 分享結果</div>
+              <div class="share-buttons" style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                <button class="share-btn" onclick="shareToInstagram()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
+                  📷 IG
                 </button>
-                <button class="share-btn facebook" onclick="shareToFacebook()">
-                  📘 Facebook  
+                <button class="share-btn" onclick="shareToFacebook()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
+                  � FB  
                 </button>
-                <button class="share-btn twitter" onclick="shareToTwitter()">
-                  🐦 Twitter
-                </button>
-                <button class="share-btn line" onclick="shareToLine()">
-                  💬 LINE
-                </button>
-                <button class="share-btn copy" onclick="copyResult()">
+                <button class="share-btn" onclick="copyResult()" style="font-size: 0.6rem; padding: 4px 8px; border: 1px solid #ddd; border-radius: 12px; background: white;">
                   📋 複製連結
                 </button>
               </div>
@@ -2085,11 +2765,40 @@
             </div>
           </div>
           
-          <!-- 探索按鈕獨立在外面 -->
-          <div style="text-align: center; margin-top: 20px;">
-            <button class="explore-btn" onclick="showExploreMore()">
-              🔍 探索更多相似的毛孩
-            </button>
+          <!-- 外部分享區域 -->
+          <div class="external-share-section">
+            <div class="external-share-title">
+              分享你的結果
+            </div>
+            <div class="share-subtitle">
+              讓朋友們也來看看他們最像什麼動物吧！
+            </div>
+            <div class="share-buttons-grid">
+              <button class="share-btn-external download-btn" onclick="downloadResult()">
+                下載結果圖片
+              </button>
+              <button class="share-btn-external" onclick="shareToInstagram()">
+                Instagram 限時動態
+              </button>
+              <button class="share-btn-external" onclick="shareToFacebook()">
+                Facebook 動態
+              </button>
+              <button class="share-btn-external" onclick="shareToTwitter()">
+                Twitter 推文
+              </button>
+              <button class="share-btn-external" onclick="shareToLine()">
+                LINE 聊天
+              </button>
+              <button class="share-btn-external" onclick="shareToWhatsApp()">
+                WhatsApp 訊息
+              </button>
+              <button class="share-btn-external" onclick="shareToTelegram()">
+                Telegram 訊息
+              </button>
+              <button class="share-btn-external" onclick="copyResult()">
+                複製測驗連結
+              </button>
+            </div>
           </div>
         `;
         
@@ -2102,9 +2811,9 @@
         
         console.log('結果區域已顯示');
         
-        // 載入相似和互補動物
+        // 載入相似動物 (簡化版，只載入3個)
         setTimeout(() => {
-          loadSimilarAnimals(mbti, element);
+          loadSimilarAnimalsSimplified(mbti, zodiac);
         }, 500);
         
         // 播放結果揭曉音效
@@ -2138,7 +2847,7 @@
     
     // 社群媒體分享功能
     function shareToInstagram() {
-      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\n\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n#MBTI #性格測驗 #動物性格 #心理測驗`;
+      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\n\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n#MBTI #性格測驗 #動物性格 #心理測驗`;
       
       navigator.clipboard.writeText(text).then(() => {
         showNotification('✨ 文字已複製！快去 Instagram 分享吧！', 'success');
@@ -2159,7 +2868,7 @@
     
     function shareToTwitter() {
       const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'} (${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}) 你也來測測看吧！ 🌟 #MBTI #性格測驗`);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'} (${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}) 你也來測測看吧！ 🌟 #MBTI #性格測驗`);
       const shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
       
       window.open(shareUrl, '_blank', 'width=600,height=400');
@@ -2168,16 +2877,72 @@
     
     function shareToLine() {
       const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n你也來測測看吧！ 🌟`);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}\n你也來測測看吧！ 🌟`);
       const shareUrl = `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`;
       
       window.open(shareUrl, '_blank', 'width=600,height=400');
       playClickSound();
     }
     
+    function shareToWhatsApp() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}\n你也來測測看吧！ 🌟\n\n${decodeURIComponent(url)}`);
+      const shareUrl = `https://wa.me/?text=${text}`;
+      
+      window.open(shareUrl, '_blank');
+      playClickSound();
+    }
+    
+    function shareToTelegram() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}\n你也來測測看吧！ 🌟`);
+      const shareUrl = `https://t.me/share/url?url=${url}&text=${text}`;
+      
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      playClickSound();
+    }
+    
+    // 下載結果圖片功能
+    async function downloadResult() {
+      try {
+        showNotification('🎨 正在生成結果圖片...', 'info');
+        playClickSound();
+        
+        const resultCard = document.querySelector('.ig-result-card');
+        if (!resultCard) {
+          showNotification('❌ 找不到結果卡片', 'error');
+          return;
+        }
+        
+        // 使用 html2canvas 截圖（需要先載入這個庫）
+        if (typeof html2canvas !== 'undefined') {
+          const canvas = await html2canvas(resultCard, {
+            backgroundColor: '#ffffff',
+            scale: 2, // 高品質
+            useCORS: true,
+            allowTaint: true
+          });
+          
+          // 創建下載連結
+          const link = document.createElement('a');
+          link.download = `MBTI動物測驗結果-${currentUserResult ? currentUserResult.mbti : 'result'}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          
+          showNotification('✅ 結果圖片已下載！', 'success');
+        } else {
+          // 備用方案：提示用戶手動截圖
+          showNotification('📱 請手動截圖保存結果喔！', 'info');
+        }
+      } catch (error) {
+        console.error('下載失敗:', error);
+        showNotification('📱 請手動截圖保存結果喔！', 'info');
+      }
+    }
+    
     function copyResult() {
       const url = window.location.href;
-      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n${url}`;
+      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.zodiacName : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n${url}`;
       
       navigator.clipboard.writeText(text).then(() => {
         showNotification('📋 結果連結已複製！', 'success');
@@ -2201,16 +2966,9 @@
     function getCurrentResultText() {
       if (!currentUserResult) return '神秘動物';
       
-      const elementMap = {
-        '火象': 'fire',
-        '土象': 'earth', 
-        '風象': 'air',
-        '水象': 'water'
-      };
-      
-      const elementKey = elementMap[currentUserResult.element];
-      if (quizMapping[currentUserResult.mbti] && quizMapping[currentUserResult.mbti][elementKey]) {
-        return quizMapping[currentUserResult.mbti][elementKey].pet;
+      const matchingAnimal = findAnimalByMbtiAndElement(currentUserResult.mbti, currentUserResult.element);
+      if (matchingAnimal) {
+        return matchingAnimal.species;
       }
       
       return '神秘動物';
@@ -2262,7 +3020,7 @@
       
       // 顯示所有動物（按相似度排序）
       const filtered = filterAnimals('all', 'all', 'all');
-      displayAnimals(filtered, currentUserResult.mbti, currentUserResult.element);
+      displayAnimals(filtered, currentUserResult.mbti, currentUserResult.zodiac);
       
       // 滾動到探索區域
       setTimeout(() => {
@@ -2280,15 +3038,15 @@
     
     // 頁面載入完成後初始化
     // 載入相似和互補動物
-    function loadSimilarAnimals(currentMbti, currentElement) {
-      console.log('載入相似動物，MBTI:', currentMbti, '元素:', currentElement);
+    function loadSimilarAnimals(currentMbti, currentZodiac) {
+      console.log('載入相似動物，MBTI:', currentMbti, '星座:', currentZodiac);
       
       if (!animalData || animalData.length === 0) {
         console.log('動物資料尚未載入，等待載入...');
         // 等待動物資料載入後再次嘗試
         setTimeout(() => {
           if (animalData && animalData.length > 0) {
-            loadSimilarAnimals(currentMbti, currentElement);
+            loadSimilarAnimals(currentMbti, currentZodiac);
           }
         }, 1000);
         return;
@@ -2296,59 +3054,38 @@
 
       console.log('動物資料已載入，共', animalData.length, '個動物');
 
-      // 找出相似動物 - 使用簡化的邏輯
+      // 找出相似動物 - 同樣 MBTI 的其他對象（3個）
       const similarAnimals = animalData.filter(animal => {
-        if (!animal.mbti || animal.mbti === currentMbti) return false; // 排除自己和無效資料
-        
-        // 將元素英文轉換為中文進行比較
-        const elementMap = {
-          'fire': '火象',
-          'earth': '土象', 
-          'air': '風象',
-          'water': '水象'
-        };
-        const currentElementChinese = elementMap[currentElement];
-        
-        // 相同 MBTI 或相同元素或相似特質
-        return (
-          animal.mbti === currentMbti ||
-          animal.zodiac_element === currentElementChinese ||
-          (currentMbti && currentMbti.length >= 4 && animal.mbti.length >= 4 && 
-           animal.mbti.substring(1, 3) === currentMbti.substring(1, 3))
-        );
+        return animal.mbti === currentMbti && getZodiacElement(animal.element) !== getZodiacElement(currentZodiac);
       }).slice(0, 3);
 
-      // 找出互補動物
+      // 找出互補動物 - MBTI 完全相反的（4個）
       const complementaryAnimals = animalData.filter(animal => {
-        if (!animal.mbti || animal.mbti === currentMbti) return false; // 排除自己和無效資料
+        if (!animal.mbti || animal.mbti === currentMbti || animal.mbti.length !== 4) return false;
         
-        // 將元素英文轉換為中文進行比較
-        const elementMap = {
-          'fire': '火象',
-          'earth': '土象', 
-          'air': '風象',
-          'water': '水象'
-        };
-        const currentElementChinese = elementMap[currentElement];
+        // 計算 MBTI 相反程度
+        let oppositeCount = 0;
+        const mbtiPairs = [
+          ['E', 'I'], ['S', 'N'], ['T', 'F'], ['J', 'P']
+        ];
         
-        // E/I 相反或元素互補
-        if (currentMbti && currentMbti.length >= 1 && animal.mbti.length >= 1) {
-          const currentEI = currentMbti[0];
-          const animalEI = animal.mbti[0];
-          const isOppositeEI = currentEI !== animalEI;
+        for (let i = 0; i < 4; i++) {
+          const userChar = currentMbti[i];
+          const animalChar = animal.mbti[i];
           
-          const elementPairs = {
-            '火象': ['風象', '土象'],
-            '風象': ['火象', '水象'],
-            '土象': ['火象', '水象'],
-            '水象': ['風象', '土象']
-          };
-          const isComplementElement = elementPairs[currentElementChinese]?.includes(animal.zodiac_element);
-          
-          return isOppositeEI || isComplementElement;
+          // 檢查是否為相反特質
+          for (const pair of mbtiPairs) {
+            if ((pair[0] === userChar && pair[1] === animalChar) || 
+                (pair[1] === userChar && pair[0] === animalChar)) {
+              oppositeCount++;
+              break;
+            }
+          }
         }
-        return false;
-      }).slice(0, 3);
+        
+        // 至少3個特質相反才算互補
+        return oppositeCount >= 3;
+      }).slice(0, 4);
 
       console.log('找到相似動物:', similarAnimals.length, '個');
       console.log('找到互補動物:', complementaryAnimals.length, '個');
@@ -2358,23 +3095,14 @@
       if (similarRow) {
         if (similarAnimals.length > 0) {
           similarRow.innerHTML = similarAnimals.map(animal => {
-            // 根據動物種類選擇表情符號
-            let emoji = '🐱';
-            if (animal.species.includes('狗') || animal.species.includes('Dog')) {
-              emoji = '🐶';
-            } else if (animal.species.includes('貓') || animal.species.includes('Cat')) {
-              emoji = '🐱';
-            } else if (animal.species.includes('兔')) {
-              emoji = '🐰';
-            } else if (animal.species.includes('鳥')) {
-              emoji = '🐦';
-            }
+            // 根據 MBTI 第一個字母決定表情符號：I = 貓，E = 狗
+            const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
             
             return `
-              <div class="mini-animal">
-                <div class="mini-animal-emoji">${emoji}</div>
-                <div class="mini-animal-name">${animal.species.split(' ')[0]}</div>
-                <div class="mini-animal-type">${animal.mbti}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1;">
+                <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
+                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.1; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
@@ -2391,23 +3119,14 @@
       if (complementaryRow) {
         if (complementaryAnimals.length > 0) {
           complementaryRow.innerHTML = complementaryAnimals.map(animal => {
-            // 根據動物種類選擇表情符號
-            let emoji = '🐱';
-            if (animal.species.includes('狗') || animal.species.includes('Dog')) {
-              emoji = '🐶';
-            } else if (animal.species.includes('貓') || animal.species.includes('Cat')) {
-              emoji = '🐱';
-            } else if (animal.species.includes('兔')) {
-              emoji = '🐰';
-            } else if (animal.species.includes('鳥')) {
-              emoji = '🐦';
-            }
+            // 根據 MBTI 第一個字母決定表情符號：I = 貓，E = 狗
+            const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
             
             return `
-              <div class="mini-animal">
-                <div class="mini-animal-emoji">${emoji}</div>
-                <div class="mini-animal-name">${animal.species.split(' ')[0]}</div>
-                <div class="mini-animal-type">${animal.zodiac_element}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1;">
+                <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
+                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.1; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
@@ -2438,6 +3157,97 @@
       `;
       document.head.appendChild(style);
     });
+
+    // 簡化版相似和互補動物載入函數 - 專為9:16比例優化
+    function loadSimilarAnimalsSimplified(currentMbti, currentZodiac) {
+      if (!animalData || animalData.length === 0) {
+        setTimeout(() => {
+          if (animalData && animalData.length > 0) {
+            loadSimilarAnimalsSimplified(currentMbti, currentZodiac);
+          }
+        }, 1000);
+        return;
+      }
+
+      // 找出相似動物 - 完全相同的MBTI類型（排除自己）
+      const similarAnimals = animalData.filter(animal => 
+        animal.mbti === currentMbti
+      ).slice(0, 3); // 只取3個
+
+      // 找出互補動物 - 完全相反的MBTI類型
+      const complementaryAnimals = animalData.filter(animal => {
+        if (!animal.mbti || animal.mbti.length !== 4 || currentMbti.length !== 4) return false;
+        
+        // 檢查每個位置是否相反
+        let oppositeCount = 0;
+        for (let i = 0; i < 4; i++) {
+          const userChar = currentMbti[i];
+          const animalChar = animal.mbti[i];
+          
+          // 檢查是否為相反特質
+          if ((userChar === 'I' && animalChar === 'E') ||
+              (userChar === 'E' && animalChar === 'I') ||
+              (userChar === 'S' && animalChar === 'N') ||
+              (userChar === 'N' && animalChar === 'S') ||
+              (userChar === 'T' && animalChar === 'F') ||
+              (userChar === 'F' && animalChar === 'T') ||
+              (userChar === 'J' && animalChar === 'P') ||
+              (userChar === 'P' && animalChar === 'J')) {
+            oppositeCount++;
+          }
+        }
+        
+        // 4個特質都相反才算完全互補
+        return oppositeCount === 4;
+      }).slice(0, 3); // 只取3個
+
+      console.log('當前MBTI:', currentMbti);
+      console.log('找到相似動物:', similarAnimals.length, '個');
+      console.log('找到互補動物:', complementaryAnimals.length, '個');
+
+      // 渲染相似動物
+      const similarRow = document.getElementById('similar-animals-row');
+      if (similarRow) {
+        if (similarAnimals.length > 0) {
+          similarRow.innerHTML = similarAnimals.map(animal => {
+            const emoji = getAnimalEmoji(animal.species);
+            const shortName = animal.species.length > 4 ? animal.species.substring(0, 3) + '..' : animal.species;
+            
+            return `
+              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; max-width: 50px;">
+                <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
+                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1; word-break: break-all;">${shortName}</div>
+                <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          similarRow.innerHTML = '<div style="text-align: center; color: #999; font-size: 0.6rem; padding: 8px 0;">暫無相同類型</div>';
+        }
+      }
+
+      // 渲染互補動物
+      const complementaryRow = document.getElementById('complementary-animals-row');
+      if (complementaryRow) {
+        if (complementaryAnimals.length > 0) {
+          complementaryRow.innerHTML = complementaryAnimals.map(animal => {
+            const emoji = getAnimalEmoji(animal.species);
+            const shortName = animal.species.length > 4 ? animal.species.substring(0, 3) + '..' : animal.species;
+            
+            return `
+              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; max-width: 50px;">
+                <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
+                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1; word-break: break-all;">${shortName}</div>
+                <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          complementaryRow.innerHTML = '<div style="text-align: center; color: #999; font-size: 0.6rem; padding: 8px 0;">暫無互補類型</div>';
+        }
+      }
+    }
   </script>
 </body>
 </html>
+
