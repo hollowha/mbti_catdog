@@ -1,0 +1,390 @@
+{
+  "I": [
+    {
+      "mbti": "ISTJ",
+      "zodiac_element": "火象",
+      "species": "英國短毛貓 (British Shorthair)",
+      "description": "穩重卻偶爾熱情，給你安全感的守護者"
+    },
+    {
+      "mbti": "ISTJ",
+      "zodiac_element": "土象",
+      "species": "蘇格蘭摺耳貓 (Scottish Fold)",
+      "description": "安靜乖巧，是穩定生活的最佳夥伴"
+    },
+    {
+      "mbti": "ISTJ",
+      "zodiac_element": "風象",
+      "species": "美國短毛貓 (American Shorthair)",
+      "description": "理性中帶點靈活，能輕鬆應對變化"
+    },
+    {
+      "mbti": "ISTJ",
+      "zodiac_element": "水象",
+      "species": "喜馬拉雅貓 (Himalayan)",
+      "description": "內斂溫和，默默守護你"
+    },
+    {
+      "mbti": "ISFJ",
+      "zodiac_element": "火象",
+      "species": "布偶貓 (Ragdoll)",
+      "description": "熱情又親人，是最溫暖的治癒系夥伴"
+    },
+    {
+      "mbti": "ISFJ",
+      "zodiac_element": "土象",
+      "species": "波斯貓 (Persian)",
+      "description": "高雅安靜，對你忠誠不渝"
+    },
+    {
+      "mbti": "ISFJ",
+      "zodiac_element": "風象",
+      "species": "暹羅貓 (Siamese)",
+      "description": "機智貼心，總在身邊默默守護"
+    },
+    {
+      "mbti": "ISFJ",
+      "zodiac_element": "水象",
+      "species": "緬因貓 (Maine Coon)",
+      "description": "巨大卻溫柔，給你滿滿安全感"
+    },
+    {
+      "mbti": "INFJ",
+      "zodiac_element": "火象",
+      "species": "阿比西尼亞貓 (Abyssinian)",
+      "description": "熱情且有領導氣質，內心卻浪漫深情"
+    },
+    {
+      "mbti": "INFJ",
+      "zodiac_element": "土象",
+      "species": "俄羅斯藍貓 (Russian Blue)",
+      "description": "優雅神秘，是內斂的理想主義者"
+    },
+    {
+      "mbti": "INFJ",
+      "zodiac_element": "風象",
+      "species": "暹羅貓 (Siamese)",
+      "description": "創意無限，總有出其不意的點子"
+    },
+    {
+      "mbti": "INFJ",
+      "zodiac_element": "水象",
+      "species": "緬甸貓 (Burmese)",
+      "description": "感情豐富，溫柔細膩，喜歡深度連結"
+    },
+    {
+      "mbti": "INTJ",
+      "zodiac_element": "火象",
+      "species": "孟加拉貓 (Bengal)",
+      "description": "野性十足，卻暗藏策略，是冒險家型思考者"
+    },
+    {
+      "mbti": "INTJ",
+      "zodiac_element": "土象",
+      "species": "異國短毛貓 (Exotic Shorthair)",
+      "description": "穩重聰慧，冷靜計畫型人格"
+    },
+    {
+      "mbti": "INTJ",
+      "zodiac_element": "風象",
+      "species": "暹羅貓 (Siamese)",
+      "description": "小巧靈活，擅長策略，掌握全局"
+    },
+    {
+      "mbti": "INTJ",
+      "zodiac_element": "水象",
+      "species": "斯芬克斯貓 (Sphynx)",
+      "description": "神秘冷酷，卻對親近的人展現柔情"
+    },
+    {
+      "mbti": "ISTP",
+      "zodiac_element": "火象",
+      "species": "孟加拉貓 (Bengal)",
+      "description": "精力旺盛，熱愛挑戰，總在行動中成長"
+    },
+    {
+      "mbti": "ISTP",
+      "zodiac_element": "土象",
+      "species": "日本短尾貓 (Japanese Bobtail)",
+      "description": "靈活又穩定，熱愛自由卻不失規律"
+    },
+    {
+      "mbti": "ISTP",
+      "zodiac_element": "風象",
+      "species": "美國短毛貓 (American Shorthair)",
+      "description": "反應敏捷，擅長用創意解決問題"
+    },
+    {
+      "mbti": "ISTP",
+      "zodiac_element": "水象",
+      "species": "暹羅貓 (Siamese)",
+      "description": "感性中帶冒險，願意陪伴並探索世界"
+    },
+    {
+      "mbti": "ISFP",
+      "zodiac_element": "火象",
+      "species": "紅虎斑貓 (Red Tabby)",
+      "description": "熱情藝術家，總能讓生活充滿色彩"
+    },
+    {
+      "mbti": "ISFP",
+      "zodiac_element": "土象",
+      "species": "挪威森林貓 (Norwegian Forest Cat)",
+      "description": "典雅又熱愛自然，像森林詩人般自由"
+    },
+    {
+      "mbti": "ISFP",
+      "zodiac_element": "風象",
+      "species": "美國短毛貓 (American Shorthair)",
+      "description": "自由靈魂，擁有聰明的小腦袋"
+    },
+    {
+      "mbti": "ISFP",
+      "zodiac_element": "水象",
+      "species": "布偶貓 (Ragdoll)",
+      "description": "柔情似水，總能給予安心與溫暖"
+    },
+    {
+      "mbti": "INFP",
+      "zodiac_element": "火象",
+      "species": "美國短毛貓 (American Shorthair)",
+      "description": "浪漫理想家，卻又熱情，像火焰般溫暖"
+    },
+    {
+      "mbti": "INFP",
+      "zodiac_element": "土象",
+      "species": "布偶貓 (Ragdoll)",
+      "description": "純真溫柔，給人最踏實的陪伴"
+    },
+    {
+      "mbti": "INFP",
+      "zodiac_element": "風象",
+      "species": "康沃爾雷克斯貓 (Cornish Rex)",
+      "description": "藝術靈魂，腦袋裡充滿奇妙點子"
+    },
+    {
+      "mbti": "INFP",
+      "zodiac_element": "水象",
+      "species": "喜馬拉雅貓 (Himalayan)",
+      "description": "情感豐富，最懂心靈深處的夢想家"
+    },
+    {
+      "mbti": "INTP",
+      "zodiac_element": "火象",
+      "species": "阿比西尼亞貓 (Abyssinian)",
+      "description": "聰明活潑，總有新奇創意，充滿冒險精神"
+    },
+    {
+      "mbti": "INTP",
+      "zodiac_element": "土象",
+      "species": "英國短毛貓 (British Shorthair)",
+      "description": "冷靜理智，是分析與穩定並存的完美典範"
+    },
+    {
+      "mbti": "INTP",
+      "zodiac_element": "風象",
+      "species": "暹羅貓 (Siamese)",
+      "description": "聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚"
+    },
+    {
+      "mbti": "INTP",
+      "zodiac_element": "水象",
+      "species": "俄羅斯藍貓 (Russian Blue)",
+      "description": "表面冷酷，內心柔情，感性與理性兼具"
+    }
+  ],
+  "E": [
+    {
+      "mbti": "ESTJ",
+      "zodiac_element": "火象",
+      "species": "德國牧羊犬 (German Shepherd)",
+      "description": "聰明且服從，天生的領導者，保護慾強。"
+    },
+    {
+      "mbti": "ESTJ",
+      "zodiac_element": "土象",
+      "species": "拉布拉多 (Labrador Retriever)",
+      "description": "忠誠穩重，是最值得信任的夥伴。"
+    },
+    {
+      "mbti": "ESTJ",
+      "zodiac_element": "風象",
+      "species": "杜賓犬 (Doberman Pinscher)",
+      "description": "反應敏捷、沉著冷靜，是策略型守護者。"
+    },
+    {
+      "mbti": "ESTJ",
+      "zodiac_element": "水象",
+      "species": "秋田犬 (Akita Inu)",
+      "description": "內斂忠心，保護慾極強，是沉穩的守護者。"
+    },
+    {
+      "mbti": "ESFJ",
+      "zodiac_element": "火象",
+      "species": "黃金獵犬 (Golden Retriever)",
+      "description": "熱情友善，帶給你滿滿陽光與正能量。"
+    },
+    {
+      "mbti": "ESFJ",
+      "zodiac_element": "土象",
+      "species": "聖伯納犬 (Saint Bernard)",
+      "description": "巨大卻溫柔，天然的守護天使，讓你安心。"
+    },
+    {
+      "mbti": "ESFJ",
+      "zodiac_element": "風象",
+      "species": "可卡犬 (Cocker Spaniel)",
+      "description": "開朗愛玩，喜歡互動，是快樂小幫手。"
+    },
+    {
+      "mbti": "ESFJ",
+      "zodiac_element": "水象",
+      "species": "卡瓦利王查理獵犬 (Cavalier King Charles Spaniel)",
+      "description": "感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶。"
+    },
+    {
+      "mbti": "ENFJ",
+      "zodiac_element": "火象",
+      "species": "邊境牧羊犬 (Border Collie)",
+      "description": "聰明熱情，擅長帶領群體，活力滿滿。"
+    },
+    {
+      "mbti": "ENFJ",
+      "zodiac_element": "土象",
+      "species": "伯恩山犬 (Bernese Mountain Dog)",
+      "description": "溫柔可靠，天然的守護者，最有安全感。"
+    },
+    {
+      "mbti": "ENFJ",
+      "zodiac_element": "風象",
+      "species": "薩摩耶 (Samoyed)",
+      "description": "微笑天使，樂觀活潑，傳遞快樂能量。"
+    },
+    {
+      "mbti": "ENFJ",
+      "zodiac_element": "水象",
+      "species": "愛爾蘭雪達犬 (Irish Setter)",
+      "description": "情感細膩，浪漫溫柔，熱愛深度連結。"
+    },
+    {
+      "mbti": "ENTJ",
+      "zodiac_element": "火象",
+      "species": "羅威納犬 (Rottweiler)",
+      "description": "威嚴強大，懂得保護家人，行動力十足。"
+    },
+    {
+      "mbti": "ENTJ",
+      "zodiac_element": "土象",
+      "species": "拳師犬 (Boxer)",
+      "description": "沉穩果斷，結合力量與柔和，是策略型行動家。"
+    },
+    {
+      "mbti": "ENTJ",
+      "zodiac_element": "風象",
+      "species": "德國賓沙犬 (German Pinscher)",
+      "description": "機敏聰慧，擅長掌控全局，冷靜又靈活。"
+    },
+    {
+      "mbti": "ENTJ",
+      "zodiac_element": "水象",
+      "species": "杜高犬 (Dogo Argentino)",
+      "description": "外剛內柔，重情重義，果敢且有溫度的守護者。"
+    },
+    {
+      "mbti": "ESTP",
+      "zodiac_element": "火象",
+      "species": "西伯利亞哈士奇 (Siberian Husky)",
+      "description": "冒險家，精力無窮，熱愛挑戰與探索。"
+    },
+    {
+      "mbti": "ESTP",
+      "zodiac_element": "土象",
+      "species": "美國鬥牛犬 (American Bulldog)",
+      "description": "勇敢務實，行動果斷，穩健又可靠。"
+    },
+    {
+      "mbti": "ESTP",
+      "zodiac_element": "風象",
+      "species": "傑克羅素梗 (Jack Russell Terrier)",
+      "description": "機靈愛玩，總能帶來驚喜，是行動派小能手。"
+    },
+    {
+      "mbti": "ESTP",
+      "zodiac_element": "水象",
+      "species": "英國史賓格犬 (English Springer Spaniel)",
+      "description": "愛冒險又黏人，溫柔感性，樂於分享愛與快樂。"
+    },
+    {
+      "mbti": "ESFP",
+      "zodiac_element": "火象",
+      "species": "博美犬 (Pomeranian)",
+      "description": "活潑小明星，熱情開朗，享受舞台焦點。"
+    },
+    {
+      "mbti": "ESFP",
+      "zodiac_element": "土象",
+      "species": "法國鬥牛犬 (French Bulldog)",
+      "description": "慵懶溫柔，愛撒嬌，是生活享樂專家。"
+    },
+    {
+      "mbti": "ESFP",
+      "zodiac_element": "風象",
+      "species": "比熊犬 (Bichon Frise)",
+      "description": "開朗機靈，總能帶來好心情，是小太陽。"
+    },
+    {
+      "mbti": "ESFP",
+      "zodiac_element": "水象",
+      "species": "西施犬 (Shih Tzu)",
+      "description": "溫柔親近，黏人小甜心，愛窩在你身邊。"
+    },
+    {
+      "mbti": "ENFP",
+      "zodiac_element": "火象",
+      "species": "斑點狗 (Dalmatian)",
+      "description": "活力滿滿，愛玩愛冒險，天生的樂天派。"
+    },
+    {
+      "mbti": "ENFP",
+      "zodiac_element": "土象",
+      "species": "柴犬 (Shiba Inu)",
+      "description": "外冷內熱，個性鮮明，愛與人互動。"
+    },
+    {
+      "mbti": "ENFP",
+      "zodiac_element": "風象",
+      "species": "惠比特犬 (Whippet)",
+      "description": "反應快、喜愛互動，是生活的小驚喜。"
+    },
+    {
+      "mbti": "ENFP",
+      "zodiac_element": "水象",
+      "species": "比格犬 (Beagle)",
+      "description": "情感豐富，愛撒嬌，最喜歡和朋友在一起。"
+    },
+    {
+      "mbti": "ENTP",
+      "zodiac_element": "火象",
+      "species": "柯基 (Pembroke Welsh Corgi)",
+      "description": "外表呆萌，卻聰明伶俐，擅長活絡氣氛。"
+    },
+    {
+      "mbti": "ENTP",
+      "zodiac_element": "土象",
+      "species": "牛頭梗 (Bull Terrier)",
+      "description": "勇敢有個性，機智果斷，是忠誠守護者。"
+    },
+    {
+      "mbti": "ENTP",
+      "zodiac_element": "風象",
+      "species": "貴賓犬 (Poodle)",
+      "description": "智商第一，學習力驚人，還超級愛玩！"
+    },
+    {
+      "mbti": "ENTP",
+      "zodiac_element": "水象",
+      "species": "蝴蝶犬 (Papillon)",
+      "description": "聰明靈巧，愛撒嬌，是迷人的小機靈。"
+    }
+  ]
+}

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱🐶 發現你的性格動物夥伴</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-warm: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      --bg-color: #fafbff;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --text-primary: #2d3748;
+      --text-secondary: #718096;
+      --border-color: rgba(255, 255, 255, 0.18);
+      --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.15);
+      --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.25);
+      --border-radius: 20px;
+      --animation-speed: 0.3s;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      padding: 40px 30px;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .header .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(103, 126, 234, 0.1);
+      border-radius: 3px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      width: 0%;
+      transition: width 0.5s ease-out;
+      border-radius: 3px;
+    }
+
+    .question {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all var(--animation-speed) ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: questionSlideIn 0.6s ease-out forwards;
+    }
+
+    .question:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    @keyframes questionSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+
+    .question p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      position: relative;
+      background: rgba(246, 250, 255, 0.8);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .option:hover {
+      background: rgba(103, 126, 234, 0.08);
+      border-color: rgba(103, 126, 234, 0.3);
+      transform: translateX(4px);
+    }
+
+    .option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option input[type="radio"]:checked + .option-content {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    .option input[type="radio"]:checked + .option-content::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .option-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      padding-left: 35px;
+      transition: all var(--animation-speed) ease;
+      border-radius: 8px;
+      padding: 12px 16px 12px 45px;
+    }
+
+    .option-content::before {
+      content: '✓';
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      opacity: 0;
+      transition: all var(--animation-speed) ease;
+      font-weight: bold;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 16px 0;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--animation-speed) ease;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .submit-button:hover::before {
+      left: 100%;
+    }
+
+    .submit-button:disabled {
+      background: #e2e8f0;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 30px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      animation: resultFadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes resultFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .result h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .result-pet {
+      text-align: center;
+      font-size: 3rem;
+      margin: 20px 0;
+    }
+
+    .result-desc {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+      
+      .question {
+        padding: 20px;
+      }
+      
+      .option-content {
+        padding: 10px 12px 10px 40px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>貓狗性格測驗</h1>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. 你通常在聚會中會怎麼做？</p>
+        <div class="option"><input type="radio" id="q1e" name="q1" value="E"><label for="q1e">喜歡和朋友互動</label></div>
+        <div class="option"><input type="radio" id="q1i" name="q1" value="I"><label for="q1i">喜歡獨自思考</label></div>
+      </div>
+      <div class="question">
+        <p>2. 你在做決策時較傾向：</p>
+        <div class="option"><input type="radio" id="q2s" name="q2" value="S"><label for="q2s">注重實際細節</label></div>
+        <div class="option"><input type="radio" id="q2n" name="q2" value="N"><label for="q2n">憑直覺和想像</label></div>
+      </div>
+      <div class="question">
+        <p>3. 你做決定時較看重：</p>
+        <div class="option"><input type="radio" id="q3t" name="q3" value="T"><label for="q3t">邏輯與客觀</label></div>
+        <div class="option"><input type="radio" id="q3f" name="q3" value="F"><label for="q3f">情感與價值</label></div>
+      </div>
+      <div class="question">
+        <p>4. 你偏好：</p>
+        <div class="option"><input type="radio" id="q4j" name="q4" value="J"><label for="q4j">計畫有序</label></div>
+        <div class="option"><input type="radio" id="q4p" name="q4" value="P"><label for="q4p">隨性彈性</label></div>
+      </div>
+      <div class="question">
+        <p>5. 以下哪個元素最符合你的性格？</p>
+        <div class="option"><input type="radio" id="q5fire" name="q5" value="fire"><label for="q5fire">火象</label></div>
+        <div class="option"><input type="radio" id="q5earth" name="q5" value="earth"><label for="q5earth">土象</label></div>
+        <div class="option"><input type="radio" id="q5air" name="q5" value="air"><label for="q5air">風象</label></div>
+        <div class="option"><input type="radio" id="q5water" name="q5" value="water"><label for="q5water">水象</label></div>
+      </div>
+      <button type="button" onclick="showResult()">提交測驗</button>
+    </form>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const quizMapping = {
+      ISTJ: {
+        fire: {pet: '英國短毛貓 British Shorthair', desc: '穩重卻偶爾熱情，給你安全感的守護者'},
+        earth: {pet: '蘇格蘭摺耳貓 Scottish Fold', desc: '安靜乖巧，是穩定生活的最佳夥伴'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '理性中帶點靈活，能輕鬆應對變化'},
+        water: {pet: '喜馬拉雅貓 Himalayan', desc: '內斂溫和，默默守護你'}
+      },
+      ISFJ: {
+        fire: {pet: '布偶貓 Ragdoll', desc: '熱情又親人，是最溫暖的治癒系夥伴'},
+        earth: {pet: '波斯貓 Persian', desc: '高雅安靜，對你忠誠不渝'},
+        air: {pet: '暹羅貓 Siamese', desc: '機智貼心，總在身邊默默守護'},
+        water: {pet: '緬因貓 Maine Coon', desc: '巨大卻溫柔，給你滿滿安全感'}
+      },
+      INFJ: {
+        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '熱情且有領導氣質，內心卻浪漫深情'},
+        earth: {pet: '俄羅斯藍貓 Russian Blue', desc: '優雅神秘，是內斂的理想主義者'},
+        air: {pet: '暹羅貓 Siamese', desc: '創意無限，總有出其不意的點子'},
+        water: {pet: '緬甸貓 Burmese', desc: '感情豐富，溫柔細膩，喜歡深度連結'}
+      },
+      INTJ: {
+        fire: {pet: '孟加拉貓 Bengal', desc: '野性十足，卻暗藏策略，是冒險家型思考者'},
+        earth: {pet: '異國短毛貓 Exotic Shorthair', desc: '穩重聰慧，冷靜計畫型人格'},
+        air: {pet: '暹羅貓 Siamese', desc: '小巧靈活，擅長策略，掌握全局'},
+        water: {pet: '斯芬克斯貓 Sphynx', desc: '神秘冷酷，卻對親近的人展現柔情'}
+      },
+      ISTP: {
+        fire: {pet: '孟加拉貓 Bengal', desc: '精力旺盛，熱愛挑戰，總在行動中成長'},
+        earth: {pet: '日本短尾貓 Japanese Bobtail', desc: '靈活又穩定，熱愛自由卻不失規律'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '反應敏捷，擅長用創意解決問題'},
+        water: {pet: '暹羅貓 Siamese', desc: '感性中帶冒險，願意陪伴並探索世界'}
+      },
+      ISFP: {
+        fire: {pet: '紅虎斑貓 Red Tabby', desc: '熱情藝術家，總能讓生活充滿色彩'},
+        earth: {pet: '挪威森林貓 Norwegian Forest Cat', desc: '典雅又熱愛自然，像森林詩人般自由'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '自由靈魂，擁有聰明的小腦袋'},
+        water: {pet: '布偶貓 Ragdoll', desc: '柔情似水，總能給予安心與溫暖'}
+      },
+      INFP: {
+        fire: {pet: '美國短毛貓 American Shorthair', desc: '浪漫理想家，卻又熱情，像火焰般溫暖'},
+        earth: {pet: '布偶貓 Ragdoll', desc: '純真溫柔，給人最踏實的陪伴'},
+        air: {pet: '康沃爾雷克斯貓 Cornish Rex', desc: '藝術靈魂，腦袋裡充滿奇妙點子'},
+        water: {pet: '喜馬拉雅貓 Himalayan', desc: '情感豐富，最懂心靈深處的夢想家'}
+      },
+      INTP: {
+        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '聰明活潑，總有新奇創意，充滿冒險精神'},
+        earth: {pet: '英國短毛貓 British Shorthair', desc: '冷靜理智，是分析與穩定並存的完美典範'},
+        air: {pet: '暹羅貓 Siamese', desc: '聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚'},
+        water: {pet: '俄羅斯藍貓 Russian Blue', desc: '表面冷酷，內心柔情，感性與理性兼具'}
+      },
+      ESTJ: {
+        fire: {pet: '德國牧羊犬 German Shepherd', desc: '聰明且服從，天生的領導者，保護慾強。'},
+        earth: {pet: '拉布拉多 Labrador Retriever', desc: '忠誠穩重，是最值得信任的夥伴。'},
+        air: {pet: '杜賓犬 Doberman Pinscher', desc: '反應敏捷、沉著冷靜，是策略型守護者。'},
+        water: {pet: '秋田犬 Akita Inu', desc: '內斂忠心，保護慾極強，是沉穩的守護者。'}
+      },
+      ESFJ: {
+        fire: {pet: '黃金獵犬 Golden Retriever', desc: '熱情友善，帶給你滿滿陽光與正能量。'},
+        earth: {pet: '聖伯納犬 Saint Bernard', desc: '巨大卻溫柔，天然的守護天使，讓你安心。'},
+        air: {pet: '可卡犬 Cocker Spaniel', desc: '開朗愛玩，喜歡互動，是快樂小幫手。'},
+        water: {pet: '卡瓦利王查理獵犬 Cavalier King Charles Spaniel', desc: '感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶。'}
+      },
+      ENFJ: {
+        fire: {pet: '邊境牧羊犬 Border Collie', desc: '聰明熱情，擅長帶領群體，活力滿滿。'},
+        earth: {pet: '伯恩山犬 Bernese Mountain Dog', desc: '溫柔可靠，天然的守護者，最有安全感。'},
+        air: {pet: '薩摩耶 Samoyed', desc: '微笑天使，樂觀活潑，傳遞快樂能量。'},
+        water: {pet: '愛爾蘭雪達犬 Irish Setter', desc: '情感細膩，浪漫溫柔，熱愛深度連結。'}
+      },
+      ENTJ: {
+        fire: {pet: '羅威納犬 Rottweiler

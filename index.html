@@ -1,0 +1,2443 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱🐶 發現最像你的性格動物</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Kalam:wght@300;400;700&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* 奶茶色系配色 */
+      --gradient-primary: linear-gradient(135deg, #D2B48C 0%, #BC9A6A 100%);
+      --gradient-secondary: linear-gradient(135deg, #F4A7B9 0%, #E8A598 100%);
+      --gradient-accent: linear-gradient(135deg, #D4C4A8 0%, #D4C4A8 100%);
+      --gradient-warm: linear-gradient(135deg, #F5E6D3 0%, #E8D5B7 100%);
+      --bg-color: #FDF6E3;
+      --card-bg: rgba(252, 248, 227, 0.9);
+      --text-primary: #8B4513;
+      --text-secondary: #A0522D;
+      --text-accent: #D2691E;
+      --border-color: rgba(210, 180, 140, 0.3);
+      --shadow-soft: 0 8px 32px rgba(139, 69, 19, 0.1);
+      --shadow-hover: 0 15px 35px rgba(139, 69, 19, 0.15);
+      --milktea-light: #F7F3E9;
+      --milktea-medium: #E6D7C3;
+      --milktea-dark: #D2B48C;
+      --pink-accent: #F4A7B9;
+      --khaki-accent: #C3B091;
+      --border-radius: 20px;
+      --animation-speed: 0.3s;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 680px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      padding: 40px 30px;
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .container::after {
+      content: '✨';
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .header h1 {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .header h1::after {
+      content: '～';
+      position: absolute;
+      right: -10px;
+      top: -5px;
+      color: var(--pink-accent);
+      font-size: 0.8em;
+      opacity: 0.8;
+    }
+
+    .header .subtitle {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 0.3s forwards;
+      position: relative;
+    }
+
+    .header .subtitle::before {
+      content: '♡';
+      margin-right: 8px;
+      color: var(--pink-accent);
+    }
+
+    .header .subtitle::after {
+      content: '♡';
+      margin-left: 8px;
+      color: var(--pink-accent);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--milktea-light);
+      border-radius: 4px;
+      margin-bottom: 30px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      width: 0%;
+      transition: width 0.5s ease-out;
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .question {
+      background: var(--milktea-light);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--animation-speed) ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: questionSlideIn 0.6s ease-out forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-secondary);
+      opacity: 0.6;
+    }
+
+    .question:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--pink-accent);
+    }
+
+    @keyframes questionSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .question-number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+
+    .question p {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .option {
+      position: relative;
+      background: var(--card-bg);
+      border: 2px solid var(--milktea-medium);
+      border-radius: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .option:hover {
+      background: var(--milktea-light);
+      border-color: var(--pink-accent);
+      transform: translateX(4px);
+      box-shadow: 0 4px 12px rgba(244, 167, 185, 0.3);
+    }
+
+    .option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option input[type="radio"]:checked + .option-content {
+      background: var(--gradient-secondary);
+      color: white;
+      border-radius: 8px;
+    }
+
+    .option input[type="radio"]:checked + .option-content::before {
+      transform: scale(1);
+      opacity: 1;
+      color: white;
+    }
+
+    .option-content {
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-weight: 500;
+      padding-left: 35px;
+      transition: all var(--animation-speed) ease;
+      border-radius: 8px;
+      padding: 12px 16px 12px 45px;
+    }
+
+    .option-content::before {
+      content: '♡';
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      opacity: 0;
+      transition: all var(--animation-speed) ease;
+      font-weight: bold;
+      color: var(--pink-accent);
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 16px 0;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 16px;
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: white;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: all var(--animation-speed) ease;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .submit-button:hover::before {
+      left: 100%;
+    }
+
+    .submit-button:disabled {
+      background: var(--khaki-accent);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      opacity: 0;
+      animation: resultFadeIn 0.8s ease-out forwards;
+    }
+
+    /* IG Stories 風格結果卡片 */
+    .ig-result-card {
+      background: linear-gradient(145deg, #ffffff 0%, #fefcf7 100%);
+      border-radius: 24px;
+      padding: 16px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        0 8px 30px rgba(244, 167, 185, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(244, 167, 185, 0.2);
+      max-width: 350px;
+      max-height: 600px;
+      margin: 0 auto;
+      aspect-ratio: 9/16;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ig-result-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7, #DDA0DD);
+      background-size: 300% 300%;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    /* Stories 風格頭部 */
+    .stories-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 10px 0;
+    }
+
+    .stories-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stories-avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: white;
+      font-weight: bold;
+    }
+
+    .stories-info h4 {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .stories-info p {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.75rem;
+      color: #8e8e93;
+      margin: 0;
+    }
+
+    .stories-time {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.75rem;
+      color: #8e8e93;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 12px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .result-emoji-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .result-emoji {
+      font-size: 2.8rem;
+      position: relative;
+      z-index: 2;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .emoji-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(244, 167, 185, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+    }
+
+    .result-title {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .result-pet-name {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .result-description {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 12px;
+      padding: 0 8px;
+      flex-shrink: 0;
+    }
+
+    .result-mbti-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .result-mbti-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shine 2s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* 相似動物展示區 */
+    .similar-animals {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+      border-radius: 10px;
+      padding: 8px;
+      margin: 6px 0;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      flex-shrink: 0;
+    }
+
+    .similar-title {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .animal-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 4px 0;
+      gap: 4px;
+    }
+
+    .mini-animal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .mini-animal-emoji {
+      font-size: 1.2rem;
+      animation: bounce-subtle 2s ease-in-out infinite;
+    }
+
+    .mini-animal-name {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.1;
+      max-width: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mini-animal-type {
+      font-size: 0.5rem;
+      color: #8e8e93;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    @keyframes bounce-subtle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+
+    /* 互動連結區 */
+    .social-connection {
+      background: linear-gradient(135deg, rgba(244, 167, 185, 0.1) 0%, rgba(210, 180, 140, 0.1) 100%);
+      border-radius: 10px;
+      padding: 6px;
+      margin: 6px 0;
+      text-align: center;
+      border: 1px solid rgba(244, 167, 185, 0.2);
+      flex-shrink: 0;
+    }
+
+    .connection-text {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .connection-tags {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      flex-wrap: wrap;
+    }
+
+    .connection-tag {
+      background: rgba(102, 126, 234, 0.1);
+      color: var(--text-primary);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 0.55rem;
+      font-weight: 500;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    }
+
+    /* Stories 風格頭部 */
+    .stories-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px 16px 0 0;
+      margin: -16px -16px 10px -16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .stories-profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stories-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .stories-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .stories-username {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1;
+    }
+
+    .stories-time {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1;
+    }
+
+    .stories-options {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 3px;
+      border-radius: 50%;
+      transition: background-color 0.2s ease;
+    }
+
+    .stories-options:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* 滾動區域樣式 */
+    .scrollable-content {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(244, 167, 185, 0.3) transparent;
+    }
+
+    .scrollable-content::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .scrollable-content::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scrollable-content::-webkit-scrollbar-thumb {
+      background: rgba(244, 167, 185, 0.3);
+      border-radius: 2px;
+    }
+
+    .scrollable-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(244, 167, 185, 0.5);
+    }
+
+    .share-section {
+      background: linear-gradient(135deg, rgba(244, 167, 185, 0.1) 0%, rgba(210, 180, 140, 0.1) 100%);
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid rgba(244, 167, 185, 0.2);
+      flex-shrink: 0;
+    }
+
+    .share-title {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .share-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+
+    .share-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 15px;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .share-btn.instagram {
+      background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+      color: white;
+    }
+
+    .share-btn.facebook {
+      background: #1877f2;
+      color: white;
+    }
+
+    .share-btn.twitter {
+      background: #1da1f2;
+      color: white;
+    }
+
+    .share-btn.line {
+      background: #00c300;
+      color: white;
+    }
+
+    .share-btn.copy {
+      background: linear-gradient(135deg, var(--gradient-secondary));
+      color: white;
+    }
+
+    .explore-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .explore-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .explore-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .explore-btn:hover::before {
+      left: 100%;
+    }
+
+    /* 裝飾元素 */
+    .decorative-hearts {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.2rem;
+      opacity: 0.6;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .decorative-sparkles {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1rem;
+      opacity: 0.5;
+      animation: twinkle 2s ease-in-out infinite 1s;
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      .ig-result-card {
+        padding: 30px 20px;
+        margin: 0 10px;
+      }
+      
+      .result-emoji {
+        font-size: 3.5rem;
+      }
+      
+      .result-title {
+        font-size: 1.8rem;
+      }
+      
+      .result-pet-name {
+        font-size: 1.6rem;
+      }
+      
+      .share-buttons {
+        gap: 8px;
+      }
+      
+      .share-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+    }
+
+    @keyframes resultFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .result h2 {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .result h2::before {
+      content: '✧';
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--pink-accent);
+      font-size: 1.5rem;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .result h2::after {
+      content: '✧';
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--pink-accent);
+      font-size: 1.5rem;
+      animation: twinkle 2s ease-in-out infinite 0.5s;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(0.8); }
+      50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
+    }
+
+    .result-pet {
+      text-align: center;
+      font-size: 3rem;
+      margin: 20px 0;
+    }
+
+    .result-desc {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    /* 響應式設計 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+      
+      .question {
+        padding: 20px;
+      }
+      
+      .option-content {
+        padding: 10px 12px 10px 40px;
+        font-size: 0.95rem;
+      }
+
+      .result h2::before,
+      .result h2::after {
+        display: none;
+      }
+
+      .header h1::after {
+        right: -5px;
+        font-size: 0.6em;
+      }
+    }
+
+    /* 音效和回饋效果 */
+    .option.clicked {
+      animation: pulse 0.3s ease-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .submit-button.clicked {
+      animation: buttonPress 0.4s ease-out;
+    }
+
+    @keyframes buttonPress {
+      0% { transform: translateY(-2px) scale(1.02); }
+      50% { transform: translateY(2px) scale(0.98); }
+      100% { transform: translateY(-2px) scale(1.02); }
+    }
+
+    .question.answered {
+      border-color: var(--pink-accent);
+      box-shadow: 0 0 20px rgba(244, 167, 185, 0.4);
+    }
+
+    .floating-hearts {
+      position: absolute;
+      pointer-events: none;
+      color: var(--pink-accent);
+      font-size: 1.5rem;
+      animation: floatUp 2s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
+      100% { 
+        opacity: 0; 
+        transform: translateY(-50px) scale(0.5); 
+      }
+    }
+
+    .progress-celebration {
+      position: relative;
+      overflow: visible;
+    }
+
+    .progress-celebration::after {
+      content: '🎉';
+      position: absolute;
+      top: -30px;
+      right: 0;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: celebrate 0.8s ease-out;
+    }
+
+    @keyframes celebrate {
+      0% { opacity: 0; transform: translateY(10px) scale(0.5); }
+      50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-20px) scale(0.8); }
+    }
+
+    .result-entrance {
+      animation: resultEntrance 1s ease-out;
+    }
+
+    @keyframes resultEntrance {
+      0% { 
+        opacity: 0; 
+        transform: translateY(50px) scale(0.8); 
+      }
+      50% { 
+        opacity: 0.8; 
+        transform: translateY(-10px) scale(1.05); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 53%, 80%, 100% {
+        transform: translate(0, 0);
+      }
+      40%, 43% {
+        transform: translate(0, -15px);
+      }
+      70% {
+        transform: translate(0, -7px);
+      }
+      90% {
+        transform: translate(0, -3px);
+      }
+    }
+
+    /* 探索更多區域樣式 */
+    .explore-more {
+      margin-top: 40px;
+      padding: 30px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      opacity: 0;
+      animation: resultFadeIn 0.8s ease-out forwards;
+    }
+
+    .explore-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .explore-header h2 {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .explore-header p {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .filter-section {
+      margin-bottom: 30px;
+    }
+
+    .filter-group {
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      display: block;
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid var(--milktea-medium);
+      background: var(--card-bg);
+      border-radius: 20px;
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .filter-btn:hover {
+      background: var(--milktea-light);
+      border-color: var(--pink-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 167, 185, 0.3);
+    }
+
+    .filter-btn.active {
+      background: var(--gradient-secondary);
+      border-color: var(--pink-accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(244, 167, 185, 0.4);
+    }
+
+    .animal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .animal-card {
+      background: var(--milktea-light);
+      border: 2px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      transition: all var(--animation-speed) ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .animal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-secondary);
+      opacity: 0.6;
+    }
+
+    .animal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--pink-accent);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .card-emoji {
+      font-size: 2rem;
+      margin-right: 12px;
+    }
+
+    .card-title {
+      flex: 1;
+    }
+
+    .card-species {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .card-mbti {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-accent);
+      font-weight: 500;
+    }
+
+    .card-element {
+      background: var(--gradient-accent);
+      color: var(--text-primary);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .card-description {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-top: 12px;
+    }
+
+    .card-match {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--gradient-secondary);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: scale(0);
+      transition: all var(--animation-speed) ease;
+    }
+
+    .animal-card.perfect-match .card-match {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .filter-buttons {
+        flex-direction: column;
+      }
+      
+      .filter-btn {
+        text-align: center;
+      }
+      
+      .animal-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      
+      .card-element {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🐱🐶 發現最像你的性格動物</h1>
+      <p class="subtitle">透過 MBTI 性格測驗，找到和你最相似的貓貓或狗狗</p>
+    </div>
+    
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <form id="quizForm">
+      <div class="question" style="animation-delay: 0.1s">
+        <p><span class="question-number">1</span>你通常在聚會中會怎麼做？</p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q1" value="E">
+            <div class="option-content">🎉 喜歡和朋友互動，享受熱鬧氛圍</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q1" value="I">
+            <div class="option-content">🤔 喜歡獨自思考，觀察周圍環境</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" style="animation-delay: 0.2s">
+        <p><span class="question-number">2</span>你在做決策時較傾向：</p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q2" value="S">
+            <div class="option-content">📊 注重實際細節和具體事實</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q2" value="N">
+            <div class="option-content">💭 憑直覺和想像力思考</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" style="animation-delay: 0.3s">
+        <p><span class="question-number">3</span>你做決定時較看重：</p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q3" value="T">
+            <div class="option-content">🧠 邏輯分析與客觀判斷</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3" value="F">
+            <div class="option-content">❤️ 情感考量與價值觀念</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" style="animation-delay: 0.4s">
+        <p><span class="question-number">4</span>你偏好的生活方式：</p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q4" value="J">
+            <div class="option-content">📅 計畫有序，喜歡確定性</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q4" value="P">
+            <div class="option-content">🎭 隨性彈性，保持開放態度</div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" style="animation-delay: 0.5s">
+        <p><span class="question-number">5</span>以下哪個元素最符合你的性格？</p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q5" value="fire">
+            <div class="option-content">🔥 火象 - 熱情活力，充滿能量</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="earth">
+            <div class="option-content">🌍 土象 - 穩重踏實，注重安全</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="air">
+            <div class="option-content">💨 風象 - 靈活變通，思維敏捷</div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q5" value="water">
+            <div class="option-content">💧 水象 - 感性細膩，情感豐富</div>
+          </label>
+        </div>
+      </div>
+
+      <button type="button" class="submit-button" id="submitBtn" disabled>
+        <span id="btnText">請完成所有題目</span>
+      </button>
+    </form>
+
+    <div id="result" class="result" style="display: none;"></div>
+    
+    <!-- 探索更多相似動物區域 -->
+    <div id="exploreMore" class="explore-more" style="display: none;">
+      <div class="explore-header">
+        <h2>🔍 探索更多相似的毛孩</h2>
+        <p>根據你的 MBTI 類型，發現更多個性相近的貓咪和狗狗</p>
+      </div>
+      
+      <div class="filter-section">
+        <div class="filter-group">
+          <label class="filter-label">🧠 選擇 MBTI 象限：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn" data-filter="all" data-type="mbti">全部</button>
+            <button class="filter-btn" data-filter="analysts" data-type="mbti">理念型 (NT)</button>
+            <button class="filter-btn" data-filter="diplomats" data-type="mbti">外交型 (NF)</button>
+            <button class="filter-btn" data-filter="sentinels" data-type="mbti">守護型 (SJ)</button>
+            <button class="filter-btn" data-filter="explorers" data-type="mbti">探險型 (SP)</button>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">⭐ 選擇星座元素：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn" data-filter="all" data-type="element">全部</button>
+            <button class="filter-btn" data-filter="火象" data-type="element">🔥 火象</button>
+            <button class="filter-btn" data-filter="土象" data-type="element">🌍 土象</button>
+            <button class="filter-btn" data-filter="風象" data-type="element">💨 風象</button>
+            <button class="filter-btn" data-filter="水象" data-type="element">💧 水象</button>
+          </div>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">🐾 選擇動物類型：</label>
+          <div class="filter-buttons">
+            <button class="filter-btn" data-filter="all" data-type="species">全部</button>
+            <button class="filter-btn" data-filter="cats" data-type="species">🐱 貓咪</button>
+            <button class="filter-btn" data-filter="dogs" data-type="species">🐶 狗狗</button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="animalGrid" class="animal-grid"></div>
+    </div>
+  </div>
+
+  <script>
+    // 音效系統
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // 動物數據存儲
+    let animalData = [];
+    let currentUserResult = null;
+    
+    // 載入動物數據
+    async function loadAnimalData() {
+      try {
+        const response = await fetch('./details.json');
+        const data = await response.json();
+        
+        // 將內向和外向的數據合併
+        animalData = [...data.I, ...data.E];
+        console.log('動物數據載入成功:', animalData.length, '筆資料');
+      } catch (error) {
+        console.error('載入動物數據失敗:', error);
+        // 如果載入失敗，使用備用數據
+        animalData = generateFallbackData();
+      }
+    }
+    
+    // 備用數據（當無法載入 JSON 時使用）
+    function generateFallbackData() {
+      return [
+        { mbti: 'ISTJ', zodiac_element: '火象', species: '英國短毛貓 (British Shorthair)', description: '穩重卻偶爾熱情，給你安全感的守護者' },
+        { mbti: 'ISFJ', zodiac_element: '火象', species: '布偶貓 (Ragdoll)', description: '熱情又親人，是最溫暖的治癒系夥伴' },
+        { mbti: 'ESTJ', zodiac_element: '火象', species: '德國牧羊犬 (German Shepherd)', description: '聰明且服從，天生的領導者，保護慾強' },
+        { mbti: 'ESFJ', zodiac_element: '火象', species: '黃金獵犬 (Golden Retriever)', description: '熱情友善，帶給你滿滿陽光與正能量' },
+        { mbti: 'INTJ', zodiac_element: '土象', species: '異國短毛貓 (Exotic Shorthair)', description: '穩重聰慧，冷靜計畫型人格' },
+        { mbti: 'INFJ', zodiac_element: '土象', species: '俄羅斯藍貓 (Russian Blue)', description: '優雅神秘，是內斂的理想主義者' }
+      ];
+    }
+    
+    // MBTI 象限分類
+    const mbtiGroups = {
+      analysts: ['INTJ', 'INTP', 'ENTJ', 'ENTP'], // 理念型 (NT)
+      diplomats: ['INFJ', 'INFP', 'ENFJ', 'ENFP'], // 外交型 (NF)
+      sentinels: ['ISTJ', 'ISFJ', 'ESTJ', 'ESFJ'], // 守護型 (SJ)
+      explorers: ['ISTP', 'ISFP', 'ESTP', 'ESFP']  // 探險型 (SP)
+    };
+    
+    // 取得動物表情符號
+    function getAnimalEmoji(species) {
+      const cats = ['貓', 'Cat', 'cat'];
+      const dogs = ['犬', '狗', 'Dog', 'dog'];
+      
+      if (cats.some(keyword => species.includes(keyword))) return '🐱';
+      if (dogs.some(keyword => species.includes(keyword))) return '🐶';
+      return '🐾';
+    }
+    
+    // 取得相似度評分
+    function getSimilarityScore(animal, userMbti, userElement) {
+      let score = 0;
+      
+      // MBTI 完全匹配
+      if (animal.mbti === userMbti) score += 100;
+      
+      // MBTI 象限匹配
+      const userGroup = Object.keys(mbtiGroups).find(group => 
+        mbtiGroups[group].includes(userMbti)
+      );
+      const animalGroup = Object.keys(mbtiGroups).find(group => 
+        mbtiGroups[group].includes(animal.mbti)
+      );
+      if (userGroup === animalGroup && animal.mbti !== userMbti) score += 60;
+      
+      // 星座元素匹配
+      if (animal.zodiac_element === userElement) score += 40;
+      
+      // 其他部分匹配
+      if (userMbti[0] === animal.mbti[0]) score += 20; // I/E 匹配
+      if (userMbti[1] === animal.mbti[1]) score += 20; // S/N 匹配
+      if (userMbti[2] === animal.mbti[2]) score += 20; // T/F 匹配
+      if (userMbti[3] === animal.mbti[3]) score += 20; // J/P 匹配
+      
+      return score;
+    }
+    
+    // 篩選動物數據
+    function filterAnimals(mbtiFilter, elementFilter, speciesFilter) {
+      let filtered = animalData;
+      
+      // MBTI 象限篩選
+      if (mbtiFilter !== 'all') {
+        if (mbtiGroups[mbtiFilter]) {
+          filtered = filtered.filter(animal => 
+            mbtiGroups[mbtiFilter].includes(animal.mbti)
+          );
+        }
+      }
+      
+      // 星座元素篩選
+      if (elementFilter !== 'all') {
+        filtered = filtered.filter(animal => 
+          animal.zodiac_element.includes(elementFilter)
+        );
+      }
+      
+      // 動物類型篩選
+      if (speciesFilter !== 'all') {
+        if (speciesFilter === 'cats') {
+          filtered = filtered.filter(animal => 
+            ['貓', 'Cat', 'cat'].some(keyword => animal.species.includes(keyword))
+          );
+        } else if (speciesFilter === 'dogs') {
+          filtered = filtered.filter(animal => 
+            ['犬', '狗', 'Dog', 'dog'].some(keyword => animal.species.includes(keyword))
+          );
+        }
+      }
+      
+      return filtered;
+    }
+    
+    // 顯示動物卡片
+    function displayAnimals(animals, userMbti = null, userElement = null) {
+      const grid = document.getElementById('animalGrid');
+      
+      // 如果有使用者結果，按相似度排序
+      if (userMbti && userElement) {
+        animals = animals.map(animal => ({
+          ...animal,
+          similarity: getSimilarityScore(animal, userMbti, userElement)
+        })).sort((a, b) => b.similarity - a.similarity);
+      }
+      
+      grid.innerHTML = animals.map(animal => {
+        const emoji = getAnimalEmoji(animal.species);
+        const isPerfectMatch = userMbti && userElement && 
+          animal.mbti === userMbti && animal.zodiac_element.includes(userElement);
+        
+        return `
+          <div class="animal-card ${isPerfectMatch ? 'perfect-match' : ''}" onclick="playClickSound()">
+            ${isPerfectMatch ? '<div class="card-match">完美匹配!</div>' : ''}
+            <div class="card-header">
+              <div class="card-emoji">${emoji}</div>
+              <div class="card-title">
+                <h3 class="card-species">${animal.species}</h3>
+                <div class="card-mbti">${animal.mbti}</div>
+              </div>
+              <div class="card-element">${animal.zodiac_element}</div>
+            </div>
+            <p class="card-description">${animal.description}</p>
+          </div>
+        `;
+      }).join('');
+      
+      // 添加卡片出現動畫
+      const cards = grid.querySelectorAll('.animal-card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          card.style.transition = 'all 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }
+    
+    // 設置篩選器事件監聽
+    function setupFilters() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      let currentFilters = {
+        mbti: 'all',
+        element: 'all',
+        species: 'all'
+      };
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const filterType = this.dataset.type;
+          const filterValue = this.dataset.filter;
+          
+          // 更新同類型按鈕的狀態
+          document.querySelectorAll(`[data-type="${filterType}"]`).forEach(b => 
+            b.classList.remove('active')
+          );
+          this.classList.add('active');
+          
+          // 更新篩選條件
+          currentFilters[filterType] = filterValue;
+          
+          // 播放點擊音效
+          playClickSound();
+          
+          // 應用篩選
+          const filtered = filterAnimals(
+            currentFilters.mbti, 
+            currentFilters.element, 
+            currentFilters.species
+          );
+          
+          displayAnimals(
+            filtered, 
+            currentUserResult?.mbti, 
+            currentUserResult?.element
+          );
+        });
+      });
+      
+      // 設置默認選中狀態
+      document.querySelectorAll('[data-filter="all"]').forEach(btn => {
+        btn.classList.add('active');
+      });
+    }
+    
+    function playSound(frequency, duration, type = 'sine') {
+      try {
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        oscillator.type = type;
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+      } catch (e) {
+        console.log('Audio not supported');
+      }
+    }
+
+    function playClickSound() {
+      playSound(800, 0.1, 'sine');
+    }
+
+    function playSuccessSound() {
+      playSound(523, 0.2, 'sine'); // C5
+      setTimeout(() => playSound(659, 0.2, 'sine'), 100); // E5
+      setTimeout(() => playSound(784, 0.3, 'sine'), 200); // G5
+    }
+
+    function playCompletionSound() {
+      const notes = [261, 329, 392, 523]; // C-E-G-C chord
+      notes.forEach((note, index) => {
+        setTimeout(() => playSound(note, 0.5, 'sine'), index * 100);
+      });
+    }
+
+    // UI 回饋效果
+    function createFloatingHearts(element) {
+      for (let i = 0; i < 3; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-hearts';
+        heart.textContent = '♡';
+        heart.style.left = Math.random() * 50 + 'px';
+        heart.style.animationDelay = i * 0.2 + 's';
+        element.style.position = 'relative';
+        element.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
+
+    function addProgressCelebration() {
+      const progressBar = document.querySelector('.progress-bar');
+      progressBar.classList.add('progress-celebration');
+      setTimeout(() => {
+        progressBar.classList.remove('progress-celebration');
+      }, 800);
+    }
+
+    // 進度條更新和表單驗證
+    const form = document.getElementById('quizForm');
+    const progressFill = document.getElementById('progressFill');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const totalQuestions = 5;
+
+    function updateProgress() {
+      const answeredQuestions = form.querySelectorAll('input[type="radio"]:checked').length;
+      const progress = (answeredQuestions / totalQuestions) * 100;
+      
+      // 平滑動畫更新進度條
+      progressFill.style.width = progress + '%';
+      
+      // 如果有進步，播放音效和動畫
+      if (progress > 0) {
+        playClickSound();
+        if (progress === 100) {
+          addProgressCelebration();
+          playCompletionSound();
+        }
+      }
+      
+      if (answeredQuestions === totalQuestions) {
+        submitBtn.disabled = false;
+        submitBtn.style.background = 'var(--gradient-primary)';
+        btnText.textContent = '✨ 查看最像我的性格動物';
+        
+        // 按鈕準備好的視覺效果
+        submitBtn.style.animation = 'pulse 1s ease-in-out infinite';
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.style.background = 'var(--khaki-accent)';
+        submitBtn.style.animation = 'none';
+        btnText.textContent = `還需回答 ${totalQuestions - answeredQuestions} 個問題 ♡`;
+      }
+    }
+
+    // 為所有 radio 按鈕添加增強的事件監聽器
+    form.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        updateProgress();
+        
+        // 添加視覺回饋
+        const option = this.closest('.option');
+        const question = this.closest('.question');
+        
+        option.classList.add('clicked');
+        question.classList.add('answered');
+        
+        // 創建浮動愛心效果
+        createFloatingHearts(option);
+        
+        setTimeout(() => {
+          option.classList.remove('clicked');
+        }, 300);
+      });
+
+      // 添加懸停音效
+      radio.closest('.option').addEventListener('mouseenter', function() {
+        if (!this.querySelector('input').checked) {
+          playSound(400, 0.05, 'sine');
+        }
+      });
+    });
+
+    // 增強的提交按鈕事件
+    document.getElementById('submitBtn').addEventListener('click', function() {
+      console.log('提交按鈕被點擊, disabled:', this.disabled);
+      
+      if (!this.disabled) {
+        console.log('按鈕未被禁用，開始處理...');
+        
+        // 立即顯示結果，不依賴複雜的動畫或音效
+        try {
+          showResult();
+          console.log('showResult 調用成功');
+        } catch (error) {
+          console.error('showResult 調用失敗:', error);
+        }
+        
+        // 添加視覺反饋
+        this.classList.add('clicked');
+        setTimeout(() => {
+          this.classList.remove('clicked');
+        }, 400);
+        
+        // 嘗試播放音效
+        try {
+          playSuccessSound();
+        } catch (e) {
+          console.log('音效播放失敗:', e);
+        }
+      } else {
+        console.log('按鈕被禁用，無法提交');
+      }
+    });
+
+    // 測驗結果對應表
+    const quizMapping = {
+      ISTJ: {
+        fire: {pet: '英國短毛貓 British Shorthair', desc: '穩重卻偶爾熱情，給你安全感的守護者', emoji: '🐱'},
+        earth: {pet: '蘇格蘭摺耳貓 Scottish Fold', desc: '安靜乖巧，是穩定生活的最佳夥伴', emoji: '🐱'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '理性中帶點靈活，能輕鬆應對變化', emoji: '🐱'},
+        water: {pet: '喜馬拉雅貓 Himalayan', desc: '內斂溫和，默默守護你', emoji: '🐱'}
+      },
+      ISFJ: {
+        fire: {pet: '布偶貓 Ragdoll', desc: '熱情又親人，是最溫暖的治癒系夥伴', emoji: '🐱'},
+        earth: {pet: '波斯貓 Persian', desc: '高雅安靜，對你忠誠不渝', emoji: '🐱'},
+        air: {pet: '暹羅貓 Siamese', desc: '機智貼心，總在身邊默默守護', emoji: '🐱'},
+        water: {pet: '緬因貓 Maine Coon', desc: '巨大卻溫柔，給你滿滿安全感', emoji: '🐱'}
+      },
+      INFJ: {
+        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '熱情且有領導氣質，內心卻浪漫深情', emoji: '🐱'},
+        earth: {pet: '俄羅斯藍貓 Russian Blue', desc: '優雅神秘，是內斂的理想主義者', emoji: '🐱'},
+        air: {pet: '暹羅貓 Siamese', desc: '創意無限，總有出其不意的點子', emoji: '🐱'},
+        water: {pet: '緬甸貓 Burmese', desc: '感情豐富，溫柔細膩，喜歡深度連結', emoji: '🐱'}
+      },
+      INTJ: {
+        fire: {pet: '孟加拉貓 Bengal', desc: '野性十足，卻暗藏策略，是冒險家型思考者', emoji: '🐱'},
+        earth: {pet: '異國短毛貓 Exotic Shorthair', desc: '穩重聰慧，冷靜計畫型人格', emoji: '🐱'},
+        air: {pet: '暹羅貓 Siamese', desc: '小巧靈活，擅長策略，掌握全局', emoji: '🐱'},
+        water: {pet: '斯芬克斯貓 Sphynx', desc: '神秘冷酷，卻對親近的人展現柔情', emoji: '🐱'}
+      },
+      ISTP: {
+        fire: {pet: '孟加拉貓 Bengal', desc: '精力旺盛，熱愛挑戰，總在行動中成長', emoji: '🐱'},
+        earth: {pet: '日本短尾貓 Japanese Bobtail', desc: '靈活又穩定，熱愛自由卻不失規律', emoji: '🐱'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '反應敏捷，擅長用創意解決問題', emoji: '🐱'},
+        water: {pet: '暹羅貓 Siamese', desc: '感性中帶冒險，願意陪伴並探索世界', emoji: '🐱'}
+      },
+      ISFP: {
+        fire: {pet: '紅虎斑貓 Red Tabby', desc: '熱情藝術家，總能讓生活充滿色彩', emoji: '🐱'},
+        earth: {pet: '挪威森林貓 Norwegian Forest Cat', desc: '典雅又熱愛自然，像森林詩人般自由', emoji: '🐱'},
+        air: {pet: '美國短毛貓 American Shorthair', desc: '自由靈魂，擁有聰明的小腦袋', emoji: '🐱'},
+        water: {pet: '布偶貓 Ragdoll', desc: '柔情似水，總能給予安心與溫暖', emoji: '🐱'}
+      },
+      INFP: {
+        fire: {pet: '美國短毛貓 American Shorthair', desc: '浪漫理想家，卻又熱情，像火焰般溫暖', emoji: '🐱'},
+        earth: {pet: '布偶貓 Ragdoll', desc: '純真溫柔，給人最踏實的陪伴', emoji: '🐱'},
+        air: {pet: '康沃爾雷克斯貓 Cornish Rex', desc: '藝術靈魂，腦袋裡充滿奇妙點子', emoji: '🐱'},
+        water: {pet: '喜馬拉雅貓 Himalayan', desc: '情感豐富，最懂心靈深處的夢想家', emoji: '🐱'}
+      },
+      INTP: {
+        fire: {pet: '阿比西尼亞貓 Abyssinian', desc: '聰明活潑，總有新奇創意，充滿冒險精神', emoji: '🐱'},
+        earth: {pet: '英國短毛貓 British Shorthair', desc: '冷靜理智，是分析與穩定並存的完美典範', emoji: '🐱'},
+        air: {pet: '暹羅貓 Siamese', desc: '聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚', emoji: '🐱'},
+        water: {pet: '俄羅斯藍貓 Russian Blue', desc: '表面冷酷，內心柔情，感性與理性兼具', emoji: '🐱'}
+      },
+      ESTJ: {
+        fire: {pet: '德國牧羊犬 German Shepherd', desc: '聰明且服從，天生的領導者，保護慾強', emoji: '🐕'},
+        earth: {pet: '拉布拉多 Labrador Retriever', desc: '忠誠穩重，是最值得信任的夥伴', emoji: '🐕'},
+        air: {pet: '杜賓犬 Doberman Pinscher', desc: '反應敏捷、沉著冷靜，是策略型守護者', emoji: '🐕'},
+        water: {pet: '秋田犬 Akita Inu', desc: '內斂忠心，保護慾極強，是沉穩的守護者', emoji: '🐕'}
+      },
+      ESFJ: {
+        fire: {pet: '黃金獵犬 Golden Retriever', desc: '熱情友善，帶給你滿滿陽光與正能量', emoji: '🐕'},
+        earth: {pet: '聖伯納犬 Saint Bernard', desc: '巨大卻溫柔，天然的守護天使，讓你安心', emoji: '🐕'},
+        air: {pet: '可卡犬 Cocker Spaniel', desc: '開朗愛玩，喜歡互動，是快樂小幫手', emoji: '🐕'},
+        water: {pet: '卡瓦利王查理獵犬 Cavalier King Charles Spaniel', desc: '感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶', emoji: '🐕'}
+      },
+      ENFJ: {
+        fire: {pet: '邊境牧羊犬 Border Collie', desc: '聰明熱情，擅長帶領群體，活力滿滿', emoji: '🐕'},
+        earth: {pet: '伯恩山犬 Bernese Mountain Dog', desc: '溫柔可靠，天然的守護者，最有安全感', emoji: '🐕'},
+        air: {pet: '薩摩耶 Samoyed', desc: '微笑天使，樂觀活潑，傳遞快樂能量', emoji: '🐕'},
+        water: {pet: '愛爾蘭雪達犬 Irish Setter', desc: '情感細膩，浪漫溫柔，熱愛深度連結', emoji: '🐕'}
+      },
+      ENTJ: {
+        fire: {pet: '羅威納犬 Rottweiler', desc: '強勢領導，保護慾強，是天生的王者', emoji: '🐕'},
+        earth: {pet: '大丹犬 Great Dane', desc: '高貴穩重，氣場強大，是領袖型守護者', emoji: '🐕'},
+        air: {pet: '威瑪獵犬 Weimaraner', desc: '聰明敏捷，策略思維，是完美的執行者', emoji: '🐕'},
+        water: {pet: '紐芬蘭犬 Newfoundland', desc: '溫和巨人，情感豐富，兼具力量與溫柔', emoji: '🐕'}
+      },
+      ESTP: {
+        fire: {pet: '傑克羅素㹴 Jack Russell Terrier', desc: '活力充沛，喜歡冒險，是最佳運動夥伴', emoji: '🐕'},
+        earth: {pet: '鬥牛犬 Bulldog', desc: '堅韌穩重，腳踏實地，是可靠的陪伴者', emoji: '🐕'},
+        air: {pet: '比格犬 Beagle', desc: '好奇心旺盛，機智靈活，總能帶來驚喜', emoji: '🐕'},
+        water: {pet: '拉布拉多 Labrador Retriever', desc: '溫暖親和，情感豐富，是最佳療癒夥伴', emoji: '🐕'}
+      },
+      ESFP: {
+        fire: {pet: '柯基犬 Corgi', desc: '開朗活潑，總是帶來歡樂和正能量', emoji: '🐕'},
+        earth: {pet: '法國鬥牛犬 French Bulldog', desc: '可愛穩重，是生活中的小確幸', emoji: '🐕'},
+        air: {pet: '博美犬 Pomeranian', desc: '機靈可愛，充滿創意，是社交小天使', emoji: '🐕'},
+        water: {pet: '查理王獵犬 Cavalier King Charles Spaniel', desc: '溫柔感性，情感細膩，最懂你的心', emoji: '🐕'}
+      },
+      ENFP: {
+        fire: {pet: '澳洲牧羊犬 Australian Shepherd', desc: '熱情創新，充滿想像力，是夢想實踐者', emoji: '🐕'},
+        earth: {pet: '黃金獵犬 Golden Retriever', desc: '溫暖可靠，給人安全感，是理想主義的守護者', emoji: '🐕'},
+        air: {pet: '邊境牧羊犬 Border Collie', desc: '聰明靈活，創意無限，是點子王', emoji: '🐕'},
+        water: {pet: '愛爾蘭雪達犬 Irish Setter', desc: '浪漫感性，情感豐富，是心靈相通的夥伴', emoji: '🐕'}
+      },
+      ENTP: {
+        fire: {pet: '傑克羅素㹴 Jack Russell Terrier', desc: '精力旺盛，創新思維，總有新點子', emoji: '🐕'},
+        earth: {pet: '邊境牧羊犬 Border Collie', desc: '聰明穩重，擅長分析，是策略大師', emoji: '🐕'},
+        air: {pet: '比格犬 Beagle', desc: '好奇心強，機智幽默，是天生的探險家', emoji: '🐕'},
+        water: {pet: '薩摩耶 Samoyed', desc: '溫暖親和，情感豐富，擅長人際交往', emoji: '🐕'}
+      }
+    };
+
+    function showResult() {
+      console.log('showResult 函數被調用');
+      
+      const formData = new FormData(form);
+      const mbti = formData.get('q1') + formData.get('q2') + formData.get('q3') + formData.get('q4');
+      const element = formData.get('q5');
+      
+      console.log('MBTI:', mbti, 'Element:', element);
+      
+      // 將元素名稱轉換為中文
+      const elementMap = {
+        'fire': '火象',
+        'earth': '土象', 
+        'air': '風象',
+        'water': '水象'
+      };
+      const elementChinese = elementMap[element];
+      
+      // 儲存使用者結果供篩選使用  
+      currentUserResult = {
+        mbti: mbti,
+        element: elementChinese
+      };
+      
+      // 檢查 quizMapping 是否存在
+      if (!quizMapping) {
+        console.error('quizMapping 未定義');
+        return;
+      }
+      
+      if (!quizMapping[mbti]) {
+        console.error('找不到 MBTI 類型:', mbti);
+        return;
+      }
+      
+      if (!quizMapping[mbti][element]) {
+        console.error('找不到元素:', element, '對應的結果');
+        return;
+      }
+      
+      const result = quizMapping[mbti][element];
+      console.log('結果:', result);
+      
+      const resultDiv = document.getElementById('result');
+      if (!resultDiv) {
+        console.error('找不到 result div');
+        return;
+      }
+      
+      try {
+        resultDiv.innerHTML = `
+          <div class="ig-result-card">
+            <div class="stories-header">
+              <div class="stories-profile">
+                <div class="stories-avatar">✨</div>
+                <div class="stories-info">
+                  <div class="stories-username">MBTI動物占卜</div>
+                  <div class="stories-time">現時動態</div>
+                </div>
+              </div>
+              <div class="stories-options">⋯</div>
+            </div>
+
+            <!-- 可滾動的內容區域 -->
+            <div class="scrollable-content" style="flex: 1; overflow-y: auto; padding-right: 4px;">
+              <div class="decorative-hearts">💖✨</div>
+              <div class="decorative-sparkles">✨💫</div>
+            
+            <div class="result-header">
+              <div class="result-emoji-container">
+                <div class="emoji-glow"></div>
+                <div class="result-emoji">${result.emoji}</div>
+              </div>
+              <h2 class="result-title">最像你的性格動物是</h2>
+              <h3 class="result-pet-name">${result.pet}</h3>
+            </div>
+            
+            <p class="result-description">${result.desc}</p>
+            
+            <div style="text-align: center; margin-bottom: 12px;">
+              <div class="result-mbti-badge">✨ ${mbti} · ${elementChinese} ✨</div>
+            </div>
+
+            <!-- 相似動物區域 -->
+            <div class="similar-animals">
+              <div class="similar-title">
+                💫 個性相似的夥伴
+              </div>
+              <div class="animal-row" id="similar-animals-row">
+                <!-- 動態載入相似動物 -->
+              </div>
+            </div>
+
+            <!-- 互補動物區域 -->
+            <div class="similar-animals">
+              <div class="similar-title">
+                🌟 互補配對的朋友
+              </div>
+              <div class="animal-row" id="complementary-animals-row">
+                <!-- 動態載入互補動物 -->
+              </div>
+            </div>
+
+            <!-- 社交連結提示 -->
+            <div class="social-connection">
+              <div class="connection-text">
+                找到跟你一樣的朋友了嗎？快分享給他們看看！
+              </div>
+              <div class="connection-tags">
+                <span class="connection-tag">#MBTI</span>
+                <span class="connection-tag">#個性測驗</span>
+                <span class="connection-tag">#動物占卜</span>
+              </div>
+            </div>
+            
+            <div class="share-section">
+              <div class="share-title">📱 分享你的結果給朋友吧！</div>
+              <div class="share-buttons">
+                <button class="share-btn instagram" onclick="shareToInstagram()">
+                  📷 Instagram
+                </button>
+                <button class="share-btn facebook" onclick="shareToFacebook()">
+                  📘 Facebook  
+                </button>
+                <button class="share-btn twitter" onclick="shareToTwitter()">
+                  🐦 Twitter
+                </button>
+                <button class="share-btn line" onclick="shareToLine()">
+                  💬 LINE
+                </button>
+                <button class="share-btn copy" onclick="copyResult()">
+                  📋 複製連結
+                </button>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+          <!-- 探索按鈕獨立在外面 -->
+          <div style="text-align: center; margin-top: 20px;">
+            <button class="explore-btn" onclick="showExploreMore()">
+              🔍 探索更多相似的毛孩
+            </button>
+          </div>
+        `;
+        
+        console.log('IG 風格 HTML 內容已設置');
+        
+        // 直接顯示，不使用動畫
+        resultDiv.style.display = 'block';
+        resultDiv.style.opacity = '1';
+        resultDiv.style.transform = 'translateY(0)';
+        
+        console.log('結果區域已顯示');
+        
+        // 載入相似和互補動物
+        setTimeout(() => {
+          loadSimilarAnimals(mbti, element);
+        }, 500);
+        
+        // 播放結果揭曉音效
+        setTimeout(() => {
+          try {
+            playCompletionSound();
+          } catch (e) {
+            console.log('音效播放失敗:', e);
+          }
+        }, 200);
+        
+        // 創建慶祝效果
+        setTimeout(() => {
+          try {
+            createFloatingHearts(resultDiv);
+          } catch (e) {
+            console.log('愛心效果失敗:', e);
+          }
+        }, 500);
+        
+        // 滾動到結果區域
+        setTimeout(() => {
+          resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          console.log('滾動到結果區域');
+        }, 100);
+        
+      } catch (error) {
+        console.error('設置結果內容時發生錯誤:', error);
+      }
+    }
+    
+    // 社群媒體分享功能
+    function shareToInstagram() {
+      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\n\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n#MBTI #性格測驗 #動物性格 #心理測驗`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showNotification('✨ 文字已複製！快去 Instagram 分享吧！', 'success');
+        playClickSound();
+      }).catch(() => {
+        showNotification('❌ 複製失敗，請手動複製', 'error');
+      });
+    }
+    
+    function shareToFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent('🐱🐶 我完成了性格動物測驗！快來看看你最像哪種毛孩！');
+      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`;
+      
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      playClickSound();
+    }
+    
+    function shareToTwitter() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'} (${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}) 你也來測測看吧！ 🌟 #MBTI #性格測驗`);
+      const shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+      
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      playClickSound();
+    }
+    
+    function shareToLine() {
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`🐱🐶 我完成了性格動物測驗！\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n你也來測測看吧！ 🌟`);
+      const shareUrl = `https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`;
+      
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      playClickSound();
+    }
+    
+    function copyResult() {
+      const url = window.location.href;
+      const text = `🐱🐶 我完成了性格動物測驗！\n\n我最像的是：${currentUserResult ? getCurrentResultText() : '神秘動物'}\nMBTI: ${currentUserResult ? currentUserResult.mbti : 'Unknown'} · ${currentUserResult ? currentUserResult.element : 'Unknown'}\n\n你也來測測看吧！ 🌟\n\n${url}`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        showNotification('📋 結果連結已複製！', 'success');
+        playClickSound();
+      }).catch(() => {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+          showNotification('📋 結果連結已複製！', 'success');
+          playClickSound();
+        } catch (err) {
+          showNotification('❌ 複製失敗，請手動複製', 'error');
+        }
+        document.body.removeChild(textArea);
+      });
+    }
+    
+    function getCurrentResultText() {
+      if (!currentUserResult) return '神秘動物';
+      
+      const elementMap = {
+        '火象': 'fire',
+        '土象': 'earth', 
+        '風象': 'air',
+        '水象': 'water'
+      };
+      
+      const elementKey = elementMap[currentUserResult.element];
+      if (quizMapping[currentUserResult.mbti] && quizMapping[currentUserResult.mbti][elementKey]) {
+        return quizMapping[currentUserResult.mbti][elementKey].pet;
+      }
+      
+      return '神秘動物';
+    }
+    
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 12px;
+        font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 500;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        word-wrap: break-word;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-in forwards';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+    
+    // 顯示探索更多區域
+    function showExploreMore() {
+      playClickSound();
+      
+      const exploreDiv = document.getElementById('exploreMore');
+      exploreDiv.style.display = 'block';
+      
+      // 初始化篩選器
+      setupFilters();
+      
+      // 顯示所有動物（按相似度排序）
+      const filtered = filterAnimals('all', 'all', 'all');
+      displayAnimals(filtered, currentUserResult.mbti, currentUserResult.element);
+      
+      // 滾動到探索區域
+      setTimeout(() => {
+        exploreDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+
+    // 初始化音頻上下文（需要用戶交互）
+    document.addEventListener('click', function initAudio() {
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      document.removeEventListener('click', initAudio);
+    }, { once: true });
+    
+    // 頁面載入完成後初始化
+    // 載入相似和互補動物
+    function loadSimilarAnimals(currentMbti, currentElement) {
+      console.log('載入相似動物，MBTI:', currentMbti, '元素:', currentElement);
+      
+      if (!animalData || animalData.length === 0) {
+        console.log('動物資料尚未載入，等待載入...');
+        // 等待動物資料載入後再次嘗試
+        setTimeout(() => {
+          if (animalData && animalData.length > 0) {
+            loadSimilarAnimals(currentMbti, currentElement);
+          }
+        }, 1000);
+        return;
+      }
+
+      console.log('動物資料已載入，共', animalData.length, '個動物');
+
+      // 找出相似動物 - 使用簡化的邏輯
+      const similarAnimals = animalData.filter(animal => {
+        if (!animal.mbti || animal.mbti === currentMbti) return false; // 排除自己和無效資料
+        
+        // 將元素英文轉換為中文進行比較
+        const elementMap = {
+          'fire': '火象',
+          'earth': '土象', 
+          'air': '風象',
+          'water': '水象'
+        };
+        const currentElementChinese = elementMap[currentElement];
+        
+        // 相同 MBTI 或相同元素或相似特質
+        return (
+          animal.mbti === currentMbti ||
+          animal.zodiac_element === currentElementChinese ||
+          (currentMbti && currentMbti.length >= 4 && animal.mbti.length >= 4 && 
+           animal.mbti.substring(1, 3) === currentMbti.substring(1, 3))
+        );
+      }).slice(0, 3);
+
+      // 找出互補動物
+      const complementaryAnimals = animalData.filter(animal => {
+        if (!animal.mbti || animal.mbti === currentMbti) return false; // 排除自己和無效資料
+        
+        // 將元素英文轉換為中文進行比較
+        const elementMap = {
+          'fire': '火象',
+          'earth': '土象', 
+          'air': '風象',
+          'water': '水象'
+        };
+        const currentElementChinese = elementMap[currentElement];
+        
+        // E/I 相反或元素互補
+        if (currentMbti && currentMbti.length >= 1 && animal.mbti.length >= 1) {
+          const currentEI = currentMbti[0];
+          const animalEI = animal.mbti[0];
+          const isOppositeEI = currentEI !== animalEI;
+          
+          const elementPairs = {
+            '火象': ['風象', '土象'],
+            '風象': ['火象', '水象'],
+            '土象': ['火象', '水象'],
+            '水象': ['風象', '土象']
+          };
+          const isComplementElement = elementPairs[currentElementChinese]?.includes(animal.zodiac_element);
+          
+          return isOppositeEI || isComplementElement;
+        }
+        return false;
+      }).slice(0, 3);
+
+      console.log('找到相似動物:', similarAnimals.length, '個');
+      console.log('找到互補動物:', complementaryAnimals.length, '個');
+
+      // 渲染相似動物
+      const similarRow = document.getElementById('similar-animals-row');
+      if (similarRow) {
+        if (similarAnimals.length > 0) {
+          similarRow.innerHTML = similarAnimals.map(animal => {
+            // 根據動物種類選擇表情符號
+            let emoji = '🐱';
+            if (animal.species.includes('狗') || animal.species.includes('Dog')) {
+              emoji = '🐶';
+            } else if (animal.species.includes('貓') || animal.species.includes('Cat')) {
+              emoji = '🐱';
+            } else if (animal.species.includes('兔')) {
+              emoji = '🐰';
+            } else if (animal.species.includes('鳥')) {
+              emoji = '🐦';
+            }
+            
+            return `
+              <div class="mini-animal">
+                <div class="mini-animal-emoji">${emoji}</div>
+                <div class="mini-animal-name">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-type">${animal.mbti}</div>
+              </div>
+            `;
+          }).join('');
+          console.log('相似動物已渲染');
+        } else {
+          similarRow.innerHTML = '<div style="text-align: center; color: #999; font-size: 0.8rem;">暫無相似動物</div>';
+        }
+      } else {
+        console.log('找不到 similar-animals-row 元素');
+      }
+
+      // 渲染互補動物
+      const complementaryRow = document.getElementById('complementary-animals-row');
+      if (complementaryRow) {
+        if (complementaryAnimals.length > 0) {
+          complementaryRow.innerHTML = complementaryAnimals.map(animal => {
+            // 根據動物種類選擇表情符號
+            let emoji = '🐱';
+            if (animal.species.includes('狗') || animal.species.includes('Dog')) {
+              emoji = '🐶';
+            } else if (animal.species.includes('貓') || animal.species.includes('Cat')) {
+              emoji = '🐱';
+            } else if (animal.species.includes('兔')) {
+              emoji = '🐰';
+            } else if (animal.species.includes('鳥')) {
+              emoji = '🐦';
+            }
+            
+            return `
+              <div class="mini-animal">
+                <div class="mini-animal-emoji">${emoji}</div>
+                <div class="mini-animal-name">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-type">${animal.zodiac_element}</div>
+              </div>
+            `;
+          }).join('');
+          console.log('互補動物已渲染');
+        } else {
+          complementaryRow.innerHTML = '<div style="text-align: center; color: #999; font-size: 0.8rem;">暫無互補動物</div>';
+        }
+      } else {
+        console.log('找不到 complementary-animals-row 元素');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadAnimalData();
+      
+      // 添加動畫樣式
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideInRight {
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutRight {
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
+</body>
+</html>
