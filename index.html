@@ -65,6 +65,29 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="MBTI Cat Dog Test">
   
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6244767628762401"
+     crossorigin="anonymous"></script>
+  <meta name="google-adsense-account" content="ca-pub-6244767628762401">
+  
+  <!-- AdSense優化相關Meta標籤 -->
+  <meta name="google-adsense-platform-domain" content="">
+  <meta name="google-site-verification" content="">
+  <meta name="monetization" content="true">
+  <meta name="ads.txt" content="/ads.txt">
+  
+  <!-- 內容品質和使用者體驗優化 -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  <!-- 安全和隱私相關 -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -695,7 +718,7 @@
       
       .mini-animal-name {
         font-size: 0.8rem !important;
-        max-width: 100px !important;
+        padding: 0 4px !important;
       }
       
       .connection-text {
@@ -980,9 +1003,10 @@
     .animal-row {
       display: flex;
       justify-content: space-around;
-      align-items: center;
+      align-items: flex-start;
       margin: 8px 0;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .mini-animal {
@@ -1005,11 +1029,11 @@
       font-size: 0.6rem;
       font-weight: 500;
       color: var(--text-secondary);
-      line-height: 1.1;
-      max-width: 70px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      line-height: 1.2;
+      text-align: center;
+      word-break: break-word;
+      hyphens: auto;
+      padding: 0 2px;
     }
 
     .mini-animal-type {
@@ -2257,6 +2281,24 @@
       </div>
       
       <div id="animalGrid" class="animal-grid"></div>
+      
+      <!-- AdSense compliance links within main container -->
+      <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(139,69,19,0.1); font-size: 0.7rem; color: #999;">
+        <div style="margin-bottom: 8px;">
+          <a href="privacy.html" style="color: #8B4513; text-decoration: none; margin: 0 8px; font-size: 0.75rem;">
+            <span data-zh>隱私政策</span>
+            <span data-en>Privacy Policy</span>
+          </a>
+          <a href="terms.html" style="color: #8B4513; text-decoration: none; margin: 0 8px; font-size: 0.75rem;">
+            <span data-zh>使用條款</span>
+            <span data-en>Terms of Service</span>
+          </a>
+        </div>
+        <div style="font-size: 0.65rem; color: #ccc;">
+          <span data-zh>© 2025 MBTI 測試 - 僅供娛樂 | 使用 AdSense 廣告</span>
+          <span data-en>© 2025 MBTI Test - Entertainment Only | Uses AdSense Ads</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -3552,9 +3594,9 @@
             const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
             
             return `
-              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1;">
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
-                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.1; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${animal.species}</div>
                 <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
@@ -3576,9 +3618,9 @@
             const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
             
             return `
-              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1;">
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
-                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.1; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${animal.species.split(' ')[0]}</div>
+                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${animal.species}</div>
                 <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
@@ -3668,12 +3710,11 @@
           similarRow.innerHTML = similarAnimals.map(animal => {
             const species = isEnglish ? (animal.species_en || animal.species) : (animal.species || animal.species_en);
             const emoji = getAnimalEmoji(species);
-            const shortName = species.length > 4 ? species.substring(0, 3) + '..' : species;
             
             return `
-              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; max-width: 50px;">
+              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
-                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1; word-break: break-all;">${shortName}</div>
+                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
                 <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
               </div>
             `;
@@ -3696,12 +3737,11 @@
           complementaryRow.innerHTML = complementaryAnimals.map(animal => {
             const species = isEnglish ? (animal.species_en || animal.species) : (animal.species || animal.species_en);
             const emoji = getAnimalEmoji(species);
-            const shortName = species.length > 4 ? species.substring(0, 3) + '..' : species;
             
             return `
-              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; max-width: 50px;">
+              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
-                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1; word-break: break-all;">${shortName}</div>
+                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
                 <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
               </div>
             `;
