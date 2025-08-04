@@ -88,6 +88,14 @@
   <meta http-equiv="X-XSS-Protection" content="1; mode=block">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   
+  <!-- AdSense 審核優化 -->
+  <meta name="content-type" content="text/html; charset=UTF-8">
+  <meta name="content-language" content="zh-TW, en-US">
+  <meta name="website-monetization" content="AdSense">
+  <meta name="advertising-support" content="true">
+  <meta name="original-content" content="true">
+  <meta name="content-policy" content="family-friendly">
+  
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -1928,6 +1936,33 @@
     [data-lang="en-US"] .inline [data-en] {
       display: inline;
     }
+
+    /* Footer styles */
+    footer a:hover {
+      background-color: rgba(139,69,19,0.1) !important;
+      text-decoration: none !important;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 20px 15px !important;
+      }
+      
+      footer a {
+        margin: 0 8px !important;
+        font-size: 13px !important;
+        padding: 4px 8px !important;
+      }
+      
+      footer div {
+        font-size: 12px !important;
+      }
+      
+      footer div:last-child div {
+        font-size: 10px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1940,6 +1975,20 @@
     <button class="lang-btn" onclick="switchLanguage('en-US')" data-lang-code="en-US">
       <span data-zh>English</span>
       <span data-en>English</span>
+    </button>
+  </div>
+
+  <!-- Cookie/Ad Notice -->
+  <div id="cookieNotice" style="position: fixed; top: 0; left: 0; right: 0; background: rgba(139,69,19,0.95); color: white; padding: 8px 20px; font-size: 12px; text-align: center; z-index: 9999; transform: translateY(-100%); transition: transform 0.3s ease; backdrop-filter: blur(10px);">
+    <span data-zh>本網站使用 cookies 和 Google AdSense 廣告來提升體驗。繼續使用即表示同意我們的</span>
+    <span data-en>This website uses cookies and Google AdSense ads to enhance your experience. By continuing, you agree to our</span>
+    <a href="privacy.html" style="color: #FFE4B5; text-decoration: underline; margin: 0 3px;">
+      <span data-zh>隱私政策</span>
+      <span data-en>Privacy Policy</span>
+    </a>
+    <button onclick="dismissCookieNotice()" style="background: #8B4513; color: white; border: none; padding: 2px 8px; margin-left: 10px; border-radius: 3px; cursor: pointer; font-size: 11px;">
+      <span data-zh>知道了</span>
+      <span data-en>Got it</span>
     </button>
   </div>
 
@@ -2282,23 +2331,34 @@
       
       <div id="animalGrid" class="animal-grid"></div>
       
-      <!-- AdSense compliance links within main container -->
-      <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(139,69,19,0.1); font-size: 0.7rem; color: #999;">
-        <div style="margin-bottom: 8px;">
-          <a href="privacy.html" style="color: #8B4513; text-decoration: none; margin: 0 8px; font-size: 0.75rem;">
+      <!-- AdSense compliance footer -->
+      <footer style="text-align: center; margin-top: 50px; padding: 25px 20px; border-top: 2px solid rgba(139,69,19,0.1); background: rgba(245,245,245,0.3); border-radius: 0 0 15px 15px;">
+        <div style="margin-bottom: 15px; line-height: 2;">
+          <a href="privacy.html" style="color: #8B4513; text-decoration: none; margin: 0 12px; font-size: 14px; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: all 0.3s ease;">
             <span data-zh>隱私政策</span>
             <span data-en>Privacy Policy</span>
           </a>
-          <a href="terms.html" style="color: #8B4513; text-decoration: none; margin: 0 8px; font-size: 0.75rem;">
+          <span style="color: #ddd; margin: 0 5px;">|</span>
+          <a href="terms.html" style="color: #8B4513; text-decoration: none; margin: 0 12px; font-size: 14px; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: all 0.3s ease;">
             <span data-zh>使用條款</span>
             <span data-en>Terms of Service</span>
           </a>
         </div>
-        <div style="font-size: 0.65rem; color: #ccc;">
-          <span data-zh>© 2025 MBTI 測試 - 僅供娛樂 | 使用 AdSense 廣告</span>
-          <span data-en>© 2025 MBTI Test - Entertainment Only | Uses AdSense Ads</span>
+        <div style="font-size: 13px; color: #8B4513; margin-bottom: 10px; font-weight: 500;">
+          <span data-zh>© 2025 MBTI Cat & Dog Personality Test</span>
+          <span data-en>© 2025 MBTI Cat & Dog Personality Test</span>
         </div>
-      </div>
+        <div style="font-size: 11px; color: #999; line-height: 1.5;">
+          <div style="margin-bottom: 5px;">
+            <span data-zh>本網站使用 Google AdSense 廣告服務</span>
+            <span data-en>This website uses Google AdSense advertising services</span>
+          </div>
+          <div>
+            <span data-zh>僅供娛樂參考，結果不構成專業建議</span>
+            <span data-en>For entertainment purposes only, results do not constitute professional advice</span>
+          </div>
+        </div>
+      </footer>
     </div>
   </div>
 
@@ -3876,6 +3936,22 @@
       }
     }
 
+    // Cookie notice functions
+    function showCookieNotice() {
+      const notice = document.getElementById('cookieNotice');
+      if (!localStorage.getItem('cookieNoticeAccepted')) {
+        setTimeout(() => {
+          notice.style.transform = 'translateY(0)';
+        }, 2000); // Show after 2 seconds
+      }
+    }
+
+    function dismissCookieNotice() {
+      const notice = document.getElementById('cookieNotice');
+      notice.style.transform = 'translateY(-100%)';
+      localStorage.setItem('cookieNoticeAccepted', 'true');
+    }
+
     // Detect user's preferred language
     function detectLanguage() {
       // Check if user has a stored preference
@@ -3910,6 +3986,9 @@
       // Initialize language
       const preferredLang = detectLanguage();
       switchLanguage(preferredLang);
+      
+      // Show cookie notice
+      showCookieNotice();
     };
   </script>
 </body>
