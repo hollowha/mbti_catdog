@@ -1976,6 +1976,42 @@
         font-size: 10px !important;
       }
     }
+    
+    /* 動畫效果 */
+    @keyframes gentleBounce {
+      0%, 100% { 
+        transform: translateY(0px); 
+      }
+      50% { 
+        transform: translateY(-8px); 
+      }
+    }
+    
+    @keyframes miniAnimalHover {
+      0%, 100% { 
+        transform: translateY(0px) scale(1); 
+      }
+      50% { 
+        transform: translateY(-3px) scale(1.05); 
+      }
+    }
+    
+    .mini-animal {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .mini-animal:hover {
+      animation: miniAnimalHover 0.6s ease-in-out;
+    }
+    
+    .mini-animal-image {
+      transition: transform 0.3s ease;
+    }
+    
+    .mini-animal:hover .mini-animal-image {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body>
@@ -3178,15 +3214,13 @@
             ${matchingAnimal.image ? `
             <div class="result-image-container" style="text-align: center; margin-bottom: 8px;">
               <img src="${matchingAnimal.image}" alt="${species}" 
-                   style="width: 120px; height: 120px; object-fit: cover; border-radius: 60px; border: 3px solid #8B4513; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" 
+                   class="result-main-image"
+                   style="width: 140px; height: 140px; object-fit: contain; animation: gentleBounce 3s ease-in-out infinite;" 
                    loading="lazy" />
             </div>
             ` : ''}
             
             <div class="result-header" style="text-align: center; margin-bottom: 8px;">
-              <div class="result-emoji-container" style="margin-bottom: 4px;">
-                <div class="result-emoji" style="font-size: 2.5rem;">${emoji}</div>
-              </div>
               <h2 class="result-title inline" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">
                 <span data-zh>最像你的貓咪或狗狗是</span>
                 <span data-en>Your perfect cat or dog match is</span>
@@ -3201,23 +3235,23 @@
             </div>
 
             <!-- 相似動物區域 -->
-            <div class="similar-animals" style="margin: 8px 0;">
-              <div class="similar-title inline" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
-                <span data-zh>💫 個性相似的貓狗夥伴</span>
-                <span data-en>💫 Similar Cat & Dog Companions</span>
+            <div class="similar-animals" style="margin: 10px 0;">
+              <div class="similar-title inline" style="font-size: 0.8rem; margin-bottom: 6px; text-align: center; color: #8B4513; font-weight: 600;">
+                <span data-zh>✨ 個性相似的貓狗夥伴</span>
+                <span data-en>✨ Similar Cat & Dog Companions</span>
               </div>
-              <div class="animal-row" id="similar-animals-row" style="display: flex; justify-content: space-around; gap: 4px;">
+              <div class="animal-row" id="similar-animals-row" style="display: flex; justify-content: space-around; gap: 6px;">
                 <!-- 動態載入相似動物 -->
               </div>
             </div>
 
             <!-- 互補動物區域 -->
-            <div class="similar-animals" style="margin: 8px 0;">
-              <div class="similar-title inline" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
+            <div class="similar-animals" style="margin: 10px 0;">
+              <div class="similar-title inline" style="font-size: 0.8rem; margin-bottom: 6px; text-align: center; color: #8B4513; font-weight: 600;">
                 <span data-zh>🌟 互補配對的朋友</span>
                 <span data-en>🌟 Complementary Partners</span>
               </div>
-              <div class="animal-row" id="complementary-animals-row" style="display: flex; justify-content: space-around; gap: 4px;">
+              <div class="animal-row" id="complementary-animals-row" style="display: flex; justify-content: space-around; gap: 6px;">
                 <!-- 動態載入互補動物 -->
               </div>
             </div>
@@ -3689,14 +3723,15 @@
       if (similarRow) {
         if (similarAnimals.length > 0) {
           similarRow.innerHTML = similarAnimals.map(animal => {
-            // 根據 MBTI 第一個字母決定表情符號：I = 貓，E = 狗
-            const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
-            
             return `
-              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
-                <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
-                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${animal.species}</div>
-                <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 6px 4px;">
+                <div class="mini-animal-image-container" style="margin-bottom: 3px;">
+                  <img src="${animal.image}" alt="${animal.species}" class="mini-animal-image" 
+                       style="width: 70px; height: 70px; object-fit: contain;" 
+                       loading="lazy" />
+                </div>
+                <div class="mini-animal-name" style="font-size: 0.6rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px; font-weight: 500;">${animal.species}</div>
+                <div class="mini-animal-type" style="font-size: 0.55rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
@@ -3713,14 +3748,15 @@
       if (complementaryRow) {
         if (complementaryAnimals.length > 0) {
           complementaryRow.innerHTML = complementaryAnimals.map(animal => {
-            // 根據 MBTI 第一個字母決定表情符號：I = 貓，E = 狗
-            const emoji = animal.mbti && animal.mbti[0] === 'I' ? '🐱' : '🐶';
-            
             return `
-              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
-                <div class="mini-animal-emoji" style="font-size: 1.2rem; margin-bottom: 2px;">${emoji}</div>
-                <div class="mini-animal-name" style="font-size: 0.55rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${animal.species}</div>
-                <div class="mini-animal-type" style="font-size: 0.5rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 6px 4px;">
+                <div class="mini-animal-image-container" style="margin-bottom: 3px;">
+                  <img src="${animal.image}" alt="${animal.species}" class="mini-animal-image" 
+                       style="width: 70px; height: 70px; object-fit: contain;" 
+                       loading="lazy" />
+                </div>
+                <div class="mini-animal-name" style="font-size: 0.6rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px; font-weight: 500;">${animal.species}</div>
+                <div class="mini-animal-type" style="font-size: 0.55rem; color: #999; margin-top: 1px;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
@@ -3808,11 +3844,14 @@
           
           similarRow.innerHTML = similarAnimals.map(animal => {
             const species = isEnglish ? (animal.species_en || animal.species) : (animal.species || animal.species_en);
-            const emoji = getAnimalEmoji(species);
             
             return `
-              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
-                <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
+                <div class="mini-animal-image-container" style="margin-bottom: 1px;">
+                  <img src="${animal.image}" alt="${species}" class="mini-animal-image" 
+                       style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
+                       loading="lazy" />
+                </div>
                 <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
                 <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
               </div>
@@ -3835,11 +3874,14 @@
           
           complementaryRow.innerHTML = complementaryAnimals.map(animal => {
             const species = isEnglish ? (animal.species_en || animal.species) : (animal.species || animal.species_en);
-            const emoji = getAnimalEmoji(species);
             
             return `
-              <div style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
-                <div style="font-size: 0.9rem; margin-bottom: 1px;">${emoji}</div>
+              <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
+                <div class="mini-animal-image-container" style="margin-bottom: 1px;">
+                  <img src="${animal.image}" alt="${species}" class="mini-animal-image" 
+                       style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
+                       loading="lazy" />
+                </div>
                 <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
                 <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
               </div>
