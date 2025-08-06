@@ -342,7 +342,7 @@
 
     .header h1 {
       font-family: 'Caveat', 'Noto Sans TC', cursive;
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: clamp(3rem, 6vw, 5rem);
       font-weight: 700;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
@@ -707,7 +707,7 @@
       }
       
       .result-emoji {
-        font-size: 4rem !important;
+        font-size: 8rem !important;
       }
       
       .result-title {
@@ -736,11 +736,11 @@
       }
       
       .mini-animal-emoji {
-        font-size: 1.8rem !important;
+        font-size: 3.6rem !important;
       }
       
       .mini-animal-name {
-        font-size: 0.8rem !important;
+        font-size: 1rem !important;
         padding: 0 4px !important;
       }
       
@@ -755,8 +755,20 @@
       }
       
       .similar-animals, .social-connection {
-        padding: 15px !important;
-        margin: 10px 0 !important;
+        padding: 25px !important;
+        margin: 15px 0 !important;
+      }
+      
+      /* 電腦版主要結果圖片大小調整 */
+      .result-main-image {
+        width: 320px !important;
+        height: 320px !important;
+      }
+      
+      /* 電腦版迷你動物圖片調整 */
+      .mini-animal-image {
+        width: 72px !important;
+        height: 72px !important;
       }
     }
 
@@ -768,7 +780,7 @@
       }
       
       .result-emoji {
-        font-size: 3.5rem !important;
+        font-size: 7rem !important;
       }
       
       .result-title {
@@ -782,6 +794,18 @@
       .result-description {
         font-size: 1.1rem !important;
       }
+      
+      /* 平板版主要結果圖片大小調整 */
+      .result-main-image {
+        width: 240px !important;
+        height: 240px !important;
+      }
+      
+      /* 平板版迷你動物圖片調整 */
+      .mini-animal-image {
+        width: 56px !important;
+        height: 56px !important;
+      }
     }
 
     /* 手機端優化 */
@@ -793,7 +817,7 @@
       }
       
       .result-emoji {
-        font-size: 3rem !important;
+        font-size: 6rem !important;
       }
       
       .result-title {
@@ -835,6 +859,18 @@
       
       .mega-animal-type {
         font-size: 0.6rem !important;
+      }
+      
+      /* 手機版主要結果圖片大小調整 */
+      .result-main-image {
+        width: 200px !important;
+        height: 200px !important;
+      }
+      
+      /* 手機版迷你動物圖片調整 */
+      .mini-animal-image {
+        width: 48px !important;
+        height: 48px !important;
       }
     }
 
@@ -920,29 +956,27 @@
     .result-emoji-container {
       position: relative;
       display: inline-block;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
     }
 
     .result-emoji {
-      font-size: 2.8rem;
+      font-size: 5.6rem;
       position: relative;
       z-index: 2;
       animation: float 3s ease-in-out infinite;
     }
 
-    .emoji-glow {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80px;
-      height: 80px;
-      background: radial-gradient(circle, rgba(244, 167, 185, 0.3) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    @keyframes float {
+      .emoji-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+        height: 160px;
+        background: radial-gradient(circle, rgba(244, 167, 185, 0.3) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: pulse-glow 2s ease-in-out infinite;
+      }    @keyframes float {
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
     }
@@ -1021,7 +1055,7 @@
     .similar-animals {
       background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
       border-radius: 10px;
-      padding: 12px;
+      padding: 18px 12px;
       margin: 10px 0;
       border: 1px solid rgba(102, 126, 234, 0.1);
       flex-shrink: 0;
@@ -1044,8 +1078,8 @@
       display: flex;
       justify-content: space-around;
       align-items: flex-start;
-      margin: 8px 0;
-      gap: 8px;
+      margin: 12px 0;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -1053,20 +1087,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
       flex: 1;
       text-align: center;
       min-width: 0;
     }
 
     .mini-animal-emoji {
-      font-size: 1.3rem;
+      font-size: 2.6rem;
       animation: bounce-subtle 2s ease-in-out infinite;
     }
 
     .mini-animal-name {
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.75rem;
       font-weight: 500;
       color: var(--text-secondary);
       line-height: 1.2;
@@ -1782,7 +1816,7 @@
     }
 
     .card-emoji {
-      font-size: 2rem;
+      font-size: 4rem;
       margin-right: 12px;
     }
 
@@ -2044,6 +2078,26 @@
     
     .mega-animal-image {
       transition: transform 0.3s ease;
+    }
+    
+    /* 主要結果圖片樣式 */
+    .result-main-image {
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    
+    .result-main-image:hover {
+      transform: scale(1.05);
+    }
+    
+    /* 迷你動物圖片基本樣式 */
+    .mini-animal-image {
+      transition: transform 0.3s ease;
+    }
+    
+    .mini-animal-image:hover {
+      transform: scale(1.1);
     }
   </style>
 </head>
@@ -3120,7 +3174,7 @@
           
             <div class="result-header" style="text-align: center; margin-bottom: 8px;">
               <div class="result-emoji-container" style="margin-bottom: 4px;">
-                <div class="result-emoji" style="font-size: 2.5rem;">${emoji}</div>
+                <div class="result-emoji" style="font-size: 5rem;">${emoji}</div>
               </div>
               <h2 class="result-title" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">最像你的貓咪或狗狗是</h2>
               <h3 class="result-pet-name" style="font-size: 1.1rem; margin: 2px 0; font-weight: 600;">${animal.species}</h3>
@@ -3248,7 +3302,7 @@
             <div class="result-image-container" style="text-align: center; margin-bottom: 8px;">
               <img src="${matchingAnimal.image}" alt="${species}" 
                    class="result-main-image"
-                   style="width: 140px; height: 140px; object-fit: contain; animation: gentleBounce 3s ease-in-out infinite;" 
+                   style="width: 280px; height: 280px; object-fit: contain; animation: gentleBounce 3s ease-in-out infinite;" 
                    loading="lazy" />
             </div>
             ` : ''}
@@ -3886,11 +3940,11 @@
               <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div class="mini-animal-image-container" style="margin-bottom: 1px;">
                   <img src="${animal.image}" alt="${species}" class="mini-animal-image" 
-                       style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
+                       style="width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
                        loading="lazy" />
                 </div>
-                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
-                <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
+                <div style="font-size: 0.7rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
+                <div style="font-size: 0.6rem; color: #999;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
@@ -3916,11 +3970,11 @@
               <div class="mini-animal" style="display: flex; flex-direction: column; align-items: center; min-width: 0; flex: 1; padding: 4px 2px;">
                 <div class="mini-animal-image-container" style="margin-bottom: 1px;">
                   <img src="${animal.image}" alt="${species}" class="mini-animal-image" 
-                       style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
+                       style="width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; box-shadow: 0 1px 3px rgba(0,0,0,0.1);" 
                        loading="lazy" />
                 </div>
-                <div style="font-size: 0.5rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
-                <div style="font-size: 0.45rem; color: #999;">${animal.mbti}</div>
+                <div style="font-size: 0.7rem; color: #666; text-align: center; line-height: 1.2; word-break: break-word; padding: 0 2px;">${species}</div>
+                <div style="font-size: 0.6rem; color: #999;">${animal.mbti}</div>
               </div>
             `;
           }).join('');
