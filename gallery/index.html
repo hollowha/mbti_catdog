@@ -148,6 +148,283 @@
       animation: slideUp 0.8s ease-out 0.1s both;
     }
 
+    /* View Mode Switcher */
+    .view-switcher {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .view-btn {
+      padding: 12px 20px;
+      background: var(--milktea-light);
+      border: 2px solid var(--border-color);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .view-btn.active {
+      background: var(--gradient-primary);
+      color: white;
+      border-color: var(--khaki-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .view-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* Grid View (背包模式) */
+    .grid-view {
+      display: none;
+    }
+
+    .grid-view.active {
+      display: block;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--border-color);
+      border-radius: 15px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .grid-item:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--pink-accent);
+    }
+
+    .grid-item.user-pet {
+      border-color: var(--pink-accent);
+      background: linear-gradient(135deg, var(--card-bg) 0%, rgba(244, 167, 185, 0.1) 100%);
+      box-shadow: 0 0 15px rgba(244, 167, 185, 0.3);
+    }
+
+    .grid-item.user-pet::before {
+      content: '⭐';
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-size: 1.2rem;
+      animation: sparkle 2s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+    }
+
+    .grid-item-image {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .grid-item-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .grid-item-mbti {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .grid-item-element {
+      font-size: 0.6rem;
+      padding: 2px 5px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .grid-item-element.fire { background: #FFE5E5; color: #D32F2F; }
+    .grid-item-element.earth { background: #E8F5E8; color: #388E3C; }
+    .grid-item-element.air { background: #E3F2FD; color: #1976D2; }
+    .grid-item-element.water { background: #F3E5F5; color: #7B1FA2; }
+
+    .grid-item-type {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background: var(--gradient-accent);
+      color: var(--text-primary);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 0.6rem;
+      font-weight: 600;
+    }
+
+    .grid-item-element-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      padding: 2px 5px;
+      border-radius: 8px;
+      font-size: 0.6rem;
+      font-weight: 500;
+    }
+
+    .grid-item-element-badge.fire { background: #FFE5E5; color: #D32F2F; }
+    .grid-item-element-badge.earth { background: #E8F5E8; color: #388E3C; }
+    .grid-item-element-badge.air { background: #E3F2FD; color: #1976D2; }
+    .grid-item-element-badge.water { background: #F3E5F5; color: #7B1FA2; }
+
+    /* Detail View Modal */
+    .detail-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .detail-modal.show {
+      display: flex;
+    }
+
+    .detail-content {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 400px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .detail-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+    }
+
+    .detail-close:hover {
+      color: var(--text-primary);
+      transform: scale(1.1);
+    }
+
+    .detail-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .detail-species {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .detail-badges {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .detail-mbti {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .detail-element {
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .detail-type {
+      background: var(--gradient-accent);
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 15px;
+      font-weight: 600;
+    }
+
+    .detail-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      text-align: center;
+      font-size: 1rem;
+    }
+
     .filter-tabs {
       display: flex;
       gap: 10px;
@@ -262,6 +539,14 @@
       margin-bottom: 40px;
     }
 
+    .gallery-grid.active {
+      display: grid;
+    }
+
+    .gallery-grid:not(.active) {
+      display: none;
+    }
+
     /* Pet Card */
     .pet-card {
       background: var(--card-bg);
@@ -292,7 +577,7 @@
     .pet-card.user-pet::before {
       content: '⭐ 你的寵物 Your Pet ⭐';
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       right: 0;
       background: var(--gradient-secondary);
@@ -302,6 +587,7 @@
       font-weight: 600;
       text-align: center;
       z-index: 2;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
     }
 
     .pet-image {
@@ -322,7 +608,7 @@
     }
 
     .pet-card.user-pet .pet-info {
-      padding-top: 25px;
+      padding-bottom: 25px;
     }
 
     .pet-species {
@@ -346,12 +632,14 @@
     }
 
     .pet-element {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 12px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 10px;
+      border-radius: 15px;
       font-size: 0.8rem;
-      font-weight: 500;
-      margin-left: 8px;
+      font-weight: 600;
+      z-index: 3;
     }
 
     .pet-element.fire { background: #FFE5E5; color: #D32F2F; }
@@ -359,24 +647,24 @@
     .pet-element.air { background: #E3F2FD; color: #1976D2; }
     .pet-element.water { background: #F3E5F5; color: #7B1FA2; }
 
-    .pet-description {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-top: 10px;
-      text-align: center;
-    }
-
     .pet-type-badge {
       position: absolute;
       top: 15px;
-      right: 15px;
+      left: 15px;
       background: var(--gradient-accent);
       color: var(--text-primary);
       padding: 5px 10px;
       border-radius: 15px;
       font-size: 0.8rem;
       font-weight: 600;
+    }
+
+    .pet-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-top: 10px;
+      text-align: center;
     }
 
     /* Language Switcher */
@@ -462,6 +750,65 @@
         padding: 10px 18px;
         font-size: 0.9rem;
       }
+
+      /* 手機版背包模式優化 */
+      .grid-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 0 5px;
+      }
+
+      .grid-item {
+        aspect-ratio: 1;
+        padding: 8px;
+      }
+
+      .grid-item-image {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 6px;
+      }
+
+      .grid-item-name {
+        font-size: 0.7rem;
+        margin-bottom: 3px;
+      }
+
+      .grid-item-mbti {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+        margin-bottom: 3px;
+      }
+
+      .grid-item-element {
+        font-size: 0.55rem;
+        padding: 1px 3px;
+      }
+
+      .detail-content {
+        padding: 25px 20px;
+        margin: 10px;
+      }
+
+      .detail-image {
+        height: 150px;
+        margin-bottom: 15px;
+      }
+
+      .detail-species {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+      }
+
+      /* 防止模態框內容被擠壓 */
+      .detail-badges {
+        gap: 8px;
+      }
+
+      .detail-mbti, .detail-element, .detail-type {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -509,6 +856,75 @@
         top: 10px;
         right: 10px;
         left: 10px;
+        justify-content: center;
+      }
+
+      /* 手機版超小背包模式 */
+      .grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 2px;
+      }
+
+      .grid-item {
+        padding: 6px;
+        border-radius: 12px;
+      }
+
+      .grid-item-image {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 4px;
+      }
+
+      .grid-item-name {
+        font-size: 0.65rem;
+        margin-bottom: 2px;
+      }
+
+      .grid-item-mbti {
+        font-size: 0.55rem;
+        padding: 1px 3px;
+        margin-bottom: 2px;
+      }
+
+      .grid-item-element {
+        font-size: 0.5rem;
+        padding: 1px 2px;
+      }
+
+      /* 手機版右上角元素標籤位置調整 */
+      .grid-item-element-badge {
+        top: 3px;
+        right: 3px;
+        padding: 1px 3px;
+        font-size: 0.5rem;
+      }
+
+      .grid-item-type {
+        top: 3px;
+        left: 3px;
+        padding: 1px 3px;
+        font-size: 0.5rem;
+      }
+
+      /* 手機版星星位置調整 */
+      .grid-item.user-pet::before {
+        bottom: 3px;
+        right: 3px;
+        font-size: 1rem;
+      }
+
+      .view-switcher {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      .view-btn {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+        flex: 1;
+        max-width: 120px;
         justify-content: center;
       }
     }
@@ -599,6 +1015,20 @@
         <div id="userPetDisplay"></div>
       </div>
 
+      <!-- View Mode Switcher -->
+      <div class="view-switcher">
+        <div class="view-btn active" onclick="switchView('detail')">
+          <span>📋</span>
+          <span data-zh>詳細模式</span>
+          <span data-en>Detail View</span>
+        </div>
+        <div class="view-btn" onclick="switchView('grid')">
+          <span>🎒</span>
+          <span data-zh>背包模式</span>
+          <span data-en>Grid View</span>
+        </div>
+      </div>
+
       <div class="filter-tabs">
         <div class="filter-tab active" onclick="filterPets('all')">
           <span data-zh>全部 (64)</span>
@@ -636,11 +1066,36 @@
     </div>
 
     <!-- Gallery Grid -->
-    <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-grid active" id="galleryGrid">
       <div class="loading">
         <span data-zh>載入中...</span>
         <span data-en>Loading...</span>
       </div>
+    </div>
+
+    <!-- Grid View (背包模式) -->
+    <div class="grid-view" id="gridView">
+      <div class="grid-container" id="gridContainer">
+        <div class="loading">
+          <span data-zh>載入中...</span>
+          <span data-en>Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="detail-modal" id="detailModal" onclick="closeDetailModal()">
+    <div class="detail-content" onclick="event.stopPropagation()">
+      <button class="detail-close" onclick="closeDetailModal()">×</button>
+      <img id="modalImage" class="detail-image" src="" alt="">
+      <h3 id="modalSpecies" class="detail-species"></h3>
+      <div class="detail-badges">
+        <span id="modalMBTI" class="detail-mbti"></span>
+        <span id="modalElement" class="detail-element"></span>
+        <span id="modalType" class="detail-type"></span>
+      </div>
+      <p id="modalDescription" class="detail-description"></p>
     </div>
   </div>
 
@@ -648,6 +1103,199 @@
     let animalData = [];
     let currentFilter = 'all';
     let userPetData = null;
+    let currentView = 'detail'; // 'detail' or 'grid'
+
+    // 檢測設備類型並設置預設視圖
+    function getDefaultView() {
+      const isMobile = window.innerWidth <= 768;
+      return isMobile ? 'grid' : 'detail';
+    }
+
+    // 初始化預設視圖
+    function initializeDefaultView() {
+      const defaultView = getDefaultView();
+      currentView = defaultView;
+      
+      // 更新視圖按鈕狀態
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // 設置正確的按鈕為活動狀態
+      const targetBtn = defaultView === 'grid' ? 
+        document.querySelector('.view-btn[onclick*="grid"]') : 
+        document.querySelector('.view-btn[onclick*="detail"]');
+      
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
+      
+      // 顯示相應的視圖
+      const galleryGrid = document.getElementById('galleryGrid');
+      const gridView = document.getElementById('gridView');
+      
+      if (defaultView === 'grid') {
+        galleryGrid.classList.remove('active');
+        gridView.classList.add('active');
+      } else {
+        galleryGrid.classList.add('active');
+        gridView.classList.remove('active');
+      }
+    }
+
+    // Switch view mode
+    function switchView(view) {
+      currentView = view;
+      
+      // Update active view button
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // 找到對應的按鈕並設置為活動狀態
+      const targetBtn = view === 'grid' ? 
+        document.querySelector('.view-btn[onclick*="grid"]') : 
+        document.querySelector('.view-btn[onclick*="detail"]');
+      
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
+      
+      // Show/hide appropriate view
+      const galleryGrid = document.getElementById('galleryGrid');
+      const gridView = document.getElementById('gridView');
+      
+      if (view === 'grid') {
+        galleryGrid.classList.remove('active');
+        gridView.classList.add('active');
+        renderGridView();
+      } else {
+        galleryGrid.classList.add('active');
+        gridView.classList.remove('active');
+        renderGallery();
+      }
+    }
+
+    // Create grid item HTML
+    function createGridItem(pet, isUserPet = false) {
+      const petType = getPetType(pet.species);
+      const currentLang = document.documentElement.getAttribute('data-lang') || 'zh-TW';
+      const species = currentLang === 'en-US' ? pet.species_en : pet.species;
+      const typeText = currentLang === 'en-US' ? (petType === 'cat' ? 'Cat' : 'Dog') : (petType === 'cat' ? '貓咪' : '狗狗');
+      const elementEmoji = pet.element === 'fire' ? '🔥' : pet.element === 'earth' ? '🌿' : pet.element === 'air' ? '💨' : '💧';
+      
+      return `
+        <div class="grid-item ${isUserPet ? 'user-pet' : ''}" onclick="showDetailModal('${pet.mbti}', '${pet.element}')">
+          <div class="grid-item-type">${typeText}</div>
+          <div class="grid-item-element-badge ${pet.element}">
+            ${elementEmoji}
+          </div>
+          <img src="../${pet.image}" alt="${species}" class="grid-item-image" onerror="this.src='../img/placeholder.png'">
+          <div class="grid-item-name">${species}</div>
+          <div class="grid-item-mbti">${pet.mbti}</div>
+        </div>
+      `;
+    }
+
+    // Show detail modal
+    function showDetailModal(mbti, element) {
+      const pet = animalData.find(p => p.mbti === mbti && p.element === element);
+      if (!pet) return;
+
+      const currentLang = document.documentElement.getAttribute('data-lang') || 'zh-TW';
+      const species = currentLang === 'en-US' ? pet.species_en : pet.species;
+      const description = currentLang === 'en-US' ? pet.description_en : pet.description;
+      const petType = getPetType(pet.species);
+      const typeText = currentLang === 'en-US' ? (petType === 'cat' ? 'Cat' : 'Dog') : (petType === 'cat' ? '貓咪' : '狗狗');
+      
+      const elementText = currentLang === 'en-US' ? 
+        (pet.element === 'fire' ? 'Fire' : pet.element === 'earth' ? 'Earth' : pet.element === 'air' ? 'Air' : 'Water') :
+        (pet.element === 'fire' ? '火' : pet.element === 'earth' ? '土' : pet.element === 'air' ? '風' : '水');
+      
+      document.getElementById('modalImage').src = `../${pet.image}`;
+      document.getElementById('modalSpecies').textContent = species;
+      document.getElementById('modalMBTI').textContent = pet.mbti;
+      document.getElementById('modalElement').textContent = `${pet.element === 'fire' ? '🔥' : pet.element === 'earth' ? '🌿' : pet.element === 'air' ? '💨' : '💧'} ${elementText}`;
+      document.getElementById('modalElement').className = `detail-element ${pet.element}`;
+      document.getElementById('modalType').textContent = typeText;
+      document.getElementById('modalDescription').textContent = description;
+      
+      document.getElementById('detailModal').classList.add('show');
+    }
+
+    // Close detail modal
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('show');
+    }
+
+    // Render grid view
+    function renderGridView() {
+      const gridContainer = document.getElementById('gridContainer');
+      
+      if (!animalData.length) {
+        gridContainer.innerHTML = '<div class="loading"><span data-zh>載入中...</span><span data-en>Loading...</span></div>';
+        return;
+      }
+      
+      let filteredData = getFilteredData();
+      
+      // Generate HTML
+      const itemsHTML = filteredData.map((pet, index) => {
+        const isUserPet = userPetData && 
+          pet.mbti === userPetData.mbti && 
+          pet.element === userPetData.element;
+        
+        return createGridItem(pet, isUserPet);
+      }).join('');
+      
+      gridContainer.innerHTML = itemsHTML;
+    }
+
+    // Get filtered data (shared between views)
+    function getFilteredData() {
+      let filteredData = animalData;
+      
+      // Apply filters
+      if (currentFilter !== 'all') {
+        if (currentFilter === 'cat' || currentFilter === 'dog') {
+          // 物種篩選
+          filteredData = animalData.filter(pet => getPetType(pet.species) === currentFilter);
+        } else if (currentFilter === 'NT' || currentFilter === 'NF' || currentFilter === 'SJ' || currentFilter === 'SP') {
+          // MBTI 維度篩選
+          filteredData = animalData.filter(pet => {
+            const mbti = pet.mbti;
+            switch (currentFilter) {
+              case 'NT': return mbti.includes('N') && mbti.includes('T');
+              case 'NF': return mbti.includes('N') && mbti.includes('F');
+              case 'SJ': return mbti.includes('S') && mbti.includes('J');
+              case 'SP': return mbti.includes('S') && mbti.includes('P');
+              default: return false;
+            }
+          });
+        } else if (currentFilter === 'userElement' && userPetData) {
+          // 用戶元素篩選
+          filteredData = animalData.filter(pet => pet.element === userPetData.element);
+        } else {
+          // 兼容舊的元素篩選（如果還有的話）
+          filteredData = animalData.filter(pet => pet.element === currentFilter);
+        }
+      }
+      
+      // Sort to put user pet first if it matches the filter
+      if (userPetData) {
+        const userPetInFilter = filteredData.find(pet => 
+          pet.mbti === userPetData.mbti && pet.element === userPetData.element
+        );
+        if (userPetInFilter) {
+          filteredData = filteredData.filter(pet => 
+            !(pet.mbti === userPetData.mbti && pet.element === userPetData.element)
+          );
+          filteredData.unshift(userPetInFilter);
+        }
+      }
+      
+      return filteredData;
+    }
 
     // Load animal data
     async function loadAnimalData() {
@@ -724,8 +1372,15 @@
         // Load user pet data from localStorage
         loadUserPet();
         
-        // Render gallery
-        renderGallery();
+        // 初始化預設視圖
+        initializeDefaultView();
+        
+        // Render appropriate view
+        if (currentView === 'grid') {
+          renderGridView();
+        } else {
+          renderGallery();
+        }
       } catch (error) {
         console.error('載入動物數據失敗:', error);
       }
@@ -813,22 +1468,20 @@
       const species = currentLang === 'en-US' ? pet.species_en : pet.species;
       const description = currentLang === 'en-US' ? pet.description_en : pet.description;
       const typeText = currentLang === 'en-US' ? (petType === 'cat' ? 'Cat' : 'Dog') : (petType === 'cat' ? '貓咪' : '狗狗');
+      const elementEmoji = pet.element === 'fire' ? '🔥' : pet.element === 'earth' ? '🌿' : pet.element === 'air' ? '💨' : '💧';
+      const elementText = currentLang === 'en-US' ? 
+        (pet.element === 'fire' ? 'Fire' : pet.element === 'earth' ? 'Earth' : pet.element === 'air' ? 'Air' : 'Water') :
+        (pet.element === 'fire' ? '火' : pet.element === 'earth' ? '土' : pet.element === 'air' ? '風' : '水');
       
       return `
         <div class="pet-card ${isUserPet ? 'user-pet' : ''}" style="animation-delay: ${Math.random() * 0.3}s">
           <div class="pet-type-badge">${typeText}</div>
+          <div class="pet-element ${pet.element}">${elementEmoji} ${elementText}</div>
           <img src="../${pet.image}" alt="${species}" class="pet-image" onerror="this.src='../img/placeholder.png'">
           <div class="pet-info">
             <h3 class="pet-species">${species}</h3>
             <div>
               <span class="pet-mbti">${pet.mbti}</span>
-              <span class="pet-element ${pet.element}">
-                ${pet.element === 'fire' ? '🔥' : pet.element === 'earth' ? '🌿' : pet.element === 'air' ? '💨' : '💧'} 
-                ${currentLang === 'en-US' ? 
-                  (pet.element === 'fire' ? 'Fire' : pet.element === 'earth' ? 'Earth' : pet.element === 'air' ? 'Air' : 'Water') :
-                  (pet.element === 'fire' ? '火' : pet.element === 'earth' ? '土' : pet.element === 'air' ? '風' : '水')
-                }
-              </span>
             </div>
             <p class="pet-description">${description}</p>
           </div>
@@ -846,7 +1499,12 @@
       });
       event.target.classList.add('active');
       
-      renderGallery();
+      // Render appropriate view
+      if (currentView === 'grid') {
+        renderGridView();
+      } else {
+        renderGallery();
+      }
     }
 
     // Render gallery
@@ -858,46 +1516,7 @@
         return;
       }
       
-      let filteredData = animalData;
-      
-      // Apply filters
-      if (currentFilter !== 'all') {
-        if (currentFilter === 'cat' || currentFilter === 'dog') {
-          // 物種篩選
-          filteredData = animalData.filter(pet => getPetType(pet.species) === currentFilter);
-        } else if (currentFilter === 'NT' || currentFilter === 'NF' || currentFilter === 'SJ' || currentFilter === 'SP') {
-          // MBTI 維度篩選
-          filteredData = animalData.filter(pet => {
-            const mbti = pet.mbti;
-            switch (currentFilter) {
-              case 'NT': return mbti.includes('N') && mbti.includes('T');
-              case 'NF': return mbti.includes('N') && mbti.includes('F');
-              case 'SJ': return mbti.includes('S') && mbti.includes('J');
-              case 'SP': return mbti.includes('S') && mbti.includes('P');
-              default: return false;
-            }
-          });
-        } else if (currentFilter === 'userElement' && userPetData) {
-          // 用戶元素篩選
-          filteredData = animalData.filter(pet => pet.element === userPetData.element);
-        } else {
-          // 兼容舊的元素篩選（如果還有的話）
-          filteredData = animalData.filter(pet => pet.element === currentFilter);
-        }
-      }
-      
-      // Sort to put user pet first if it matches the filter
-      if (userPetData) {
-        const userPetInFilter = filteredData.find(pet => 
-          pet.mbti === userPetData.mbti && pet.element === userPetData.element
-        );
-        if (userPetInFilter) {
-          filteredData = filteredData.filter(pet => 
-            !(pet.mbti === userPetData.mbti && pet.element === userPetData.element)
-          );
-          filteredData.unshift(userPetInFilter);
-        }
-      }
+      let filteredData = getFilteredData();
       
       // Generate HTML
       const cardsHTML = filteredData.map((pet, index) => {
@@ -968,8 +1587,12 @@
       // Update user element button text when language changes
       setupUserElementButton();
       
-      // Re-render gallery to update language
-      renderGallery();
+      // Re-render appropriate view to update language
+      if (currentView === 'grid') {
+        renderGridView();
+      } else {
+        renderGallery();
+      }
     }
 
     // Initialize
@@ -977,11 +1600,27 @@
       loadAnimalData();
     });
 
+    // 窗口大小變化時重新檢查預設視圖
+    window.addEventListener('resize', function() {
+      const newDefaultView = getDefaultView();
+      if (newDefaultView !== currentView) {
+        // 如果預設視圖改變了，自動切換
+        setTimeout(() => {
+          switchView(newDefaultView);
+        }, 100);
+      }
+    });
+
     // Save user result when they complete the quiz
     window.addEventListener('storage', function(e) {
       if (e.key === 'mbtiPetResult') {
         loadUserPet();
-        renderGallery();
+        // Re-render appropriate view
+        if (currentView === 'grid') {
+          renderGridView();
+        } else {
+          renderGallery();
+        }
       }
     });
   </script>
