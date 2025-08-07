@@ -178,6 +178,63 @@
       transform: translateY(-2px);
     }
 
+    /* MBTI 類型按鈕特殊樣式 */
+    .filter-tab[onclick*="NT"] {
+      background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+      color: #1565C0;
+      border-color: #1976D2;
+    }
+
+    .filter-tab[onclick*="NF"] {
+      background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%);
+      color: #6A1B9A;
+      border-color: #7B1FA2;
+    }
+
+    .filter-tab[onclick*="SJ"] {
+      background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C8 100%);
+      color: #2E7D32;
+      border-color: #388E3C;
+    }
+
+    .filter-tab[onclick*="SP"] {
+      background: linear-gradient(135deg, #FFE5E5 0%, #FFCDD2 100%);
+      color: #C62828;
+      border-color: #D32F2F;
+    }
+
+    /* 用戶元素按鈕特殊樣式 */
+    #userElementTab {
+      background: linear-gradient(135deg, var(--gradient-warm) 0%, var(--pink-accent) 100%);
+      color: white;
+      border: 2px solid var(--pink-accent);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #userElementTab::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+      animation: rotate 3s linear infinite;
+      pointer-events: none;
+    }
+
+    #userElementTab:hover {
+      background: linear-gradient(135deg, var(--pink-accent) 0%, #E8A598 100%);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(244, 167, 185, 0.4);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
     .user-pet-section {
       background: var(--gradient-warm);
       border: 2px solid var(--pink-accent);
@@ -416,11 +473,35 @@
       .filter-tabs {
         flex-direction: column;
         align-items: center;
+        gap: 8px;
       }
 
       .filter-tab {
-        width: 200px;
+        width: 220px;
         text-align: center;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+
+      /* MBTI 按鈕在手機版的特殊處理 */
+      .filter-tab[onclick*="NT"], 
+      .filter-tab[onclick*="NF"], 
+      .filter-tab[onclick*="SJ"], 
+      .filter-tab[onclick*="SP"] {
+        width: 240px;
+        font-weight: 700;
+      }
+
+      #userElementTab {
+        width: 250px;
+        font-weight: 700;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
       }
 
       .language-switcher {
@@ -486,23 +567,23 @@
     <div class="header">
       <h1>
         <span data-zh>🐱🐶 MBTI寵物圖鑑</span>
-        <span data-en">🐱🐶 MBTI Pet Gallery</span>
+        <span data-en>🐱🐶 MBTI Pet Gallery</span>
       </h1>
       <p class="subtitle">
         <span data-zh>探索64種不同性格的貓咪和狗狗，找到最適合你的毛孩伴侶</span>
-        <span data-en">Explore 64 different personalities of cats and dogs, find your perfect furry companion</span>
+        <span data-en>Explore 64 different personalities of cats and dogs, find your perfect furry companion</span>
       </p>
       
       <div class="nav-buttons">
         <a href="index.html" class="nav-btn">
           <span>✨</span>
-          <span data-zh">開始測驗</span>
-          <span data-en">Take Quiz</span>
+          <span data-zh>開始測驗</span>
+          <span data-en>Take Quiz</span>
         </a>
         <button class="nav-btn" onclick="showUserPet()">
           <span>⭐</span>
-          <span data-zh">我的寵物</span>
-          <span data-en">My Pet</span>
+          <span data-zh>我的寵物</span>
+          <span data-en>My Pet</span>
         </button>
       </div>
     </div>
@@ -512,40 +593,44 @@
       <!-- User Pet Display -->
       <div class="user-pet-section" id="userPetSection">
         <h3>
-          <span data-zh">⭐ 你的專屬寵物 ⭐</span>
-          <span data-en">⭐ Your Personal Pet ⭐</span>
+          <span data-zh>⭐ 你的專屬寵物 ⭐</span>
+          <span data-en>⭐ Your Personal Pet ⭐</span>
         </h3>
         <div id="userPetDisplay"></div>
       </div>
 
       <div class="filter-tabs">
         <div class="filter-tab active" onclick="filterPets('all')">
-          <span data-zh">全部 (64)</span>
-          <span data-en">All (64)</span>
+          <span data-zh>全部 (64)</span>
+          <span data-en>All (64)</span>
         </div>
         <div class="filter-tab" onclick="filterPets('cat')">
-          <span data-zh">貓咪 (32)</span>
-          <span data-en">Cats (32)</span>
+          <span data-zh>貓咪 (32)</span>
+          <span data-en>Cats (32)</span>
         </div>
         <div class="filter-tab" onclick="filterPets('dog')">
-          <span data-zh">狗狗 (32)</span>
-          <span data-en">Dogs (32)</span>
+          <span data-zh>狗狗 (32)</span>
+          <span data-en>Dogs (32)</span>
         </div>
-        <div class="filter-tab" onclick="filterPets('fire')">
-          <span data-zh">火元素</span>
-          <span data-en">Fire</span>
+        <div class="filter-tab" onclick="filterPets('NT')">
+          <span data-zh>理性家 NT</span>
+          <span data-en>Rationals NT</span>
         </div>
-        <div class="filter-tab" onclick="filterPets('earth')">
-          <span data-zh">土元素</span>
-          <span data-en">Earth</span>
+        <div class="filter-tab" onclick="filterPets('NF')">
+          <span data-zh>理想家 NF</span>
+          <span data-en>Idealists NF</span>
         </div>
-        <div class="filter-tab" onclick="filterPets('air')">
-          <span data-zh">風元素</span>
-          <span data-en">Air</span>
+        <div class="filter-tab" onclick="filterPets('SJ')">
+          <span data-zh>守護者 SJ</span>
+          <span data-en>Guardians SJ</span>
         </div>
-        <div class="filter-tab" onclick="filterPets('water')">
-          <span data-zh">水元素</span>
-          <span data-en">Water</span>
+        <div class="filter-tab" onclick="filterPets('SP')">
+          <span data-zh>探險家 SP</span>
+          <span data-en>Artisans SP</span>
+        </div>
+        <div class="filter-tab" id="userElementTab" onclick="filterPets('userElement')" style="display: none;">
+          <span data-zh id="userElementTextZh">你的元素</span>
+          <span data-en id="userElementTextEn">Your Element</span>
         </div>
       </div>
     </div>
@@ -553,8 +638,8 @@
     <!-- Gallery Grid -->
     <div class="gallery-grid" id="galleryGrid">
       <div class="loading">
-        <span data-zh">載入中...</span>
-        <span data-en">Loading...</span>
+        <span data-zh>載入中...</span>
+        <span data-en>Loading...</span>
       </div>
     </div>
   </div>
@@ -652,6 +737,49 @@
       if (stored) {
         userPetData = JSON.parse(stored);
         console.log('載入使用者寵物:', userPetData);
+        
+        // 顯示並設置用戶元素按鈕
+        setupUserElementButton();
+      }
+    }
+
+    // 設置用戶元素按鈕
+    function setupUserElementButton() {
+      if (!userPetData || !userPetData.element) return;
+      
+      const userElementTab = document.getElementById('userElementTab');
+      const userElementTextZh = document.getElementById('userElementTextZh');
+      const userElementTextEn = document.getElementById('userElementTextEn');
+      
+      if (userElementTab && userElementTextZh && userElementTextEn) {
+        // 顯示按鈕
+        userElementTab.style.display = 'block';
+        
+        // 設置按鈕文字
+        const element = userPetData.element;
+        const elementEmoji = {
+          fire: '🔥',
+          earth: '🌿', 
+          air: '💨',
+          water: '💧'
+        };
+        
+        const elementNameZh = {
+          fire: '火元素',
+          earth: '土元素',
+          air: '風元素', 
+          water: '水元素'
+        };
+        
+        const elementNameEn = {
+          fire: 'Fire Element',
+          earth: 'Earth Element',
+          air: 'Air Element',
+          water: 'Water Element'
+        };
+        
+        userElementTextZh.textContent = `${elementEmoji[element] || '⭐'} ${elementNameZh[element] || '你的元素'}`;
+        userElementTextEn.textContent = `${elementEmoji[element] || '⭐'} ${elementNameEn[element] || 'Your Element'}`;
       }
     }
 
@@ -735,8 +863,25 @@
       // Apply filters
       if (currentFilter !== 'all') {
         if (currentFilter === 'cat' || currentFilter === 'dog') {
+          // 物種篩選
           filteredData = animalData.filter(pet => getPetType(pet.species) === currentFilter);
+        } else if (currentFilter === 'NT' || currentFilter === 'NF' || currentFilter === 'SJ' || currentFilter === 'SP') {
+          // MBTI 維度篩選
+          filteredData = animalData.filter(pet => {
+            const mbti = pet.mbti;
+            switch (currentFilter) {
+              case 'NT': return mbti.includes('N') && mbti.includes('T');
+              case 'NF': return mbti.includes('N') && mbti.includes('F');
+              case 'SJ': return mbti.includes('S') && mbti.includes('J');
+              case 'SP': return mbti.includes('S') && mbti.includes('P');
+              default: return false;
+            }
+          });
+        } else if (currentFilter === 'userElement' && userPetData) {
+          // 用戶元素篩選
+          filteredData = animalData.filter(pet => pet.element === userPetData.element);
         } else {
+          // 兼容舊的元素篩選（如果還有的話）
           filteredData = animalData.filter(pet => pet.element === currentFilter);
         }
       }
@@ -819,6 +964,9 @@
         btn.classList.remove('active');
       });
       document.querySelector(`[data-lang-code="${lang}"]`).classList.add('active');
+      
+      // Update user element button text when language changes
+      setupUserElementButton();
       
       // Re-render gallery to update language
       renderGallery();
