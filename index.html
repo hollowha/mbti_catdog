@@ -2607,17 +2607,6 @@
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 8px !important;
       }
-      
-      /* 確保動物名稱在三格佈局下不換行 */
-      .animal-row > div > div:last-child,
-      .mega-animal-name,
-      .mobile-animal-name {
-        font-size: 0.65rem !important;
-        line-height: 1.1 !important;
-        font-weight: 600 !important;
-        word-break: keep-all !important;
-        overflow-wrap: normal !important;
-      }
     }
     
     @media (max-width: 360px) {
@@ -2625,12 +2614,130 @@
         grid-template-columns: repeat(3, 1fr) !important;
         gap: 6px !important;
       }
-      
-      /* 更小屏幕的字體調整 */
-      .animal-row > div > div:last-child,
-      .mega-animal-name,
-      .mobile-animal-name {
+    }
+
+    /* 新增：動物容器響應式樣式 */
+    .similar-animals-container,
+    .complementary-animals-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* 新增：動物名稱錯位排列樣式 - 避免重疊 */
+    .animal-row > div:nth-child(1) .mega-animal-name,
+    .animal-row > div:nth-child(1) .mobile-animal-name,
+    .animal-row > div:nth-child(1) > div:last-child {
+      transform: translateY(-2px);
+      font-size: 0.7rem !important;
+    }
+
+    .animal-row > div:nth-child(2) .mega-animal-name,
+    .animal-row > div:nth-child(2) .mobile-animal-name,
+    .animal-row > div:nth-child(2) > div:last-child {
+      transform: translateY(0px);
+      font-size: 0.7rem !important;
+    }
+
+    .animal-row > div:nth-child(3) .mega-animal-name,
+    .animal-row > div:nth-child(3) .mobile-animal-name,
+    .animal-row > div:nth-child(3) > div:last-child {
+      transform: translateY(-2px);
+      font-size: 0.7rem !important;
+    }
+
+    /* 確保動物行在所有屏幕尺寸下都正確顯示 */
+    @media (max-width: 768px) {
+      .similar-animals-container .animal-row,
+      .complementary-animals-container .animal-row {
+        grid-template-columns: repeat(3, 30%) !important;
+        justify-content: center !important;
+        gap: 8px !important;
+      }
+
+      /* 手機版動物名稱錯位和字體調整 */
+      .animal-row > div:nth-child(1) .mega-animal-name,
+      .animal-row > div:nth-child(1) .mobile-animal-name,
+      .animal-row > div:nth-child(1) > div:last-child {
+        transform: translateY(-1px);
+        font-size: 0.65rem !important;
+      }
+
+      .animal-row > div:nth-child(2) .mega-animal-name,
+      .animal-row > div:nth-child(2) .mobile-animal-name,
+      .animal-row > div:nth-child(2) > div:last-child {
+        transform: translateY(0px);
+        font-size: 0.65rem !important;
+      }
+
+      .animal-row > div:nth-child(3) .mega-animal-name,
+      .animal-row > div:nth-child(3) .mobile-animal-name,
+      .animal-row > div:nth-child(3) > div:last-child {
+        transform: translateY(-1px);
+        font-size: 0.65rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .similar-animals-container .animal-row,
+      .complementary-animals-container .animal-row {
+        grid-template-columns: repeat(3, 30%) !important;
+        gap: 6px !important;
+        padding: 0 5px !important;
+      }
+
+      /* 小屏幕動物名稱錯位和字體調整 */
+      .animal-row > div:nth-child(1) .mega-animal-name,
+      .animal-row > div:nth-child(1) .mobile-animal-name,
+      .animal-row > div:nth-child(1) > div:last-child {
+        transform: translateY(-1px);
         font-size: 0.6rem !important;
+      }
+
+      .animal-row > div:nth-child(2) .mega-animal-name,
+      .animal-row > div:nth-child(2) .mobile-animal-name,
+      .animal-row > div:nth-child(2) > div:last-child {
+        transform: translateY(0px);
+        font-size: 0.6rem !important;
+      }
+
+      .animal-row > div:nth-child(3) .mega-animal-name,
+      .animal-row > div:nth-child(3) .mobile-animal-name,
+      .animal-row > div:nth-child(3) > div:last-child {
+        transform: translateY(-1px);
+        font-size: 0.6rem !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .similar-animals-container .animal-row,
+      .complementary-animals-container .animal-row {
+        grid-template-columns: repeat(3, 28%) !important;
+        gap: 4px !important;
+        padding: 0 2px !important;
+      }
+
+      /* 極小屏幕動物名稱錯位和字體調整 */
+      .animal-row > div:nth-child(1) .mega-animal-name,
+      .animal-row > div:nth-child(1) .mobile-animal-name,
+      .animal-row > div:nth-child(1) > div:last-child {
+        transform: translateY(-1px);
+        font-size: 0.55rem !important;
+        line-height: 1.0 !important;
+      }
+
+      .animal-row > div:nth-child(2) .mega-animal-name,
+      .animal-row > div:nth-child(2) .mobile-animal-name,
+      .animal-row > div:nth-child(2) > div:last-child {
+        transform: translateY(0px);
+        font-size: 0.55rem !important;
+        line-height: 1.0 !important;
+      }
+
+      .animal-row > div:nth-child(3) .mega-animal-name,
+      .animal-row > div:nth-child(3) .mobile-animal-name,
+      .animal-row > div:nth-child(3) > div:last-child {
+        transform: translateY(-1px);
+        font-size: 0.55rem !important;
         line-height: 1.0 !important;
       }
     }
@@ -3946,8 +4053,10 @@
               <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
                 💫 個性相似的夥伴
               </div>
-              <div class="animal-row" id="similar-animals-row">
-                <!-- 動態載入相似動物 -->
+              <div class="similar-animals-container" style="display: flex; justify-content: center; align-items: center; padding: 0 5px;">
+                <div class="animal-row" id="similar-animals-row" style="display: grid; grid-template-columns: repeat(3, 30%); gap: 8px; justify-content: center; width: 100%; max-width: 100%;">
+                  <!-- 動態載入相似動物 -->
+                </div>
               </div>
             </div>
 
@@ -3955,8 +4064,10 @@
               <div class="similar-title" style="font-size: 0.8rem; margin-bottom: 4px; text-align: center;">
                 🌟 互補配對的朋友
               </div>
-              <div class="animal-row" id="complementary-animals-row">
-                <!-- 動態載入互補動物 -->
+              <div class="complementary-animals-container" style="display: flex; justify-content: center; align-items: center; padding: 0 5px;">
+                <div class="animal-row" id="complementary-animals-row" style="display: grid; grid-template-columns: repeat(3, 30%); gap: 8px; justify-content: center; width: 100%; max-width: 100%;">
+                  <!-- 動態載入互補動物 -->
+                </div>
               </div>
             </div>
 
@@ -4084,8 +4195,10 @@
                 <span data-en>✨ Similar Cat & Dog Companions</span>
                 <span class="mbti-badge" id="similar-mbti-badge" style="font-size: 0.75rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 4px 12px; border-radius: 16px; font-weight: 500; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);"></span>
               </div>
-              <div class="animal-row" id="similar-animals-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 8px;">
-                <!-- 動態載入相似動物 -->
+              <div class="similar-animals-container" style="display: flex; justify-content: center; align-items: center; padding: 0 10px;">
+                <div class="animal-row" id="similar-animals-row" style="display: grid; grid-template-columns: repeat(3, 30%); gap: 12px; justify-content: center; width: 100%; max-width: 100%;">
+                  <!-- 動態載入相似動物 -->
+                </div>
               </div>
             </div>
 
@@ -4096,8 +4209,10 @@
                 <span data-en>🌟 Complementary Partners</span>
                 <span class="mbti-badge" id="complementary-mbti-badge" style="font-size: 0.75rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 4px 12px; border-radius: 16px; font-weight: 500; box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);"></span>
               </div>
-              <div class="animal-row" id="complementary-animals-row" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 0 8px;">
-                <!-- 動態載入互補動物 -->
+              <div class="complementary-animals-container" style="display: flex; justify-content: center; align-items: center; padding: 0 10px;">
+                <div class="animal-row" id="complementary-animals-row" style="display: grid; grid-template-columns: repeat(3, 30%); gap: 12px; justify-content: center; width: 100%; max-width: 100%;">
+                  <!-- 動態載入互補動物 -->
+                </div>
               </div>
             </div>
 
@@ -4301,6 +4416,12 @@
               resultElement.style.opacity = '1';
               resultElement.style.transform = 'translateY(0)';
             });
+            
+            // 滾動到頁面頂部，讓使用者能看到結果
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
           }, 300);
           
           setTimeout(() => {
@@ -4354,6 +4475,12 @@
           requestAnimationFrame(() => {
             resultElement.style.opacity = '1';
             resultElement.style.transform = 'translateY(0)';
+          });
+          
+          // 滾動到頁面頂部，讓使用者能看到結果
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
           });
         }, 300);
         
