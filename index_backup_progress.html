@@ -224,10 +224,6 @@
       padding: 0;
     }
 
-    html {
-      overflow-y: scroll;
-    }
-
     body {
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -237,10 +233,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 20px 20px 20px;
+      padding: 20px;
       line-height: 1.6;
       position: relative;
-      overflow-x: hidden;
     }
 
     body::before {
@@ -261,7 +256,6 @@
     .container {
       width: 100%;
       max-width: 680px;
-      min-height: 600px;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--border-color);
@@ -271,7 +265,6 @@
       position: relative;
       overflow: hidden;
       animation: slideUp 0.8s ease-out;
-      transition: min-height 0.3s ease-out;
     }
     
     /* 電腦版容器優化 */
@@ -407,22 +400,19 @@
       margin-bottom: 30px;
       overflow: hidden;
       box-shadow: inset 0 2px 4px rgba(139, 69, 19, 0.1);
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 1000;
       backdrop-filter: blur(20px);
-      padding: 10px 20px;
+      padding: 10px 0;
       background: rgba(253, 246, 227, 0.95);
       border-bottom: 1px solid var(--border-color);
       transition: all 0.3s ease;
-      max-width: 100%;
-      margin: 0;
     }
 
-    .container .progress-bar {
-      display: none;
+    .progress-bar.scrolled {
+      box-shadow: 0 2px 10px rgba(139, 69, 19, 0.15);
+      background: rgba(253, 246, 227, 0.98);
     }
 
     .progress-text {
@@ -444,16 +434,13 @@
     .progress-text.completed {
       background: var(--gradient-primary);
       color: white;
+      animation: pulse 0.5s ease-out;
     }
 
     /* 手機端進度條優化 */
     @media (max-width: 480px) {
-      body {
-        padding-top: 50px;
-      }
-      
       .progress-bar {
-        padding: 8px 15px;
+        padding: 8px 0;
       }
       
       .progress-text {
@@ -464,7 +451,6 @@
       
       .progress-icon {
         right: 35px;
-        font-size: 0.9rem;
       }
     }
 
@@ -813,13 +799,7 @@
       border-radius: 0;
       box-shadow: none;
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease-in, transform 0.3s ease-in;
-    }
-
-    .result.show {
-      opacity: 1;
-      transform: translateY(0);
+      animation: resultFadeIn 0.8s ease-out forwards;
     }
 
     /* IG Stories 風格結果卡片 - 自適應高度版本 */
@@ -2049,7 +2029,7 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      z-index: 1001;
+      z-index: 1000;
       display: flex;
       gap: 8px;
       background: rgba(255, 255, 255, 0.9);
@@ -3199,10 +3179,11 @@
         progressText.classList.remove('completed');
       }
       
-      // 如果有進步，播放音效
+      // 如果有進步，播放音效和動畫
       if (progress > 0) {
         playClickSound();
         if (progress === 100) {
+          addProgressCelebration();
           playCompletionSound();
         }
       }
@@ -3217,8 +3198,8 @@
           `<span data-zh>✨ 查看最像我的貓狗性格</span><span data-en>✨ Discover My Cat or Dog Match</span>` :
           `<span data-zh>✨ 查看最像我的貓狗性格</span><span data-en>✨ Discover My Cat or Dog Match</span>`;
         
-        // 按鈕準備好的視覺效果 - 移除可能引起跳動的動畫
-        // submitBtn.style.animation = 'pulse 1s ease-in-out infinite';
+        // 按鈕準備好的視覺效果
+        submitBtn.style.animation = 'pulse 1s ease-in-out infinite';
       } else {
         submitBtn.disabled = true;
         submitBtn.style.background = 'var(--khaki-accent)';
@@ -3330,8 +3311,8 @@
           behavior: 'smooth'
         });
         
-        // 移除可能引起版面跳動的按鈕動畫
-        // submitButton.style.animation = 'pulse 1s ease-in-out 3';
+        // 讓提交按鈕閃爍以引起注意
+        submitButton.style.animation = 'pulse 1s ease-in-out 3';
       }
     }
 
@@ -3760,31 +3741,12 @@
           const fallbackEmoji = getAnimalEmoji(fallbackAnimal.species);
           resultDiv.innerHTML = generateResultContent(fallbackAnimal, mbti, zodiacName, fallbackEmoji);
           
-          // 使用相同的平滑過渡效果
-          const quizForm = document.getElementById('quizForm');
-          const resultElement = document.getElementById('result');
-          
-          quizForm.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-          resultElement.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
-          
-          quizForm.style.opacity = '0';
-          quizForm.style.transform = 'translateY(-20px)';
-          
-          setTimeout(() => {
-            quizForm.style.display = 'none';
-            resultElement.style.display = 'block';
-            resultElement.style.opacity = '0';
-            resultElement.style.transform = 'translateY(20px)';
-            
-            requestAnimationFrame(() => {
-              resultElement.style.opacity = '1';
-              resultElement.style.transform = 'translateY(0)';
-            });
-          }, 300);
+          document.getElementById('quizForm').style.display = 'none';
+          document.getElementById('result').style.display = 'block';
           
           setTimeout(() => {
             loadSimilarAnimalsSimplified(fallbackAnimal.mbti);
-          }, 400);
+          }, 100);
         } else {
           console.error('連回退動物也找不到');
         }
@@ -3811,35 +3773,14 @@
         
         console.log('IG 風格 HTML 內容已設置');
         
-        // 直接顯示結果，隱藏表單 - 使用平滑過渡
-        const quizForm = document.getElementById('quizForm');
-        const resultElement = document.getElementById('result');
-        
-        // 添加過渡效果
-        quizForm.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
-        resultElement.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
-        
-        // 先讓表單淡出
-        quizForm.style.opacity = '0';
-        quizForm.style.transform = 'translateY(-20px)';
-        
-        setTimeout(() => {
-          quizForm.style.display = 'none';
-          resultElement.style.display = 'block';
-          resultElement.style.opacity = '0';
-          resultElement.style.transform = 'translateY(20px)';
-          
-          // 讓結果淡入
-          requestAnimationFrame(() => {
-            resultElement.style.opacity = '1';
-            resultElement.style.transform = 'translateY(0)';
-          });
-        }, 300);
+        // 直接顯示結果，隱藏表單
+        document.getElementById('quizForm').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
         
         // 載入相似動物
         setTimeout(() => {
           loadSimilarAnimalsSimplified(matchingAnimal.mbti);
-        }, 400);
+        }, 100);
         
       } catch (error) {
         console.error('設置結果內容時發生錯誤:', error);
