@@ -4219,7 +4219,10 @@
       
       // 延遲跳轉增加體驗感
       setTimeout(() => {
-        window.open('gallery/index.html', '_blank');
+        // 檢測是否為本地環境或GitHub Pages
+        const isLocalhost = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:';
+        const targetUrl = isLocalhost ? 'gallery/index.html' : 'gallery/';
+        window.open(targetUrl, '_blank');
       }, 800);
     }
     
