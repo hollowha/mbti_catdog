@@ -2604,15 +2604,34 @@
       }
       
       .animal-row {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+      }
+      
+      /* 確保動物名稱在三格佈局下不換行 */
+      .animal-row > div > div:last-child,
+      .mega-animal-name,
+      .mobile-animal-name {
+        font-size: 0.65rem !important;
+        line-height: 1.1 !important;
+        font-weight: 600 !important;
+        word-break: keep-all !important;
+        overflow-wrap: normal !important;
       }
     }
     
     @media (max-width: 360px) {
       .animal-row {
-        grid-template-columns: 1fr 1fr !important;
-        gap: 8px !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 6px !important;
+      }
+      
+      /* 更小屏幕的字體調整 */
+      .animal-row > div > div:last-child,
+      .mega-animal-name,
+      .mobile-animal-name {
+        font-size: 0.6rem !important;
+        line-height: 1.0 !important;
       }
     }
     
@@ -2668,8 +2687,8 @@
   <div class="progress-bar" id="globalProgressBar">
     <div class="progress-fill" id="progressFill"></div>
     <div class="progress-text" id="progressText">
-      <span data-zh>0/5 完成</span>
-      <span data-en>0/5 Completed</span>
+      <span data-zh>0/7 完成</span>
+      <span data-en>0/7 Completed</span>
     </div>
     <div class="progress-icon">🐾</div>
   </div>
@@ -2677,44 +2696,82 @@
   <div class="container">
     <div class="header">
       <h1 class="inline">
-        <span data-zh>🐱🐶 找到最像你的貓咪或狗狗</span>
+        <span data-zh>🐱🐶 找到最像你的貓狗</span>
         <span data-en>🐱🐶 Find Your Perfect Cat or Dog Match</span>
       </h1>
       <p class="subtitle">
-        <span data-zh>透過 MBTI 性格測驗，找到和你最相似的貓咪品種或狗狗品種</span>
-        <span data-en>Find your perfect feline or canine companion through MBTI personality test</span>
+        <span data-zh>透過有趣的生活情境問題，找到和你最相似的貓咪品種或狗狗品種</span>
+        <span data-en>Find your perfect feline or canine companion through fun lifestyle questions</span>
       </p>
     </div>
     
     <div class="progress-bar">
       <div class="progress-fill" id="progressFill"></div>
       <div class="progress-text" id="progressText">
-        <span data-zh>0/5 完成</span>
-        <span data-en>0/5 Completed</span>
+        <span data-zh>0/7 完成</span>
+        <span data-en>0/7 Completed</span>
       </div>
       <div class="progress-icon">🐾</div>
     </div>
 
     <form id="quizForm">
-      <div class="question" id="question-1" style="animation-delay: 0.1s">
+      <div class="question" id="question-0" style="animation-delay: 0.05s">
         <p class="inline">
           <span class="question-number">1</span>
-          <span data-zh>你通常在聚會中會怎麼做？</span>
-          <span data-en>What do you usually do at parties?</span>
+          <span data-zh>如果你是一隻神秘的動物，你會選擇住在哪裡？</span>
+          <span data-en>If you were a mysterious animal, where would you choose to live?</span>
+        </p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q0" value="fun1">
+            <div class="option-content inline">
+              <span data-zh>🏔️ 高山雲霧繚繞的神秘洞穴</span>
+              <span data-en>🏔️ A mysterious cave in misty mountains</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q0" value="fun2">
+            <div class="option-content inline">
+              <span data-zh>🌊 深海中的珊瑚宮殿</span>
+              <span data-en>🌊 A coral palace in the deep sea</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q0" value="fun3">
+            <div class="option-content inline">
+              <span data-zh>🌲 古老森林的樹屋</span>
+              <span data-en>🌲 A treehouse in an ancient forest</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q0" value="fun4">
+            <div class="option-content inline">
+              <span data-zh>🏜️ 沙漠中的綠洲帳篷</span>
+              <span data-en>🏜️ An oasis tent in the desert</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" id="question-1" style="animation-delay: 0.1s">
+        <p class="inline">
+          <span class="question-number">2</span>
+          <span data-zh>週末時，你最想要的完美一天是？</span>
+          <span data-en>On weekends, what would your perfect day be?</span>
         </p>
         <div class="options-grid">
           <label class="option">
             <input type="radio" name="q1" value="E">
             <div class="option-content inline">
-              <span data-zh>🎉 喜歡和朋友互動，享受熱鬧氛圍</span>
-              <span data-en>🎉 Love interacting with friends and enjoying the lively atmosphere</span>
+              <span data-zh>🤠 和三五好友一起探險，發現新的咖啡廳或活動</span>
+              <span data-en>🤠 Explore with friends, discover new cafes or activities together</span>
             </div>
           </label>
           <label class="option">
             <input type="radio" name="q1" value="I">
             <div class="option-content inline">
-              <span data-zh>🤔 喜歡獨自思考，觀察周圍環境</span>
-              <span data-en>🤔 Prefer thinking alone and observing the surroundings</span>
+              <span data-zh>🏡 在舒適的空間裡享受獨處時光，看書或追劇</span>
+              <span data-en>🏡 Enjoy solitude in a cozy space, reading books or watching shows</span>
             </div>
           </label>
         </div>
@@ -2722,23 +2779,23 @@
 
       <div class="question" id="question-2" style="animation-delay: 0.2s">
         <p class="inline">
-          <span class="question-number">2</span>
-          <span data-zh>你在做決策時較傾向：</span>
-          <span data-en>When making decisions, you tend to:</span>
+          <span class="question-number">3</span>
+          <span data-zh>如果你要規劃一次旅行，你會？</span>
+          <span data-en>If you were to plan a trip, you would?</span>
         </p>
         <div class="options-grid">
           <label class="option">
             <input type="radio" name="q2" value="S">
             <div class="option-content inline">
-              <span data-zh>📊 注重實際細節和具體事實</span>
-              <span data-en>📊 Focus on practical details and concrete facts</span>
+              <span data-zh>🔍 詳細研究景點評價、交通路線和住宿細節</span>
+              <span data-en>🔍 Research attraction reviews, transportation routes, and accommodation details</span>
             </div>
           </label>
           <label class="option">
             <input type="radio" name="q2" value="N">
             <div class="option-content inline">
-              <span data-zh>💭 憑直覺和想像力思考</span>
-              <span data-en>💭 Think with intuition and imagination</span>
+              <span data-zh>✨ 先想像這趟旅行可能帶來的驚喜和新體驗</span>
+              <span data-en>✨ First imagine the surprises and new experiences this trip might bring</span>
             </div>
           </label>
         </div>
@@ -2746,23 +2803,61 @@
 
       <div class="question" id="question-3" style="animation-delay: 0.3s">
         <p class="inline">
-          <span class="question-number">3</span>
-          <span data-zh>你做決定時較看重：</span>
-          <span data-en>When making decisions, you value more:</span>
+          <span class="question-number">4</span>
+          <span data-zh>看電影時，你更容易被什麼打動？</span>
+          <span data-en>When watching movies, what moves you more?</span>
         </p>
         <div class="options-grid">
           <label class="option">
             <input type="radio" name="q3" value="T">
             <div class="option-content inline">
-              <span data-zh>🧠 邏輯分析與客觀判斷</span>
-              <span data-en>🧠 Logical analysis and objective judgment</span>
+              <span data-zh>🎭 精巧的劇情結構和巧妙的故事邏輯</span>
+              <span data-en>🎭 Ingenious plot structure and clever story logic</span>
             </div>
           </label>
           <label class="option">
             <input type="radio" name="q3" value="F">
             <div class="option-content inline">
-              <span data-zh>❤️ 情感考量與價值觀念</span>
-              <span data-en>❤️ Emotional considerations and values</span>
+              <span data-zh>💕 角色間的深刻情感和人性溫度</span>
+              <span data-en>💕 Deep emotions between characters and human warmth</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="question" id="question-3-fun" style="animation-delay: 0.32s">
+        <p class="inline">
+          <span class="question-number">5</span>
+          <span data-zh>如果你可以擁有一項超能力，你會選擇？</span>
+          <span data-en>If you could have one superpower, which would you choose?</span>
+        </p>
+        <div class="options-grid">
+          <label class="option">
+            <input type="radio" name="q3fun" value="super1">
+            <div class="option-content inline">
+              <span data-zh>🔮 讀心術 - 了解別人在想什麼</span>
+              <span data-en>🔮 Mind reading - Know what others are thinking</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3fun" value="super2">
+            <div class="option-content inline">
+              <span data-zh>⚡ 瞬間移動 - 想去哪就去哪</span>
+              <span data-en>⚡ Teleportation - Go anywhere instantly</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3fun" value="super3">
+            <div class="option-content inline">
+              <span data-zh>🕰️ 時間控制 - 暫停或回到過去</span>
+              <span data-en>🕰️ Time control - Pause or go back in time</span>
+            </div>
+          </label>
+          <label class="option">
+            <input type="radio" name="q3fun" value="super4">
+            <div class="option-content inline">
+              <span data-zh>🗣️ 動物溝通 - 和所有動物對話</span>
+              <span data-en>🗣️ Animal communication - Talk to all animals</span>
             </div>
           </label>
         </div>
@@ -2770,23 +2865,23 @@
 
       <div class="question" id="question-4" style="animation-delay: 0.4s">
         <p class="inline">
-          <span class="question-number">4</span>
-          <span data-zh>你偏好的生活方式：</span>
-          <span data-en>Your preferred lifestyle:</span>
+          <span class="question-number">6</span>
+          <span data-zh>如果要整理房間，你通常會？</span>
+          <span data-en>When organizing your room, you usually?</span>
         </p>
         <div class="options-grid">
           <label class="option">
             <input type="radio" name="q4" value="J">
             <div class="option-content inline">
-              <span data-zh>📅 計畫有序，喜歡確定性</span>
-              <span data-en>📅 Organized and planned, prefer certainty</span>
+              <span data-zh>📝 先制定整理清單，按部就班完成每個區域</span>
+              <span data-en>📝 Make a cleaning checklist first, then complete each area step by step</span>
             </div>
           </label>
           <label class="option">
             <input type="radio" name="q4" value="P">
             <div class="option-content inline">
-              <span data-zh>🎭 隨性彈性，保持開放態度</span>
-              <span data-en>🎭 Flexible and spontaneous, keep an open attitude</span>
+              <span data-zh>🌀 跟著感覺走，看到什麼就整理什麼</span>
+              <span data-en>🌀 Go with the flow, clean whatever catches your attention</span>
             </div>
           </label>
         </div>
@@ -2794,7 +2889,7 @@
 
       <div class="question" id="question-5" style="animation-delay: 0.5s">
         <p class="inline">
-          <span class="question-number">5</span>
+          <span class="question-number">7</span>
           <span data-zh>你是哪個星座？</span>
           <span data-en>What's your zodiac sign?</span>
         </p>
@@ -3566,7 +3661,7 @@
     const progressFill = document.getElementById('progressFill');
     const submitBtn = document.getElementById('submitBtn');
     const btnText = document.getElementById('btnText');
-    const totalQuestions = 5;
+    const totalQuestions = 7;
 
     function updateProgress() {
       const answeredQuestions = form.querySelectorAll('input[type="radio"]:checked').length;
@@ -3580,9 +3675,9 @@
       const currentLang = document.documentElement.getAttribute('data-lang') || 'zh-TW';
       
       if (currentLang === 'en-US') {
-        progressText.innerHTML = `<span data-zh>${answeredQuestions}/5 完成</span><span data-en>${answeredQuestions}/5 Completed</span>`;
+        progressText.innerHTML = `<span data-zh>${answeredQuestions}/7 完成</span><span data-en>${answeredQuestions}/7 Completed</span>`;
       } else {
-        progressText.innerHTML = `<span data-zh>${answeredQuestions}/5 完成</span><span data-en>${answeredQuestions}/5 Completed</span>`;
+        progressText.innerHTML = `<span data-zh>${answeredQuestions}/7 完成</span><span data-en>${answeredQuestions}/7 Completed</span>`;
       }
       
       // 如果全部完成，添加完成樣式
@@ -3837,7 +3932,7 @@
               <div class="result-emoji-container" style="margin-bottom: 4px;">
                 <div class="result-emoji" style="font-size: 5rem;">${emoji}</div>
               </div>
-              <h2 class="result-title" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">最像你的貓咪或狗狗是</h2>
+              <h2 class="result-title" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">最像你的貓狗是</h2>
               <h3 class="result-pet-name" style="font-size: 1.1rem; margin: 2px 0; font-weight: 600;">${animal.species}</h3>
             </div>
             
@@ -3970,7 +4065,7 @@
             
             <div class="result-header" style="text-align: center; margin-bottom: 8px;">
               <h2 class="result-title inline" style="font-size: 0.9rem; margin: 2px 0; color: #8B4513;">
-                <span data-zh>最像你的貓咪或狗狗是</span>
+                <span data-zh>最像你的貓狗是</span>
                 <span data-en>Your perfect cat or dog match is</span>
               </h2>
               <h3 class="result-pet-name" style="font-size: 1.1rem; margin: 2px 0; font-weight: 600;">${species}</h3>
@@ -4834,7 +4929,7 @@
                        style="width: 80px; height: 80px; object-fit: contain; transition: transform 0.3s ease;" 
                        loading="lazy" />
                 </div>
-                <div style="font-size: 0.75rem; color: #333; text-align: center; line-height: 1.2; font-weight: 600; font-family: 'Kalam', 'Noto Sans TC', cursive;">${species}</div>
+                <div class="mobile-animal-name" style="font-size: 0.75rem; color: #333; text-align: center; line-height: 1.2; font-weight: 600; font-family: 'Kalam', 'Noto Sans TC', cursive;">${species}</div>
               </div>
             `;
           }).join('');
@@ -4863,7 +4958,7 @@
                        style="width: 80px; height: 80px; object-fit: contain; transition: transform 0.3s ease;" 
                        loading="lazy" />
                 </div>
-                <div style="font-size: 0.75rem; color: #333; text-align: center; line-height: 1.2; font-weight: 600; font-family: 'Kalam', 'Noto Sans TC', cursive;">${species}</div>
+                <div class="mobile-animal-name" style="font-size: 0.75rem; color: #333; text-align: center; line-height: 1.2; font-weight: 600; font-family: 'Kalam', 'Noto Sans TC', cursive;">${species}</div>
               </div>
             `;
           }).join('');
@@ -4982,7 +5077,7 @@
       const submitBtn = document.getElementById('submitBtn');
       const btnText = document.getElementById('btnText');
       if (submitBtn && btnText) {
-        const allAnswered = Array.from(document.querySelectorAll('input[type="radio"]:checked')).length === 5;
+        const allAnswered = Array.from(document.querySelectorAll('input[type="radio"]:checked')).length === 7;
         if (allAnswered) {
           btnText.innerHTML = `
             <span data-zh>查看結果</span>

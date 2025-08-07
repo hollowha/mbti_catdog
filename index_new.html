@@ -571,16 +571,68 @@
       const element = formData.get('q5');
       
       const result = quizMapping[mbti][element];
+      
+      // 獲取其他相似的動物（同 MBTI 類型的其他元素）
+      const allElements = ['fire', 'earth', 'air', 'water'];
+      const similarResults = allElements
+        .filter(el => el !== element)
+        .slice(0, 2)
+        .map(el => quizMapping[mbti][el]);
+      
+      // 獲取互補配對（相對的 MBTI 類型）
+      const complementaryMbti = mbti.split('').map(char => {
+        switch(char) {
+          case 'E': return 'I';
+          case 'I': return 'E';
+          case 'S': return 'N';
+          case 'N': return 'S';
+          case 'T': return 'F';
+          case 'F': return 'T';
+          case 'J': return 'P';
+          case 'P': return 'J';
+          default: return char;
+        }
+      }).join('');
+      
+      const complementaryResults = allElements
+        .slice(0, 3)
+        .map(el => quizMapping[complementaryMbti][el]);
+      
       const resultDiv = document.getElementById('result');
       
       resultDiv.innerHTML = `
         <div style="text-align: center; margin-bottom: 20px;">
           <div class="result-pet">${result.emoji}</div>
-          <h2>你的性格動物夥伴是</h2>
+          <h2>最像你的貓狗是</h2>
           <h3 style="font-size: 1.5rem; margin: 16px 0; color: var(--text-primary);">${result.pet}</h3>
         </div>
         <div class="result-desc">
           <p style="font-size: 1.2rem; margin-bottom: 20px;">${result.desc}</p>
+          
+          <div style="margin: 24px 0;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 12px; color: var(--text-primary);">個性相似</h3>
+            <div class="similar-pets" style="display: flex; gap: 8px; justify-content: center; flex-wrap: nowrap; overflow-x: auto;">
+              ${similarResults.map(r => `
+                <div class="pet-card" style="flex: 0 0 auto; min-width: 120px; background: rgba(103, 126, 234, 0.1); padding: 12px 8px; border-radius: 8px; text-align: center; font-size: 0.85rem;">
+                  <div style="font-size: 1.5rem; margin-bottom: 4px;">${r.emoji}</div>
+                  <div style="font-weight: 500; font-size: 0.75rem; line-height: 1.2;">${r.pet.split(' ')[0]}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <div style="margin: 24px 0;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 12px; color: var(--text-primary);">互補配對</h3>
+            <div class="complementary-pets" style="display: flex; gap: 8px; justify-content: center; flex-wrap: nowrap; overflow-x: auto;">
+              ${complementaryResults.map(r => `
+                <div class="pet-card" style="flex: 0 0 auto; min-width: 120px; background: rgba(245, 87, 108, 0.1); padding: 12px 8px; border-radius: 8px; text-align: center; font-size: 0.85rem;">
+                  <div style="font-size: 1.5rem; margin-bottom: 4px;">${r.emoji}</div>
+                  <div style="font-weight: 500; font-size: 0.75rem; line-height: 1.2;">${r.pet.split(' ')[0]}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
           <div style="background: var(--gradient-accent); padding: 16px; border-radius: 12px; color: white; text-align: center; margin-top: 20px;">
             <strong>你的 MBTI 類型：${mbti}</strong>
           </div>
