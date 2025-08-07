@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱🐶 MBTI寵物圖鑑 | Pet Gallery</title>
+  <meta name="description" content="探索所有64種MBTI寵物性格，包含32種貓咪和32種狗狗品種的完整圖鑑">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #D2B48C 0%, #BC9A6A 100%);
+      --gradient-secondary: linear-gradient(135deg, #F4A7B9 0%, #E8A598 100%);
+      --gradient-accent: linear-gradient(135deg, #D4C4A8 0%, #D4C4A8 100%);
+      --gradient-warm: linear-gradient(135deg, #F5E6D3 0%, #E8D5B7 100%);
+      --bg-color: #FDF6E3;
+      --card-bg: rgba(252, 248, 227, 0.9);
+      --text-primary: #8B4513;
+      --text-secondary: #A0522D;
+      --text-accent: #D2691E;
+      --border-color: rgba(210, 180, 140, 0.3);
+      --shadow-soft: 0 8px 32px rgba(139, 69, 19, 0.1);
+      --shadow-hover: 0 15px 35px rgba(139, 69, 19, 0.15);
+      --milktea-light: #F7F3E9;
+      --milktea-medium: #E6D7C3;
+      --milktea-dark: #D2B48C;
+      --pink-accent: #F4A7B9;
+      --khaki-accent: #C3B091;
+      --border-radius: 20px;
+      --animation-speed: 0.3s;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      overflow-y: scroll;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+      padding: 80px 20px 20px 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      padding: 40px 30px;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .header h1 {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .header .subtitle {
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    /* Navigation */
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .nav-btn {
+      padding: 12px 24px;
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-family: 'Kalam', 'Noto Sans TC', cursive;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--animation-speed) ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Filter Section */
+    .filter-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      padding: 30px;
+      margin-bottom: 40px;
+      animation: slideUp 0.8s ease-out 0.1s both;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 10px 20px;
+      background: var(--milktea-light);
+      border: 2px solid var(--border-color);
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all var(--animation-speed) ease;
+      font-weight: 600;
+    }
+
+    .filter-tab.active {
+      background: var(--gradient-secondary);
+      color: white;
+      border-color: var(--pink-accent);
+    }
+
+    .filter-tab:hover {
+      background: var(--pink-accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .user-pet-section {
+      background: var(--gradient-warm);
+      border: 2px solid var(--pink-accent);
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .user-pet-section.show {
+      display: block;
+    }
+
+    /* Gallery Grid */
+    .gallery-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    /* Pet Card */
+    .pet-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: all var(--animation-speed) ease;
+      cursor: pointer;
+      position: relative;
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .pet-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--pink-accent);
+    }
+
+    .pet-card.user-pet {
+      border: 3px solid var(--pink-accent);
+      background: linear-gradient(135deg, var(--card-bg) 0%, rgba(244, 167, 185, 0.1) 100%);
+    }
+
+    .pet-card.user-pet::before {
+      content: '⭐ 你的寵物 Your Pet ⭐';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--gradient-secondary);
+      color: white;
+      padding: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .pet-image {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.5);
+      transition: transform var(--animation-speed) ease;
+    }
+
+    .pet-card:hover .pet-image {
+      transform: scale(1.05);
+    }
+
+    .pet-info {
+      padding: 20px;
+      padding-top: 15px;
+    }
+
+    .pet-card.user-pet .pet-info {
+      padding-top: 25px;
+    }
+
+    .pet-species {
+      font-family: 'Caveat', 'Noto Sans TC', cursive;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .pet-mbti {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .pet-element {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    .pet-element.fire { background: #FFE5E5; color: #D32F2F; }
+    .pet-element.earth { background: #E8F5E8; color: #388E3C; }
+    .pet-element.air { background: #E3F2FD; color: #1976D2; }
+    .pet-element.water { background: #F3E5F5; color: #7B1FA2; }
+
+    .pet-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .pet-type-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--gradient-accent);
+      color: var(--text-primary);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    /* Language Switcher */
+    .language-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      display: flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .lang-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .lang-btn.active {
+      background: var(--gradient-primary);
+      color: white;
+    }
+
+    /* Animations */
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 70px 15px 15px 15px;
+      }
+
+      .header {
+        padding: 30px 20px;
+      }
+
+      .header h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .filter-section {
+        padding: 20px;
+      }
+
+      .nav-buttons {
+        gap: 10px;
+      }
+
+      .nav-btn {
+        padding: 10px 18px;
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .filter-tabs {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .filter-tab {
+        width: 200px;
+        text-align: center;
+      }
+
+      .language-switcher {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        justify-content: center;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    .loading::after {
+      content: '🐾';
+      animation: bounce 1s infinite;
+      margin-left: 10px;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    /* Hidden elements for language switching */
+    [data-zh], [data-en] {
+      display: none;
+    }
+
+    html[data-lang="zh-TW"] [data-zh] {
+      display: inline;
+    }
+
+    html[data-lang="en-US"] [data-en] {
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button class="lang-btn active" onclick="switchLanguage('zh-TW')" data-lang-code="zh-TW">
+      <span data-zh>繁中</span>
+      <span data-en>繁中</span>
+    </button>
+    <button class="lang-btn" onclick="switchLanguage('en-US')" data-lang-code="en-US">
+      <span data-zh>English</span>
+      <span data-en>English</span>
+    </button>
+  </div>
+
+  <div class="gallery-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>
+        <span data-zh>🐱🐶 MBTI寵物圖鑑</span>
+        <span data-en">🐱🐶 MBTI Pet Gallery</span>
+      </h1>
+      <p class="subtitle">
+        <span data-zh>探索64種不同性格的貓咪和狗狗，找到最適合你的毛孩伴侶</span>
+        <span data-en">Explore 64 different personalities of cats and dogs, find your perfect furry companion</span>
+      </p>
+      
+      <div class="nav-buttons">
+        <a href="index.html" class="nav-btn">
+          <span>✨</span>
+          <span data-zh">開始測驗</span>
+          <span data-en">Take Quiz</span>
+        </a>
+        <button class="nav-btn" onclick="showUserPet()">
+          <span>⭐</span>
+          <span data-zh">我的寵物</span>
+          <span data-en">My Pet</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <!-- User Pet Display -->
+      <div class="user-pet-section" id="userPetSection">
+        <h3>
+          <span data-zh">⭐ 你的專屬寵物 ⭐</span>
+          <span data-en">⭐ Your Personal Pet ⭐</span>
+        </h3>
+        <div id="userPetDisplay"></div>
+      </div>
+
+      <div class="filter-tabs">
+        <div class="filter-tab active" onclick="filterPets('all')">
+          <span data-zh">全部 (64)</span>
+          <span data-en">All (64)</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('cat')">
+          <span data-zh">貓咪 (32)</span>
+          <span data-en">Cats (32)</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('dog')">
+          <span data-zh">狗狗 (32)</span>
+          <span data-en">Dogs (32)</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('fire')">
+          <span data-zh">火元素</span>
+          <span data-en">Fire</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('earth')">
+          <span data-zh">土元素</span>
+          <span data-en">Earth</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('air')">
+          <span data-zh">風元素</span>
+          <span data-en">Air</span>
+        </div>
+        <div class="filter-tab" onclick="filterPets('water')">
+          <span data-zh">水元素</span>
+          <span data-en">Water</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="loading">
+        <span data-zh">載入中...</span>
+        <span data-en">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let animalData = [];
+    let currentFilter = 'all';
+    let userPetData = null;
+
+    // Load animal data
+    async function loadAnimalData() {
+      try {
+        animalData = [
+          {"mbti": "ISTJ", "element": "fire", "species": "英國短毛貓", "species_en": "British Shorthair", "description": "穩重卻偶爾熱情，給你安全感的守護者", "description_en": "Steady yet occasionally passionate, a guardian who gives you a sense of security", "image": "img2/british_shorthair_fire-removebg-preview.png"},
+          {"mbti": "ISTJ", "element": "earth", "species": "蘇格蘭摺耳貓", "species_en": "Scottish Fold", "description": "安靜乖巧，是穩定生活的最佳夥伴", "description_en": "Quiet and well-behaved, the perfect companion for a stable life", "image": "img2/scottish_fold_earth-removebg-preview.png"},
+          {"mbti": "ISTJ", "element": "air", "species": "美國短毛貓", "species_en": "American Shorthair", "description": "理性中帶點靈活，能輕鬆應對變化", "description_en": "Rational with flexibility, easily adapts to changes", "image": "img2/american_shorthair_air-removebg-preview.png"},
+          {"mbti": "ISTJ", "element": "water", "species": "喜馬拉雅貓", "species_en": "Himalayan Cat", "description": "內斂溫和，默默守護你", "description_en": "Reserved and gentle, silently protecting you", "image": "img2/himalayan_cat_water-removebg-preview.png"},
+          {"mbti": "ISFJ", "element": "fire", "species": "布偶貓", "species_en": "Ragdoll", "description": "熱情又親人，是最溫暖的治癒系夥伴", "description_en": "Passionate and affectionate, the warmest healing companion", "image": "img2/ragdoll_fire-removebg-preview.png"},
+          {"mbti": "ISFJ", "element": "earth", "species": "波斯貓", "species_en": "Persian Cat", "description": "高雅安靜，對你忠誠不渝", "description_en": "Elegant and quiet, utterly loyal to you", "image": "img2/persian_cat_earth-removebg-preview.png"},
+          {"mbti": "ISFJ", "element": "air", "species": "暹羅貓", "species_en": "Siamese Cat", "description": "機智貼心，總在身邊默默守護", "description_en": "Clever and caring, always silently protecting by your side", "image": "img2/siamese_cat_air-removebg-preview.png"},
+          {"mbti": "ISFJ", "element": "water", "species": "緬因貓", "species_en": "Maine Coon", "description": "巨大卻溫柔，給你滿滿安全感", "description_en": "Large yet gentle, giving you overwhelming sense of security", "image": "img2/maine_coon_water-removebg-preview.png"},
+          {"mbti": "INFJ", "element": "fire", "species": "阿比西尼亞貓", "species_en": "Abyssinian Cat", "description": "熱情且有領導氣質，內心卻浪漫深情", "description_en": "Passionate with leadership qualities, yet romantic and affectionate inside", "image": "img2/abyssinian_fire-removebg-preview.png"},
+          {"mbti": "INFJ", "element": "earth", "species": "俄羅斯藍貓", "species_en": "Russian Blue", "description": "優雅神秘，是內斂的理想主義者", "description_en": "Elegant and mysterious, a reserved idealist", "image": "img2/russian_blue_earth-removebg-preview.png"},
+          {"mbti": "INFJ", "element": "air", "species": "暹羅貓", "species_en": "Siamese Cat", "description": "創意無限，總有出其不意的點子", "description_en": "Infinitely creative, always full of surprising ideas", "image": "img2/siamese_cat_creative-removebg-preview.png"},
+          {"mbti": "INFJ", "element": "water", "species": "緬甸貓", "species_en": "Burmese Cat", "description": "感情豐富，溫柔細膩，喜歡深度連結", "description_en": "Emotionally rich, gentle and delicate, loves deep connections", "image": "img2/burmese_cat_water-removebg-preview.png"},
+          {"mbti": "INTJ", "element": "fire", "species": "孟加拉貓", "species_en": "Bengal Cat", "description": "野性十足，卻暗藏策略，是冒險家型思考者", "description_en": "Wild and energetic, yet strategic, an adventurous thinker", "image": "img2/bengal_cat_fire-removebg-preview.png"},
+          {"mbti": "INTJ", "element": "earth", "species": "異國短毛貓", "species_en": "Exotic Shorthair", "description": "穩重聰慧，冷靜計畫型人格", "description_en": "Steady and intelligent, calm and strategic personality", "image": "img2/exotic_shorthair_earth-removebg-preview.png"},
+          {"mbti": "INTJ", "element": "air", "species": "暹羅貓", "species_en": "Siamese Cat", "description": "小巧靈活，擅長策略，掌握全局", "description_en": "Small and agile, strategic and good at controlling the whole situation", "image": "img2/siamese_cat_strategic-removebg-preview.png"},
+          {"mbti": "INTJ", "element": "water", "species": "斯芬克斯貓", "species_en": "Sphynx Cat", "description": "神秘冷酷，卻對親近的人展現柔情", "description_en": "Mysterious and cool, yet shows tenderness to those close", "image": "img2/sphynx_cat_water-removebg-preview.png"},
+          {"mbti": "ISTP", "element": "fire", "species": "孟加拉貓", "species_en": "Bengal Cat", "description": "精力旺盛，熱愛挑戰，總在行動中成長", "description_en": "Energetic, loves challenges, always growing through action", "image": "img2/bengal_cat_challenge-removebg-preview.png"},
+          {"mbti": "ISTP", "element": "earth", "species": "日本短尾貓", "species_en": "Japanese Bobtail", "description": "靈活又穩定，熱愛自由卻不失規律", "description_en": "Flexible yet stable, loves freedom while maintaining routine", "image": "img2/japanese_bobtail_earth-removebg-preview.png"},
+          {"mbti": "ISTP", "element": "air", "species": "美國短毛貓", "species_en": "American Shorthair", "description": "反應敏捷，擅長用創意解決問題", "description_en": "Quick to react, skilled at solving problems creatively", "image": "img2/american_shorthair_creative-removebg-preview.png"},
+          {"mbti": "ISTP", "element": "water", "species": "暹羅貓", "species_en": "Siamese Cat", "description": "感性中帶冒險，願意陪伴並探索世界", "description_en": "Adventurous with sensitivity, willing to accompany and explore the world", "image": "img2/siamese_cat_water_adventure-removebg-preview.png"},
+          {"mbti": "ISFP", "element": "fire", "species": "紅虎斑貓", "species_en": "Red Tabby Cat", "description": "熱情藝術家，總能讓生活充滿色彩", "description_en": "Passionate artist, always filling life with color", "image": "img2/red_tabby_fire-removebg-preview.png"},
+          {"mbti": "ISFP", "element": "earth", "species": "挪威森林貓", "species_en": "Norwegian Forest Cat", "description": "典雅又熱愛自然，像森林詩人般自由", "description_en": "Elegant and nature-loving, free like a forest poet", "image": "img2/norwegian_forest_earth-removebg-preview.png"},
+          {"mbti": "ISFP", "element": "air", "species": "美國短毛貓", "species_en": "American Shorthair", "description": "自由靈魂，擁有聰明的小腦袋", "description_en": "Free spirit with a clever little mind", "image": "img2/american_shorthair_free-removebg-preview.png"},
+          {"mbti": "ISFP", "element": "water", "species": "布偶貓", "species_en": "Ragdoll", "description": "柔情似水，總能給予安心與溫暖", "description_en": "Gentle as water, always providing comfort and warmth", "image": "img2/ragdoll_water-removebg-preview.png"},
+          {"mbti": "INFP", "element": "fire", "species": "美國短毛貓", "species_en": "American Shorthair", "description": "浪漫理想家，卻又熱情，像火焰般溫暖", "description_en": "Romantic idealist, yet passionate, warm like a flame", "image": "img2/american_shorthair_fire_idealist-removebg-preview.png"},
+          {"mbti": "INFP", "element": "earth", "species": "布偶貓", "species_en": "Ragdoll", "description": "純真溫柔，給人最踏實的陪伴", "description_en": "Pure and gentle, providing the most reliable companionship", "image": "img2/ragdoll_earth-removebg-preview.png"},
+          {"mbti": "INFP", "element": "air", "species": "康沃爾雷克斯貓", "species_en": "Cornish Rex", "description": "藝術靈魂，腦袋裡充滿奇妙點子", "description_en": "Artistic soul, mind full of wonderful ideas", "image": "img2/cornish_rex_air-removebg-preview.png"},
+          {"mbti": "INFP", "element": "water", "species": "喜馬拉雅貓", "species_en": "Himalayan Cat", "description": "情感豐富，最懂心靈深處的夢想家", "description_en": "Emotionally rich, the dreamer who understands the depths of the soul", "image": "img2/himalayan_cat_dreamer-removebg-preview.png"},
+          {"mbti": "INTP", "element": "fire", "species": "阿比西尼亞貓", "species_en": "Abyssinian Cat", "description": "聰明活潑，總有新奇創意，充滿冒險精神", "description_en": "Smart and lively, always with novel creativity, full of adventurous spirit", "image": "img2/abyssinian_cat_intp_fire-removebg-preview.png"},
+          {"mbti": "INTP", "element": "earth", "species": "英國短毛貓", "species_en": "British Shorthair", "description": "冷靜理智，是分析與穩定並存的完美典範", "description_en": "Calm and rational, the perfect example of analysis and stability coexisting", "image": "img2/british_shorthair_earth-removebg-preview.png"},
+          {"mbti": "INTP", "element": "air", "species": "暹羅貓", "species_en": "Siamese Cat", "description": "聰明伶俐，觀察力超群，像小科學家一樣好奇心爆棚", "description_en": "Smart and clever, exceptional observation skills, bursting with curiosity like a little scientist", "image": "img2/siamese_cat_scientist-removebg-preview.png"},
+          {"mbti": "INTP", "element": "water", "species": "俄羅斯藍貓", "species_en": "Russian Blue", "description": "表面冷酷，內心柔情，感性與理性兼具", "description_en": "Cool on the surface, tender inside, combining emotion and rationality", "image": "img2/russian_blue_water-removebg-preview.png"},
+          {"mbti": "ESTJ", "element": "fire", "species": "德國牧羊犬", "species_en": "German Shepherd", "description": "聰明且服從，天生的領導者，保護慾強", "description_en": "Smart and obedient, natural leader with strong protective instincts", "image": "img2/german_shepherd_fire-removebg-preview.png"},
+          {"mbti": "ESTJ", "element": "earth", "species": "拉布拉多", "species_en": "Labrador Retriever", "description": "忠誠穩重，是最值得信任的夥伴", "description_en": "Loyal and steady, the most trustworthy companion", "image": "img2/labrador_earth-removebg-preview.png"},
+          {"mbti": "ESTJ", "element": "air", "species": "杜賓犬", "species_en": "Doberman Pinscher", "description": "反應敏捷、沉著冷靜，是策略型守護者", "description_en": "Quick reflexes, calm and composed, a strategic guardian", "image": "img2/doberman_air-removebg-preview.png"},
+          {"mbti": "ESTJ", "element": "water", "species": "秋田犬", "species_en": "Akita Inu", "description": "內斂忠心，保護慾極強，是沉穩的守護者", "description_en": "Reserved and loyal, extremely protective, a steady guardian", "image": "img2/akita_inu_water-removebg-preview.png"},
+          {"mbti": "ESFJ", "element": "fire", "species": "黃金獵犬", "species_en": "Golden Retriever", "description": "熱情友善，帶給你滿滿陽光與正能量", "description_en": "Warm and friendly, bringing you sunshine and positive energy", "image": "img2/golden_retriever_fire-removebg-preview.png"},
+          {"mbti": "ESFJ", "element": "earth", "species": "聖伯納犬", "species_en": "Saint Bernard", "description": "巨大卻溫柔，天然的守護天使，讓你安心", "description_en": "Large yet gentle, natural guardian angel that gives you peace of mind", "image": "img2/saint_bernard_earth-removebg-preview.png"},
+          {"mbti": "ESFJ", "element": "air", "species": "可卡犬", "species_en": "Cocker Spaniel", "description": "開朗愛玩，喜歡互動，是快樂小幫手", "description_en": "Cheerful and playful, loves interaction, a happy little helper", "image": "img2/cocker_spaniel_air-removebg-preview.png"},
+          {"mbti": "ESFJ", "element": "water", "species": "卡瓦利王查理獵犬", "species_en": "Cavalier King Charles Spaniel", "description": "感情豐富，最愛窩在你懷裡，是溫柔黏人的伴侶", "description_en": "Emotionally rich, loves to snuggle in your arms, a gentle clingy companion", "image": "img2/cavalier_king_water-removebg-preview.png"},
+          {"mbti": "ENFJ", "element": "fire", "species": "邊境牧羊犬", "species_en": "Border Collie", "description": "聰明熱情，擅長帶領群體，活力滿滿", "description_en": "Smart and passionate, skilled at leading groups, full of energy", "image": "img2/border_collie_fire-removebg-preview.png"},
+          {"mbti": "ENFJ", "element": "earth", "species": "伯恩山犬", "species_en": "Bernese Mountain Dog", "description": "溫柔可靠，天然的守護者，最有安全感", "description_en": "Gentle and reliable, natural guardian, most reassuring", "image": "img2/bernese_mountain_earth-removebg-preview.png"},
+          {"mbti": "ENFJ", "element": "air", "species": "薩摩耶", "species_en": "Samoyed", "description": "微笑天使，樂觀活潑，傳遞快樂能量", "description_en": "Smiling angel, optimistic and lively, spreading happy energy", "image": "img2/samoyed_air-removebg-preview.png"},
+          {"mbti": "ENFJ", "element": "water", "species": "愛爾蘭雪達犬", "species_en": "Irish Setter", "description": "情感細膩，浪漫溫柔，熱愛深度連結", "description_en": "Emotionally delicate, romantic and gentle, loves deep connections", "image": "img2/irish_setter_water-removebg-preview.png"},
+          {"mbti": "ENTJ", "element": "fire", "species": "羅威納犬", "species_en": "Rottweiler", "description": "威嚴強大，懂得保護家人，行動力十足", "description_en": "Majestic and powerful, knows how to protect family, full of action", "image": "img2/rottweiler_fire-removebg-preview.png"},
+          {"mbti": "ENTJ", "element": "earth", "species": "拳師犬", "species_en": "Boxer", "description": "沉穩果斷，結合力量與柔和，是策略型行動家", "description_en": "Steady and decisive, combining strength with gentleness, a strategic activist", "image": "img2/boxer_earth-removebg-preview.png"},
+          {"mbti": "ENTJ", "element": "air", "species": "德國賓沙犬", "species_en": "German Pinscher", "description": "機敏聰慧，擅長掌控全局，冷靜又靈活", "description_en": "Alert and intelligent, skilled at controlling the overall situation, calm yet flexible", "image": "img2/german_pinscher_air-removebg-preview.png"},
+          {"mbti": "ENTJ", "element": "water", "species": "杜高犬", "species_en": "Dogo Argentino", "description": "外剛內柔，重情重義，果敢且有溫度的守護者", "description_en": "Tough outside, gentle inside, values emotion and loyalty, a brave yet warm guardian", "image": "img2/dogo_argentino_water-removebg-preview.png"},
+          {"mbti": "ESTP", "element": "fire", "species": "西伯利亞哈士奇", "species_en": "Siberian Husky", "description": "冒險家，精力無窮，熱愛挑戰與探索", "description_en": "Adventurer with endless energy, loves challenges and exploration", "image": "img2/siberian_husky_fire-removebg-preview.png"},
+          {"mbti": "ESTP", "element": "earth", "species": "美國鬥牛犬", "species_en": "American Bulldog", "description": "勇敢務實，行動果斷，穩健又可靠", "description_en": "Brave and practical, decisive in action, steady and reliable", "image": "img2/american_bulldog_earth-removebg-preview.png"},
+          {"mbti": "ESTP", "element": "air", "species": "傑克羅素梗", "species_en": "Jack Russell Terrier", "description": "機靈愛玩，總能帶來驚喜，是行動派小能手", "description_en": "Smart and playful, always bringing surprises, an action-oriented little expert", "image": "img2/jack_russell_air-removebg-preview.png"},
+          {"mbti": "ESTP", "element": "water", "species": "英國史賓格犬", "species_en": "English Springer Spaniel", "description": "愛冒險又黏人，溫柔感性，樂於分享愛與快樂", "description_en": "Loves adventure yet clingy, gentle and sensitive, happy to share love and joy", "image": "img2/english_springer_water-removebg-preview.png"},
+          {"mbti": "ESFP", "element": "fire", "species": "博美犬", "species_en": "Pomeranian", "description": "活潑小明星，熱情開朗，享受舞台焦點", "description_en": "Lively little star, passionate and cheerful, enjoys being in the spotlight", "image": "img2/pomeranian_fire-removebg-preview.png"},
+          {"mbti": "ESFP", "element": "earth", "species": "法國鬥牛犬", "species_en": "French Bulldog", "description": "慵懶溫柔，愛撒嬌，是生活享樂專家", "description_en": "Lazy and gentle, loves to act cute, an expert in enjoying life", "image": "img2/french_bulldog_earth-removebg-preview.png"},
+          {"mbti": "ESFP", "element": "air", "species": "比熊犬", "species_en": "Bichon Frise", "description": "開朗機靈，總能帶來好心情，是小太陽", "description_en": "Cheerful and clever, always bringing good mood, like a little sun", "image": "img2/bichon_frise_air-removebg-preview.png"},
+          {"mbti": "ESFP", "element": "water", "species": "西施犬", "species_en": "Shih Tzu", "description": "溫柔親近，黏人小甜心，愛窩在你身邊", "description_en": "Gentle and affectionate, clingy little sweetheart, loves to stay by your side", "image": "img2/shih_tzu_water-removebg-preview.png"},
+          {"mbti": "ENFP", "element": "fire", "species": "斑點狗", "species_en": "Dalmatian", "description": "活力滿滿，愛玩愛冒險，天生的樂天派", "description_en": "Full of energy, loves to play and adventure, naturally optimistic", "image": "img2/dalmatian_fire-removebg-preview.png"},
+          {"mbti": "ENFP", "element": "earth", "species": "柴犬", "species_en": "Shiba Inu", "description": "外冷內熱，個性鮮明，愛與人互動", "description_en": "Cool outside but warm inside, distinctive personality, loves interacting with people", "image": "img2/shiba_inu_earth-removebg-preview.png"},
+          {"mbti": "ENFP", "element": "air", "species": "惠比特犬", "species_en": "Whippet", "description": "反應快、喜愛互動，是生活的小驚喜", "description_en": "Quick reactions, loves interaction, life's little surprise", "image": "img2/whippet_air-removebg-preview.png"},
+          {"mbti": "ENFP", "element": "water", "species": "比格犬", "species_en": "Beagle", "description": "情感豐富，愛撒嬌，最喜歡和朋友在一起", "description_en": "Emotionally rich, loves to act cute, enjoys being with friends most", "image": "img2/beagle_water-removebg-preview.png"},
+          {"mbti": "ENTP", "element": "fire", "species": "柯基", "species_en": "Corgi", "description": "外表呆萌，卻聰明伶俐，擅長活絡氣氛", "description_en": "Cute appearance but smart and clever, skilled at livening up the atmosphere", "image": "img2/corgi_fire-removebg-preview.png"},
+          {"mbti": "ENTP", "element": "earth", "species": "牛頭梗", "species_en": "Bull Terrier", "description": "勇敢有個性，機智果斷，是忠誠守護者", "description_en": "Brave and characterful, witty and decisive, a loyal guardian", "image": "img2/bull_terrier_earth-removebg-preview.png"},
+          {"mbti": "ENTP", "element": "air", "species": "貴賓犬", "species_en": "Poodle", "description": "智商第一，學習力驚人，還超級愛玩！", "description_en": "Top intelligence, amazing learning ability, and super playful!", "image": "img2/poodle_air-removebg-preview.png"},
+          {"mbti": "ENTP", "element": "water", "species": "蝴蝶犬", "species_en": "Papillon", "description": "聰明靈巧，愛撒嬌，是迷人的小機靈", "description_en": "Smart and agile, loves to act cute, a charming little clever one", "image": "img2/papillon_water-removebg-preview.png"}
+        ];
+        
+        console.log('動物數據載入成功:', animalData.length, '筆資料');
+        
+        // Load user pet data from localStorage
+        loadUserPet();
+        
+        // Render gallery
+        renderGallery();
+      } catch (error) {
+        console.error('載入動物數據失敗:', error);
+      }
+    }
+
+    // Load user pet from localStorage
+    function loadUserPet() {
+      const stored = localStorage.getItem('mbtiPetResult');
+      if (stored) {
+        userPetData = JSON.parse(stored);
+        console.log('載入使用者寵物:', userPetData);
+      }
+    }
+
+    // Get pet type (cat or dog)
+    function getPetType(species) {
+      const cats = ['貓', 'Cat', 'cat'];
+      const dogs = ['犬', '狗', 'Dog', 'dog', 'Retriever', 'Shepherd', 'Terrier', 'Spaniel', 'Bulldog', 'Pinscher'];
+      
+      if (cats.some(cat => species.includes(cat))) return 'cat';
+      if (dogs.some(dog => species.includes(dog))) return 'dog';
+      
+      // Additional logic for specific breeds
+      const dogBreeds = ['德國牧羊犬', '拉布拉多', '杜賓犬', '秋田犬', '黃金獵犬', '聖伯納犬', '可卡犬', '卡瓦利王查理獵犬', 
+                         '邊境牧羊犬', '伯恩山犬', '薩摩耶', '愛爾蘭雪達犬', '羅威納犬', '拳師犬', '德國賓沙犬', '杜高犬',
+                         '西伯利亞哈士奇', '美國鬥牛犬', '傑克羅素梗', '英國史賓格犬', '博美犬', '法國鬥牛犬', '比熊犬',
+                         '西施犬', '斑點狗', '柴犬', '惠比特犬', '比格犬', '柯基', '牛頭梗', '貴賓犬', '蝴蝶犬',
+                         'German Shepherd', 'Labrador Retriever', 'Doberman Pinscher', 'Akita Inu', 'Golden Retriever',
+                         'Saint Bernard', 'Cocker Spaniel', 'Cavalier King Charles Spaniel', 'Border Collie', 'Bernese Mountain Dog',
+                         'Samoyed', 'Irish Setter', 'Rottweiler', 'Boxer', 'German Pinscher', 'Dogo Argentino',
+                         'Siberian Husky', 'American Bulldog', 'Jack Russell Terrier', 'English Springer Spaniel',
+                         'Pomeranian', 'French Bulldog', 'Bichon Frise', 'Shih Tzu', 'Dalmatian', 'Shiba Inu',
+                         'Whippet', 'Beagle', 'Corgi', 'Bull Terrier', 'Poodle', 'Papillon'];
+      
+      return dogBreeds.includes(species) ? 'dog' : 'cat';
+    }
+
+    // Create pet card HTML
+    function createPetCard(pet, isUserPet = false) {
+      const petType = getPetType(pet.species);
+      const currentLang = document.documentElement.getAttribute('data-lang') || 'zh-TW';
+      const species = currentLang === 'en-US' ? pet.species_en : pet.species;
+      const description = currentLang === 'en-US' ? pet.description_en : pet.description;
+      const typeText = currentLang === 'en-US' ? (petType === 'cat' ? 'Cat' : 'Dog') : (petType === 'cat' ? '貓咪' : '狗狗');
+      
+      return `
+        <div class="pet-card ${isUserPet ? 'user-pet' : ''}" style="animation-delay: ${Math.random() * 0.3}s">
+          <div class="pet-type-badge">${typeText}</div>
+          <img src="${pet.image}" alt="${species}" class="pet-image" onerror="this.src='img/placeholder.png'">
+          <div class="pet-info">
+            <h3 class="pet-species">${species}</h3>
+            <div>
+              <span class="pet-mbti">${pet.mbti}</span>
+              <span class="pet-element ${pet.element}">
+                ${pet.element === 'fire' ? '🔥' : pet.element === 'earth' ? '🌿' : pet.element === 'air' ? '💨' : '💧'} 
+                ${currentLang === 'en-US' ? 
+                  (pet.element === 'fire' ? 'Fire' : pet.element === 'earth' ? 'Earth' : pet.element === 'air' ? 'Air' : 'Water') :
+                  (pet.element === 'fire' ? '火' : pet.element === 'earth' ? '土' : pet.element === 'air' ? '風' : '水')
+                }
+              </span>
+            </div>
+            <p class="pet-description">${description}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Filter pets
+    function filterPets(filter) {
+      currentFilter = filter;
+      
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      renderGallery();
+    }
+
+    // Render gallery
+    function renderGallery() {
+      const galleryGrid = document.getElementById('galleryGrid');
+      
+      if (!animalData.length) {
+        galleryGrid.innerHTML = '<div class="loading"><span data-zh>載入中...</span><span data-en>Loading...</span></div>';
+        return;
+      }
+      
+      let filteredData = animalData;
+      
+      // Apply filters
+      if (currentFilter !== 'all') {
+        if (currentFilter === 'cat' || currentFilter === 'dog') {
+          filteredData = animalData.filter(pet => getPetType(pet.species) === currentFilter);
+        } else {
+          filteredData = animalData.filter(pet => pet.element === currentFilter);
+        }
+      }
+      
+      // Sort to put user pet first if it matches the filter
+      if (userPetData) {
+        const userPetInFilter = filteredData.find(pet => 
+          pet.mbti === userPetData.mbti && pet.element === userPetData.element
+        );
+        if (userPetInFilter) {
+          filteredData = filteredData.filter(pet => 
+            !(pet.mbti === userPetData.mbti && pet.element === userPetData.element)
+          );
+          filteredData.unshift(userPetInFilter);
+        }
+      }
+      
+      // Generate HTML
+      const cardsHTML = filteredData.map((pet, index) => {
+        const isUserPet = userPetData && 
+          pet.mbti === userPetData.mbti && 
+          pet.element === userPetData.element;
+        
+        return createPetCard(pet, isUserPet);
+      }).join('');
+      
+      galleryGrid.innerHTML = cardsHTML;
+      
+      // Trigger animations
+      setTimeout(() => {
+        document.querySelectorAll('.pet-card').forEach((card, index) => {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 50);
+        });
+      }, 100);
+    }
+
+    // Show user pet
+    function showUserPet() {
+      const userPetSection = document.getElementById('userPetSection');
+      const userPetDisplay = document.getElementById('userPetDisplay');
+      
+      if (!userPetData) {
+        userPetDisplay.innerHTML = `
+          <p style="margin: 10px 0;">
+            <span data-zh>你還沒有做過測驗喔！</span>
+            <span data-en">You haven't taken the quiz yet!</span>
+          </p>
+          <a href="index.html" style="display: inline-block; padding: 10px 20px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 20px; margin-top: 10px;">
+            <span data-zh">立即測驗</span>
+            <span data-en">Take Quiz Now</span>
+          </a>
+        `;
+      } else {
+        // Find the user's pet in the data
+        const userPet = animalData.find(pet => 
+          pet.mbti === userPetData.mbti && pet.element === userPetData.element
+        );
+        
+        if (userPet) {
+          userPetDisplay.innerHTML = `
+            <div style="max-width: 300px; margin: 20px auto;">
+              ${createPetCard(userPet, true)}
+            </div>
+          `;
+        }
+      }
+      
+      userPetSection.classList.toggle('show');
+    }
+
+    // Language switching
+    function switchLanguage(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      
+      // Update active language button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.querySelector(`[data-lang-code="${lang}"]`).classList.add('active');
+      
+      // Re-render gallery to update language
+      renderGallery();
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadAnimalData();
+    });
+
+    // Save user result when they complete the quiz
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'mbtiPetResult') {
+        loadUserPet();
+        renderGallery();
+      }
+    });
+  </script>
+</body>
+</html>
