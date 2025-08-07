@@ -7,8 +7,8 @@
   <meta name="description" content="探索所有64種MBTI寵物性格，包含32種貓咪和32種狗狗品種的完整圖鑑">
   
   <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Kalam:wght@300;400;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -575,7 +575,7 @@
       </p>
       
       <div class="nav-buttons">
-        <a href="index.html" class="nav-btn">
+        <a href="../index.html" class="nav-btn">
           <span>✨</span>
           <span data-zh>開始測驗</span>
           <span data-en>Take Quiz</span>
@@ -817,7 +817,7 @@
       return `
         <div class="pet-card ${isUserPet ? 'user-pet' : ''}" style="animation-delay: ${Math.random() * 0.3}s">
           <div class="pet-type-badge">${typeText}</div>
-          <img src="${pet.image}" alt="${species}" class="pet-image" onerror="this.src='img/placeholder.png'">
+          <img src="../${pet.image}" alt="${species}" class="pet-image" onerror="this.src='../img/placeholder.png'">
           <div class="pet-info">
             <h3 class="pet-species">${species}</h3>
             <div>
@@ -932,7 +932,7 @@
             <span data-zh>你還沒有做過測驗喔！</span>
             <span data-en">You haven't taken the quiz yet!</span>
           </p>
-          <a href="index.html" style="display: inline-block; padding: 10px 20px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 20px; margin-top: 10px;">
+          <a href="../index.html" style="display: inline-block; padding: 10px 20px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: 20px; margin-top: 10px;">
             <span data-zh">立即測驗</span>
             <span data-en">Take Quiz Now</span>
           </a>
